@@ -14,8 +14,10 @@ public class Draco {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
+        EjecutarAnalizadores e= new EjecutarAnalizadores();
+        e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
     }
     
 }

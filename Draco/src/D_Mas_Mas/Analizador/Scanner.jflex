@@ -175,7 +175,7 @@ public static String cadena;
 
 "!" {System.out.println("not");  return new Symbol (simbolosDMM.not, yyline+1,yychar+1, new String (yytext()));}
 
-{bool}  {System.out.println("valor bool");               return new Symbol (simbolosDMM.valBool, yyline+1,yychar+1, new String (yytext()));}
+{bool_elemento}  {System.out.println("valor bool");               return new Symbol (simbolosDMM.valBool, yyline+1,yychar+1, new String (yytext()));}
 
 "=" {System.out.println("igual");   return new Symbol (simbolosDMM.igual, yyline+1,yychar+1, new String (yytext()));}
 
@@ -192,7 +192,7 @@ public static String cadena;
 
 {identificador}        {System.out.println(yytext());                return new Symbol (simbolosDMM.identificador, yyline+1,yychar+1, new String (yytext()));}
 
-
+{caracter}    {System.out.println(yytext());                return new Symbol (simbolosDMM.caracter, yyline+1,yychar+1, new String (yytext()));}
 {comentMulti}   {System.out.println("Coment Multi");   /* se ignora*/}
 
 {comentSimple}   {System.out.println("Coment Multi");   /* se ignora*/}

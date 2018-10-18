@@ -1,13 +1,11 @@
 package D_Mas_Mas.Analizador;
 
-
+import Arbol.Expresion.*;
 import java_cup.runtime.*;
 import java.io.*;
 import java.lang.*;
 import java.util.*;
 import java.util.ArrayList;
-
-
 
 
 parser code
@@ -73,7 +71,7 @@ terminal String t_entero,
 	mientras,
 	detener, 
 	imprimir, retornar, coma, punto, masMas, menosMenos, mas, menos, multiplicacion, division, potencia, residuo, menor, mayor, menorIgual, mayorIgual, igualIgual, distintoA,  and, or, not, valBool, igual, cadena, identificador, numero_entero, numero_decimal, interrogacion, continuar, importar, nulo, estructura, vacio, principal,
-	puntoD, cuadrado, ovalo, linea;
+	puntoD, cuadrado, ovalo, linea, caracter;
 
 	non terminal INICIO;
 	
@@ -96,7 +94,7 @@ terminal String t_entero,
 	start with INICIO;		
 	
 	
-  INICIO::= ARCHIVO;
+  INICIO::= EXPRESION;
   
  
   
@@ -151,12 +149,32 @@ EXPRESION::= TERNARIO
 
 VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO
 	| ACCESO
-	|cadena
-	|numero_decimal
-	|numero_entero;
+	|cadena:a{:RESULT= new Cadena(a);:}
+	|numero_decimal:a{:RESULT= new Decimal(a);:}
+	|numero_entero:a{:RESULT= new Entero(a);:}
+	|caracter:a{:RESULT= new Caracter(a);:}
+	|valBool:a{:RESULT= new Booleano(a);:}
+	|VAL_EXPRESION:a mas VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"+");:}
+	| VAL_EXPRESION:a menos VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"-");:}
+	|VAL_EXPRESION:a multiplicacion VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"*");:}
+	| VAL_EXPRESION:a division VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"/");:}
+	|VAL_EXPRESION:a potencia VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"^");:}
+	| identificador:a masMas{:RESULT= new Unario(a,"++");:}
+	| identificador:a menosMenos{:RESULT= new Unario(a,"--");:}
+	| menos VAL_EXPRESION:a{:RESULT= new Negativo(a);:}
+	| VAL_EXPRESION:a menor VAL_EXPRESION:b {:RESULT= new Relacional(a,b,"<");:}
+	| VAL_EXPRESION:a mayor VAL_EXPRESION:b {:RESULT= new Relacional(a,b,">");:}
+	|VAL_EXPRESION:a menorIgual VAL_EXPRESION:b {:RESULT= new Relacional(a,b,"<=");:}
+	| VAL_EXPRESION:a mayorIgual VAL_EXPRESION:b {:RESULT= new Relacional(a,b,">=");:}
+	| VAL_EXPRESION:a igualIgual VAL_EXPRESION:b {:RESULT= new Relacional(a,b,"==");:}
+	|VAL_EXPRESION:a distintoA VAL_EXPRESION:b {:RESULT= new Relacional(a,b,"!=");:}
+	|VAL_EXPRESION:a and VAL_EXPRESION:b {:RESULT= new Logica(a,b,"&&");:}
+	|VAL_EXPRESION:a or VAL_EXPRESION:b {:RESULT= new Logica(a,b,"||");:}
+	|not VAL_EXPRESION:a{:RESULT= new NOT(a);:}
+	|abrePar VAL_EXPRESION:a cierraPar {:RESULT = a;:};
 	
 
-ACCESO::= identificador
+ACCESO::= identificador:a{:RESULT= new Identificador(a);:}
 		|POS_ARREGLO
 		|ACCESO punto identificador
 		|ACCESO punto POS_ARREGLO;
