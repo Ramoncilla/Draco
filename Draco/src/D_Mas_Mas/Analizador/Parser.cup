@@ -1,1 +1,273 @@
+package D_Mas_Mas.Analizador;
+
+
+import java_cup.runtime.*;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+import java.util.ArrayList;
+
+
+
+
+parser code
+{:
+ /* -------------------------==: DECLARAR EL ARBOL :==--------------------------*/
+    //public Nodo Gramaticas;     
+    public static String cadena;
+	
+
+	
+
+/* -------------------------==: ERROR SINTACTICO :==--------------------------*/
+public void syntax_error(Symbol s){
+    System.out.println("Error Sintactico -> lexema: " +s.value+" Linea: " +s.right+ " Columna: "+s.left);
+    cadena += "<tr>"
+                + "<td><center><b>" + s.value + "</b></center></td>"
+                + "<td><center><b>" + s.right + "</b></center></td>"
+                + "<td><center><b>" + s.left+ "</b></center></td>"
+                + "</tr>";
+				
+}
+
+/* ------------------==: ERROR SINTACTICO NO RECUPERABLE :==------------------*/
+public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+    System.out.println("Error Sintactico No Recuperable-> Lexema: " +s.value+" Linea: "+s.right+ " Columna: "+s.left);
+     cadena += "<tr>"
+                + "<td><center><b>" + s.value + "</b></center></td>"
+                + "<td><center><b>" + s.right + "</b></center></td>"
+                + "<td><center><b>" + s.left+ "</b></center></td>"
+                + "</tr>";
+				
+}
+
+:}
+
+
+action code
+{:
+//Operaciones_Listas operaciones = new Operaciones_Listas();
+
+:}
+
+
+/*-------- Terminales ---------------*/
+
+
+terminal String t_entero,
+	t_decimal,
+	t_cadena,
+	t_caracter,
+	t_booleano,
+	abreLlave, 
+	cierraLlave,
+	abrePar,
+	cierraPar,
+	abreCor,
+	cierraCor,
+	dosPuntos,
+	puntoComa,
+	si,
+	sino,
+	para,
+	mientras,
+	detener, 
+	imprimir, retornar, coma, punto, masMas, menosMenos, mas, menos, multiplicacion, division, potencia, residuo, menor, mayor, menorIgual, mayorIgual, igualIgual, distintoA,  and, or, not, valBool, igual, cadena, identificador, numero_entero, numero_decimal, interrogacion, continuar, importar, nulo, estructura, vacio, principal,
+	puntoD, cuadrado, ovalo, linea;
+
+	non terminal INICIO;
+	
+	non terminal  ARCHIVO,DIM_EXPRESIONES, ELEMENTO_ARCHIVO,PRINCIPAL, FUNCION, IMPORTAR,TIPO_DATO,DECLARACION,ASIGNACION,
+  LISTA_ID_ASIGNA,TAMANIO_ARREGLO, VAL_ARREGLO, LISTA_EXPRESION, LISTA_DIMESNIONES_EXP_ARREGLO,
+  EXPRESION, ACCESO, POS_ARREGLO, TERNARIO, CUERPO_FUNCION, SENTENCIA,SENTENCIAS, IF, SINO, SINO_SI, L_SINO_SI, SI, MIENTRAS, PARA, DETENER, CONTINUAR, RETORNAR, IMPRIMIR, ESTRUCTURA, LISTA_DECLARACIONES, LISTA_DECLA_PARAMETROS, DECLA_PARAMETROS,PARAMETROS_LLAMADA,LLAMADA, FUN_NATIVA, PUNTO, CUADRADO, OVALO, P_CADENA, LINEA, DIMENSIONES_EXPRESION_ARREGLO, ID_ASIGNA, VAL_EXPRESION, DECLA_PARA, DECLA_PARAMETRO;
+	
+	
+     	precedence left or;
+		precedence left and;
+		precedence left not;
+		precedence left igualIgual, distintoA, menorIgual, mayorIgual,mayor, menor;
+		precedence left mas, menos;
+        precedence left multiplicacion, division,residuo;
+        precedence right potencia;
+		precedence left masMas, menosMenos;
+		precedence left abrePar;
+        
+	
+	start with INICIO;		
+	
+	
+  INICIO::= ARCHIVO;
+  
+ 
+  
+ARCHIVO::= ELEMENTO_ARCHIVO
+	|ARCHIVO ELEMENTO_ARCHIVO;
+
+ELEMENTO_ARCHIVO::= PRINCIPAL
+	|FUNCION
+	|IMPORTAR;
+  
+TIPO_DATO::= t_entero
+	|t_decimal
+	|t_cadena
+	|t_caracter
+	|t_booleano
+	|identificador;
+
+DECLARACION::= TIPO_DATO LISTA_ID_ASIGNA puntoComa
+	|TIPO_DATO identificador TAMANIO_ARREGLO puntoComa
+	|TIPO_DATO identificador TAMANIO_ARREGLO igual EXPRESION puntoComa;
+
+
+ID_ASIGNA::= identificador igual EXPRESION	
+		| identificador;
+	
+LISTA_ID_ASIGNA::= ID_ASIGNA
+	|LISTA_ID_ASIGNA coma ID_ASIGNA;
+
+
+ASIGNACION::= ACCESO igual EXPRESION
+	|identificador masMas
+	|identificador menosMenos;
+
+TAMANIO_ARREGLO::= VAL_ARREGLO
+	| TAMANIO_ARREGLO VAL_ARREGLO;
+
+VAL_ARREGLO::= abreCor EXPRESION cierraCor;
+
+LISTA_EXPRESION::= EXPRESION
+	| LISTA_EXPRESION coma EXPRESION;
+	
+	
+DIM_EXPRESIONES::= abreLlave LISTA_EXPRESION cierraLlave;
+
+LISTA_DIMESNIONES_EXP_ARREGLO::= DIM_EXPRESIONES
+	| LISTA_DIMESNIONES_EXP_ARREGLO coma DIM_EXPRESIONES;
+
+DIMENSIONES_EXPRESION_ARREGLO::= abreLlave LISTA_DIMESNIONES_EXP_ARREGLO cierraLlave;
+
+EXPRESION::= TERNARIO
+	| VAL_EXPRESION;
+
+VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO
+	| ACCESO
+	|cadena
+	|numero_decimal
+	|numero_entero;
+	
+
+ACCESO::= identificador
+		|POS_ARREGLO
+		|ACCESO punto identificador
+		|ACCESO punto POS_ARREGLO;
+	
+POS_ARREGLO::= identificador TAMANIO_ARREGLO;
+
+
+TERNARIO::= VAL_EXPRESION interrogacion VAL_EXPRESION dosPuntos VAL_EXPRESION;
+
+CUERPO_FUNCION::= abreLlave cierraLlave
+	|abreLlave SENTENCIAS cierraLlave;
+
+SENTENCIA::= DECLARACION 
+	|ASIGNACION puntoComa
+	|TERNARIO puntoComa
+	|SI
+	|MIENTRAS
+	|PARA
+	|DETENER
+	|CONTINUAR
+	|RETORNAR
+	|IMPRIMIR
+	|ESTRUCTURA
+	|FUN_NATIVA
+	|LLAMADA puntoComa;
+	
+SENTENCIAS::= SENTENCIA
+		|SENTENCIAS SENTENCIA;
+
+
+IF::= si abrePar EXPRESION cierraPar  CUERPO_FUNCION;
+
+SINO::= sino CUERPO_FUNCION;
+
+SINO_SI::= sino si abrePar EXPRESION cierraPar  CUERPO_FUNCION;
+
+L_SINO_SI::= SINO_SI
+	| L_SINO_SI SINO_SI;
+	
+	
+SI::= IF
+	| IF  SINO
+	| IF L_SINO_SI
+	|IF  L_SINO_SI SINO;
+
+MIENTRAS::= mientras abrePar EXPRESION cierraPar CUERPO_FUNCION;
+
+DECLA_PARA::= DECLARACION
+	|ASIGNACION puntoComa;
+
+PARA::= para abrePar DECLA_PARA  EXPRESION puntoComa ASIGNACION cierraPar CUERPO_FUNCION;
+
+DETENER::= detener puntoComa;
+
+CONTINUAR::= continuar puntoComa;
+
+RETORNAR::= retornar puntoComa
+	|retornar EXPRESION puntoComa;
+	
+IMPRIMIR::= imprimir abrePar EXPRESION cierraPar puntoComa;
+
+IMPORTAR::= importar abrePar cadena cierraPar puntoComa;
+
+ESTRUCTURA::= estructura identificador abreLlave LISTA_DECLARACIONES cierraLlave;
+
+LISTA_DECLARACIONES::= DECLARACION puntoComa
+	|LISTA_DECLARACIONES DECLARACION puntoComa;
+
+FUNCION::= vacio identificador DECLA_PARAMETROS CUERPO_FUNCION
+	| TIPO_DATO identificador DECLA_PARAMETROS CUERPO_FUNCION;
+
+PRINCIPAL::= vacio principal DECLA_PARAMETROS CUERPO_FUNCION;
+	
+DECLA_PARAMETRO::= TIPO_DATO identificador;
+LISTA_DECLA_PARAMETROS::= DECLA_PARAMETRO
+	| LISTA_DECLA_PARAMETROS coma DECLA_PARAMETRO;
+	
+DECLA_PARAMETROS::= abrePar cierraPar
+	| abrePar LISTA_DECLA_PARAMETROS cierraPar;
+	
+PARAMETROS_LLAMADA::= abrePar LISTA_EXPRESION cierraPar
+	| abrePar cierraPar;
+	
+LLAMADA::= identificador PARAMETROS_LLAMADA;
+
+FUN_NATIVA::= PUNTO
+	| CUADRADO
+	| OVALO
+	| P_CADENA
+	| LINEA;
+
+PUNTO::= puntoD abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar puntoComa;
+
+CUADRADO::= cuadrado abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar;
+
+
+OVALO::= ovalo abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar; 
+
+P_CADENA::= t_cadena  abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION  cierraPar;
+
+LINEA::= linea  abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar;
+
+
+	
+
+
+
+
+
+
+
+
+
 
