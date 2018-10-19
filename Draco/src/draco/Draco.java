@@ -17,7 +17,7 @@ public class Draco {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         EjecutarAnalizadores e= new EjecutarAnalizadores();
-        e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
+        e.ejecutarDMM("C:\\Users\\Alina\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
     }
     
 }

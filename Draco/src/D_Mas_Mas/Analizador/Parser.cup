@@ -116,9 +116,23 @@ TIPO_DATO::= t_entero:a{:RESULT= a;:}
 	|t_booleano:a{:RESULT= a;:}
 	|identificador:a{:RESULT= a;:};
 
-DECLARACION::=  LISTA_ID_ASIGNA puntoComa
-	|TIPO_DATO identificador TAMANIO_ARREGLO puntoComa
-	|TIPO_DATO identificador TAMANIO_ARREGLO igual EXPRESION puntoComa;
+DECLARACION::=  LISTA_ID_ASIGNA:a puntoComa{:RESULT= a;:}
+	|TIPO_DATO:a identificador:b TAMANIO_ARREGLO:c puntoComa
+		{:
+		   RESULT= new DeclaArreglo(a, b, c);
+		:}
+	|TIPO_DATO:a identificador:b TAMANIO_ARREGLO:c igual EXPRESION:d puntoComa
+	{:
+			DeclaArreglo decla = new DeclaArreglo(a,b,c);
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			posArreglo n = new posArreglo(b,c);
+			lista.add((objetoBase)n);
+			Acceso acc =  new Acceso(lista);
+			AsignaAcceso asig = new AsignaAcceso(acc, d);
+			decla.agregarAsigna(asig);
+			RESULT= decla;
+		
+		:};
 
 	
 LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
@@ -155,15 +169,14 @@ LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 			RESULT= decla;
 			
 		:}
-	| LISTA_ID_ASIGNA coma identificador;
+	| LISTA_ID_ASIGNA:d coma identificador:a	
+		{:
+		    Declaracion decla = (Declaracion)d;
+			decla.insertarVar(a);
+			RESULT= decla;
+			
+		:};
 
-	/*
-ID_ASIGNA::= identificador igual EXPRESION	
-		| identificador;
-	
-LISTA_ID_ASIGNA::= ID_ASIGNA
-	|LISTA_ID_ASIGNA coma ID_ASIGNA;
-*/
 
 ASIGNACION::= ACCESO:a igual EXPRESION:b{:RESULT = new AsignaAcceso(a,b);:}
 	|identificador:a masMas{:RESULT= new AsignaUnario(a,"++");:}
@@ -342,10 +355,11 @@ MIENTRAS::= mientras abrePar EXPRESION:a cierraPar CUERPO_FUNCION:b
 			RESULT= new Mientras(a,b);
 		:};
 
-DECLA_PARA::= DECLARACION
-	|ASIGNACION puntoComa;
+DECLA_PARA::= DECLARACION:a{:RESULT= a;:}
+	|ASIGNACION:a{:RESULT= a;:} puntoComa;
 
-PARA::= para abrePar DECLA_PARA  EXPRESION puntoComa ASIGNACION cierraPar CUERPO_FUNCION;
+PARA::= para abrePar DECLA_PARA:a  EXPRESION:b puntoComa ASIGNACION:c cierraPar CUERPO_FUNCION:d
+	{:RESULT = new Para(a,b,c,d);:};
 
 DETENER::= detener puntoComa{:RESULT= new Detener();:};
 
@@ -358,10 +372,22 @@ IMPRIMIR::= imprimir abrePar EXPRESION:a cierraPar puntoComa{:RESULT= new Imprim
 
 IMPORTAR::= importar abrePar cadena:a cierraPar puntoComa{:RESULT= new Importar(a);:};
 
-ESTRUCTURA::= estructura identificador abreLlave LISTA_DECLARACIONES cierraLlave;
 
-LISTA_DECLARACIONES::= DECLARACION puntoComa
-	|LISTA_DECLARACIONES DECLARACION puntoComa;
+ESTRUCTURA::= estructura identificador abreLlave LISTA_DECLARACIONES cierraLlave
+	|estructura identificador abreLlave cierraLlave;
+
+LISTA_DECLARACIONES::= DECLARACION:a
+	{:
+		List<objetoBase> lista = new ArrayList<>();
+		lista.add((objetoBase)a);
+		RESULT= lista;
+	:}
+	|LISTA_DECLARACIONES:l DECLARACION:a
+	{:
+		List<objetoBase> lista = (ArrayList<objetoBase>)l;
+		lista.add((objetoBase)a);
+		RESULT= lista;
+	:};
 
 FUNCION::= vacio identificador DECLA_PARAMETROS CUERPO_FUNCION
 	| TIPO_DATO identificador DECLA_PARAMETROS CUERPO_FUNCION;
