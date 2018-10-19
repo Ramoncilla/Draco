@@ -1,6 +1,10 @@
 package D_Mas_Mas.Analizador;
 
 import Arbol.Expresion.*;
+import Arbol.Importar;
+import Arbol.*;
+import Arbol.Funciones.*;
+import Arbol.Sentencias.*;
 import java_cup.runtime.*;
 import java.io.*;
 import java.lang.*;
@@ -94,7 +98,7 @@ terminal String t_entero,
 	start with INICIO;		
 	
 	
-  INICIO::= EXPRESION;
+  INICIO::= ARCHIVO;
   
  
   
@@ -103,38 +107,113 @@ ARCHIVO::= ELEMENTO_ARCHIVO
 
 ELEMENTO_ARCHIVO::= PRINCIPAL
 	|FUNCION
-	|IMPORTAR;
+	|IMPORTAR:a{:RESULT= a;:};
   
-TIPO_DATO::= t_entero
-	|t_decimal
-	|t_cadena
-	|t_caracter
-	|t_booleano
-	|identificador;
+TIPO_DATO::= t_entero:a{:RESULT= a;:}
+	|t_decimal:a{:RESULT= a;:}
+	|t_cadena:a{:RESULT= a;:}
+	|t_caracter:a{:RESULT= a;:}
+	|t_booleano:a{:RESULT= a;:}
+	|identificador:a{:RESULT= a;:};
 
-DECLARACION::= TIPO_DATO LISTA_ID_ASIGNA puntoComa
+DECLARACION::=  LISTA_ID_ASIGNA puntoComa
 	|TIPO_DATO identificador TAMANIO_ARREGLO puntoComa
 	|TIPO_DATO identificador TAMANIO_ARREGLO igual EXPRESION puntoComa;
 
+	
+LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
+		{:
+			Declaracion decla = new Declaracion(t);
+			decla.insertarVar(a);
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			Identificador id = new Identificador(a);
+			lista.add((objetoBase)id);
+			Acceso acc =  new Acceso(lista);
+			AsignaAcceso asig = new AsignaAcceso(acc, b);
+			decla.insertarAsigna(asig);
+			RESULT= decla;
+		
+		:}
+	| TIPO_DATO:t identificador:a
+		{:
+			Declaracion decla = new Declaracion(t);
+			decla.insertarVar(a);
+			RESULT= decla;
+		:}
+	| LISTA_ID_ASIGNA coma identificador igual EXPRESION
+	| LISTA_ID_ASIGNA coma identificador;
 
+	/*
 ID_ASIGNA::= identificador igual EXPRESION	
 		| identificador;
 	
 LISTA_ID_ASIGNA::= ID_ASIGNA
 	|LISTA_ID_ASIGNA coma ID_ASIGNA;
+*/
+
+ASIGNACION::= ACCESO:a igual EXPRESION:b{:RESULT = new AsignaAcceso(a,b);:}
+	|identificador:a masMas{:RESULT= new AsignaUnario(a,"++");:}
+	|identificador:a menosMenos{:RESULT= new AsignaUnario(a,"--");:};
+	
+ACCESO::= identificador:a
+		{:
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			Identificador b = new Identificador(a);
+			lista.add((objetoBase)b);
+			RESULT= new Acceso(lista);
+		:}
+	|POS_ARREGLO:a
+		{:
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			lista.add((objetoBase)a);
+			RESULT= new Acceso(lista);
+		:}
+	|ACCESO:l punto identificador:a
+		{:
+		    Acceso acc = (Acceso)l;
+			//List<objetoBase> lista = (ArrayList<objetoBase>)l;
+			Identificador b = new Identificador(a);
+			acc.elementos.add((objetoBase)b);
+			RESULT=acc;
+		:}
+	|ACCESO:l punto POS_ARREGLO:a
+		{:
+		    Acceso acc = (Acceso)l;
+			//List<objetoBase> lista = (ArrayList<objetoBase>)l;
+			acc.elementos.add((objetoBase)a);
+			RESULT=acc;
+		:};
+	
+POS_ARREGLO::= identificador:a TAMANIO_ARREGLO:b{:RESULT= new posArreglo(a,b);:};
 
 
-ASIGNACION::= ACCESO igual EXPRESION
-	|identificador masMas
-	|identificador menosMenos;
+TAMANIO_ARREGLO::= VAL_ARREGLO:e
+		{:
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			lista.add((objetoBase)e);
+			RESULT= lista;
+		:}
+	| TAMANIO_ARREGLO:l VAL_ARREGLO:e
+		{:
+			List<objetoBase> lista = (ArrayList<objetoBase>)l;
+			lista.add((objetoBase)e);
+			RESULT= lista;
+		:};
 
-TAMANIO_ARREGLO::= VAL_ARREGLO
-	| TAMANIO_ARREGLO VAL_ARREGLO;
+VAL_ARREGLO::= abreCor EXPRESION:a cierraCor{:RESULT= a;:};
 
-VAL_ARREGLO::= abreCor EXPRESION cierraCor;
-
-LISTA_EXPRESION::= EXPRESION
-	| LISTA_EXPRESION coma EXPRESION;
+LISTA_EXPRESION::= EXPRESION:e
+		{:
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			lista.add((objetoBase)e);
+			RESULT= lista;
+		:}
+	| LISTA_EXPRESION:l coma EXPRESION:e
+		{:
+			List<objetoBase> lista = (ArrayList<objetoBase>)l;
+			lista.add((objetoBase)e);
+			RESULT= lista;
+		:};
 	
 	
 DIM_EXPRESIONES::= abreLlave LISTA_EXPRESION cierraLlave;
@@ -144,11 +223,14 @@ LISTA_DIMESNIONES_EXP_ARREGLO::= DIM_EXPRESIONES
 
 DIMENSIONES_EXPRESION_ARREGLO::= abreLlave LISTA_DIMESNIONES_EXP_ARREGLO cierraLlave;
 
-EXPRESION::= TERNARIO
-	| VAL_EXPRESION;
+
+
+
+EXPRESION::=TERNARIO:a{:RESULT = a;:}
+	| VAL_EXPRESION:a {:RESULT= a;:};
 
 VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO
-	| ACCESO
+	| ACCESO:a{:RESULT= a;:}
 	|cadena:a{:RESULT= new Cadena(a);:}
 	|numero_decimal:a{:RESULT= new Decimal(a);:}
 	|numero_entero:a{:RESULT= new Entero(a);:}
@@ -171,72 +253,96 @@ VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO
 	|VAL_EXPRESION:a and VAL_EXPRESION:b {:RESULT= new Logica(a,b,"&&");:}
 	|VAL_EXPRESION:a or VAL_EXPRESION:b {:RESULT= new Logica(a,b,"||");:}
 	|not VAL_EXPRESION:a{:RESULT= new NOT(a);:}
-	|abrePar VAL_EXPRESION:a cierraPar {:RESULT = a;:};
+	|abrePar VAL_EXPRESION:a cierraPar {:RESULT = a;:}
+	|LLAMADA:a{:RESULT = a;:};
+	
+PARAMETROS_LLAMADA::= abrePar LISTA_EXPRESION:a cierraPar{:RESULT= a; :}
+	| abrePar cierraPar{:RESULT= new ArrayList<objetoBase>(); :};
+	
+LLAMADA::= identificador:a PARAMETROS_LLAMADA:b {:RESULT = new Llamada(a,b);:};
+
+
+TERNARIO::= VAL_EXPRESION:a interrogacion VAL_EXPRESION:b dosPuntos VAL_EXPRESION:c
+			{:RESULT= new Ternario(a,b,c);:};
+
+
+CUERPO_FUNCION::= abreLlave cierraLlave {:RESULT = new CuerpoFuncion();:}
+	|abreLlave SENTENCIAS:a cierraLlave{:RESULT = new CuerpoFuncion(a);:};
+
+SENTENCIA::= DECLARACION:a {:RESULT= a;:} 
+	|ASIGNACION:a puntoComa {:RESULT= a;:} 
+	|TERNARIO:a puntoComa {:RESULT= a;:} 
+	|SI:a {:RESULT= a;:} 
+	|MIENTRAS:a {:RESULT= a;:} 
+	|PARA:a {:RESULT= a;:} 
+	|DETENER:a {:RESULT= a;:} 
+	|CONTINUAR:a {:RESULT= a;:} 
+	|RETORNAR:a {:RESULT= a;:} 
+	|IMPRIMIR:a {:RESULT= a;:} 
+	|ESTRUCTURA:a {:RESULT= a;:} 
+	|FUN_NATIVA:a {:RESULT= a;:} 
+	|LLAMADA:a puntoComa {:RESULT= a;:} ;
+	
+SENTENCIAS::= SENTENCIA:a
+				{:
+					List<objetoBase> lista = new ArrayList<objetoBase>();
+					lista.add((objetoBase)a);
+					RESULT= lista;
+				:}
+		|SENTENCIAS:l SENTENCIA:a
+				{:
+					List<objetoBase> lista = (List<objetoBase>)l;
+					lista.add((objetoBase)a);
+				    RESULT= lista;
+				:};
+
+
+IF::= si abrePar EXPRESION:a cierraPar  CUERPO_FUNCION:b {:RESULT = new IF(a,b);:};
+
+SINO::= sino CUERPO_FUNCION:a{:RESULT= a;:};
+
+SINO_SI::= sino si abrePar EXPRESION:a cierraPar  CUERPO_FUNCION:b{:RESULT = new IF(a,b);:};
+
+L_SINO_SI::= SINO_SI:a 
+		{:
+			List<IF> lista= new ArrayList<IF>();
+			lista.add((IF)a);
+			RESULT= lista;
+		:}
+	| L_SINO_SI:l SINO_SI:a
+		{:
+			List<IF> lista= (ArrayList<IF>)l;
+			lista.add((IF)a);
+			RESULT= lista;
+		:};
+	
+SI::= IF:a {:RESULT= new Si(1,a,new CuerpoFuncion(), new ArrayList<IF>());:}
+	| IF:a SINO:b {:RESULT= new Si(2,a,b, new ArrayList<IF>());:}
+	| IF:a L_SINO_SI:b {:RESULT= new Si(3,a,new CuerpoFuncion(), b);:}
+	| IF:a L_SINO_SI:b SINO:c {:RESULT= new Si(4,a,b, c);:};
 	
 
-ACCESO::= identificador:a{:RESULT= new Identificador(a);:}
-		|POS_ARREGLO
-		|ACCESO punto identificador
-		|ACCESO punto POS_ARREGLO;
-	
-POS_ARREGLO::= identificador TAMANIO_ARREGLO;
 
-
-TERNARIO::= VAL_EXPRESION interrogacion VAL_EXPRESION dosPuntos VAL_EXPRESION;
-
-CUERPO_FUNCION::= abreLlave cierraLlave
-	|abreLlave SENTENCIAS cierraLlave;
-
-SENTENCIA::= DECLARACION 
-	|ASIGNACION puntoComa
-	|TERNARIO puntoComa
-	|SI
-	|MIENTRAS
-	|PARA
-	|DETENER
-	|CONTINUAR
-	|RETORNAR
-	|IMPRIMIR
-	|ESTRUCTURA
-	|FUN_NATIVA
-	|LLAMADA puntoComa;
-	
-SENTENCIAS::= SENTENCIA
-		|SENTENCIAS SENTENCIA;
-
-
-IF::= si abrePar EXPRESION cierraPar  CUERPO_FUNCION;
-
-SINO::= sino CUERPO_FUNCION;
-
-SINO_SI::= sino si abrePar EXPRESION cierraPar  CUERPO_FUNCION;
-
-L_SINO_SI::= SINO_SI
-	| L_SINO_SI SINO_SI;
-	
-	
-SI::= IF
-	| IF  SINO
-	| IF L_SINO_SI
-	|IF  L_SINO_SI SINO;
-
-MIENTRAS::= mientras abrePar EXPRESION cierraPar CUERPO_FUNCION;
+MIENTRAS::= mientras abrePar EXPRESION:a cierraPar CUERPO_FUNCION:b 
+		{:
+			RESULT= new Mientras(a,b);
+		:};
 
 DECLA_PARA::= DECLARACION
 	|ASIGNACION puntoComa;
 
 PARA::= para abrePar DECLA_PARA  EXPRESION puntoComa ASIGNACION cierraPar CUERPO_FUNCION;
 
-DETENER::= detener puntoComa;
+DETENER::= detener puntoComa{:RESULT= new Detener();:};
 
-CONTINUAR::= continuar puntoComa;
+CONTINUAR::= continuar puntoComa{:RESULT= new Continuar();:};
 
-RETORNAR::= retornar puntoComa
-	|retornar EXPRESION puntoComa;
+RETORNAR::= retornar puntoComa{:RESULT= new Retornar();:}
+	|retornar EXPRESION:a puntoComa{:RESULT= new Retornar(a);:};
 	
-IMPRIMIR::= imprimir abrePar EXPRESION cierraPar puntoComa;
+IMPRIMIR::= imprimir abrePar EXPRESION:a cierraPar puntoComa{:RESULT= new Imprimir(a);:};
 
-IMPORTAR::= importar abrePar cadena cierraPar puntoComa;
+IMPORTAR::= importar abrePar cadena:a cierraPar puntoComa{:RESULT= new Importar(a);:};
 
 ESTRUCTURA::= estructura identificador abreLlave LISTA_DECLARACIONES cierraLlave;
 
@@ -255,10 +361,7 @@ LISTA_DECLA_PARAMETROS::= DECLA_PARAMETRO
 DECLA_PARAMETROS::= abrePar cierraPar
 	| abrePar LISTA_DECLA_PARAMETROS cierraPar;
 	
-PARAMETROS_LLAMADA::= abrePar LISTA_EXPRESION cierraPar
-	| abrePar cierraPar;
-	
-LLAMADA::= identificador PARAMETROS_LLAMADA;
+
 
 FUN_NATIVA::= PUNTO
 	| CUADRADO
