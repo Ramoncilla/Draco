@@ -125,10 +125,12 @@ LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 		{:
 			Declaracion decla = new Declaracion(t);
 			decla.insertarVar(a);
+			
 			List<objetoBase> lista = new ArrayList<objetoBase>();
 			Identificador id = new Identificador(a);
 			lista.add((objetoBase)id);
 			Acceso acc =  new Acceso(lista);
+			
 			AsignaAcceso asig = new AsignaAcceso(acc, b);
 			decla.insertarAsigna(asig);
 			RESULT= decla;
@@ -140,7 +142,19 @@ LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 			decla.insertarVar(a);
 			RESULT= decla;
 		:}
-	| LISTA_ID_ASIGNA coma identificador igual EXPRESION
+	| LISTA_ID_ASIGNA:d coma identificador:a igual EXPRESION:b
+		{:
+		    Declaracion decla = (Declaracion)d;
+			decla.insertarVar(a);
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			Identificador id = new Identificador(a);
+			lista.add((objetoBase)id);
+			Acceso acc =  new Acceso(lista);
+			AsignaAcceso asig = new AsignaAcceso(acc, b);
+			decla.insertarAsigna(asig);
+			RESULT= decla;
+			
+		:}
 	| LISTA_ID_ASIGNA coma identificador;
 
 	/*
