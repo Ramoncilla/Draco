@@ -1,1 +1,35 @@
-5*10+8+estudiante.nombre
+importar ("ruta1");
+importar("ruta2");
+importar("ruta3");
+
+
+vacio principal(){
+  pruebas();
+}
+
+
+vacio pruebas()
+{
+	entero a = 10, b=100, c=30;
+	entero x;
+	entero h=89;
+	entero u,m,n,o=p;
+	
+	a++;
+	b++;
+	a--;
+	a=10*5;
+	
+	cadena arreglo[2][3]={{1,2,3},{1,2,3}};
+	entero popo[25]={{1,2,3,4,5}};
+	
+	pedro.nombre= "Pedro Cruz";
+	
+
+}
+
+
+
+
+
+

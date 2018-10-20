@@ -33,7 +33,7 @@ bool_elemento=("verdadero"|"falso")
 bool = (("'"{bool_elemento}"'")|("\""{bool_elemento}"\"")|({bool_elemento}))
 
 
-comentMulti   		= "/*" ~"*/"
+comentMulti   		= "/*"~"*/"
 comentSimple 		 = "//"[^\n']+
 
 
@@ -195,7 +195,7 @@ public static String cadena;
 {caracter}    {System.out.println(yytext());                return new Symbol (simbolosDMM.caracter, yyline+1,yychar+1, new String (yytext()));}
 {comentMulti}   {System.out.println("Coment Multi");   /* se ignora*/}
 
-{comentSimple}   {System.out.println("Coment Multi");   /* se ignora*/}
+{comentSimple}   {System.out.println("Coment simple");   /* se ignora*/}
 
 /* -------------------------------==: BLANCOS :==-----------------------------*/
 [ \t\r\f\n]+        { /* Se ignoran */}

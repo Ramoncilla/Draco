@@ -5,6 +5,7 @@
  */
 package draco;
 
+import Arbol.Archivo;
 import D_Mas_Mas.Analizador.ParserDMM;
 import D_Mas_Mas.Analizador.ScannerDMM;
 import java.io.BufferedReader;
@@ -31,6 +32,7 @@ public class EjecutarAnalizadores {
                 ScannerDMM scannerDMM = new ScannerDMM(new BufferedReader(new StringReader(cadena)));
                 ParserDMM parserDMM = new ParserDMM(scannerDMM);
                 parserDMM.parse();
+                Archivo a = ParserDMM.elementosArchivo;
                 // retorno= parserHtml.codigoHTML;
                 System.out.println("Fin de analisis D++");
             }

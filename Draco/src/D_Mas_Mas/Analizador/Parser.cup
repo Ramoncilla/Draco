@@ -17,6 +17,7 @@ parser code
  /* -------------------------==: DECLARAR EL ARBOL :==--------------------------*/
     //public Nodo Gramaticas;     
     public static String cadena;
+	public static Archivo elementosArchivo;
 	
 
 	
@@ -49,6 +50,7 @@ public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
 action code
 {:
 //Operaciones_Listas operaciones = new Operaciones_Listas();
+
 
 :}
 
@@ -98,15 +100,25 @@ terminal String t_entero,
 	start with INICIO;		
 	
 	
-  INICIO::= ARCHIVO;
+  INICIO::= ARCHIVO:a {:parser.elementosArchivo= new Archivo(a);:};
   
  
   
-ARCHIVO::= ELEMENTO_ARCHIVO
-	|ARCHIVO ELEMENTO_ARCHIVO;
+ARCHIVO::= ELEMENTO_ARCHIVO:a
+		{:
+			List<objetoBase> lista = new ArrayList<>();
+			lista.add((objetoBase)a);
+			RESULT= lista;
+		:}
+	|ARCHIVO:l ELEMENTO_ARCHIVO:a
+		{:
+			List<objetoBase> lista = (ArrayList<objetoBase>)l;
+			lista.add((objetoBase)a);
+			RESULT= lista;
+		:};
 
-ELEMENTO_ARCHIVO::= PRINCIPAL
-	|FUNCION
+ELEMENTO_ARCHIVO::= PRINCIPAL:a{:RESULT= a;:}
+	|FUNCION:a{:RESULT= a;:}
 	|IMPORTAR:a{:RESULT= a;:};
   
 TIPO_DATO::= t_entero:a{:RESULT= a;:}
@@ -198,7 +210,6 @@ ACCESO::= identificador:a
 	|ACCESO:l punto identificador:a
 		{:
 		    Acceso acc = (Acceso)l;
-			//List<objetoBase> lista = (ArrayList<objetoBase>)l;
 			Identificador b = new Identificador(a);
 			acc.elementos.add((objetoBase)b);
 			RESULT=acc;
@@ -206,7 +217,6 @@ ACCESO::= identificador:a
 	|ACCESO:l punto POS_ARREGLO:a
 		{:
 		    Acceso acc = (Acceso)l;
-			//List<objetoBase> lista = (ArrayList<objetoBase>)l;
 			acc.elementos.add((objetoBase)a);
 			RESULT=acc;
 		:};
@@ -243,12 +253,24 @@ LISTA_EXPRESION::= EXPRESION:e
 		:};
 	
 	
-DIM_EXPRESIONES::= abreLlave LISTA_EXPRESION cierraLlave;
+	
+	
+DIM_EXPRESIONES::= abreLlave LISTA_EXPRESION:a cierraLlave {:RESULT = new Lista_Expresiones(a);:};
 
-LISTA_DIMESNIONES_EXP_ARREGLO::= DIM_EXPRESIONES
-	| LISTA_DIMESNIONES_EXP_ARREGLO coma DIM_EXPRESIONES;
+LISTA_DIMESNIONES_EXP_ARREGLO::= DIM_EXPRESIONES:a
+		{:
+			Lista_Dimensiones_Exp_Arreglo lista = new Lista_Dimensiones_Exp_Arreglo();
+			lista.insertar(a);
+			RESULT= lista;
+		:}
+	| LISTA_DIMESNIONES_EXP_ARREGLO:l coma DIM_EXPRESIONES:a
+		{:
+			Lista_Dimensiones_Exp_Arreglo lista = (Lista_Dimensiones_Exp_Arreglo)l;
+			lista.insertar(a);
+			RESULT= lista;
+		:};
 
-DIMENSIONES_EXPRESION_ARREGLO::= abreLlave LISTA_DIMESNIONES_EXP_ARREGLO cierraLlave;
+DIMENSIONES_EXPRESION_ARREGLO::= abreLlave LISTA_DIMESNIONES_EXP_ARREGLO:a cierraLlave{:RESULT = a;:};
 
 
 
@@ -256,7 +278,7 @@ DIMENSIONES_EXPRESION_ARREGLO::= abreLlave LISTA_DIMESNIONES_EXP_ARREGLO cierraL
 EXPRESION::=TERNARIO:a{:RESULT = a;:}
 	| VAL_EXPRESION:a {:RESULT= a;:};
 
-VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO
+VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO:a{:RESULT= a;:}
 	| ACCESO:a{:RESULT= a;:}
 	|cadena:a{:RESULT= new Cadena(a);:}
 	|numero_decimal:a{:RESULT= new Decimal(a);:}
@@ -359,7 +381,9 @@ DECLA_PARA::= DECLARACION:a{:RESULT= a;:}
 	|ASIGNACION:a{:RESULT= a;:} puntoComa;
 
 PARA::= para abrePar DECLA_PARA:a  EXPRESION:b puntoComa ASIGNACION:c cierraPar CUERPO_FUNCION:d
-	{:RESULT = new Para(a,b,c,d);:};
+	{:
+		RESULT = new Para(a,b,c,d);
+	:};
 
 DETENER::= detener puntoComa{:RESULT= new Detener();:};
 
@@ -373,8 +397,14 @@ IMPRIMIR::= imprimir abrePar EXPRESION:a cierraPar puntoComa{:RESULT= new Imprim
 IMPORTAR::= importar abrePar cadena:a cierraPar puntoComa{:RESULT= new Importar(a);:};
 
 
-ESTRUCTURA::= estructura identificador abreLlave LISTA_DECLARACIONES cierraLlave
-	|estructura identificador abreLlave cierraLlave;
+ESTRUCTURA::= estructura identificador:a abreLlave LISTA_DECLARACIONES:b cierraLlave
+		{:
+			RESULT= new Estructura(a, b);
+		:}
+	|estructura identificador:a abreLlave cierraLlave
+		{:
+			RESULT= new Estructura(a, new ArrayList<objetoBase>());
+		:};
 
 LISTA_DECLARACIONES::= DECLARACION:a
 	{:
@@ -389,36 +419,60 @@ LISTA_DECLARACIONES::= DECLARACION:a
 		RESULT= lista;
 	:};
 
-FUNCION::= vacio identificador DECLA_PARAMETROS CUERPO_FUNCION
-	| TIPO_DATO identificador DECLA_PARAMETROS CUERPO_FUNCION;
+FUNCION::= vacio identificador:b DECLA_PARAMETROS:c CUERPO_FUNCION:d
+		{:
+			RESULT = new Funcion(b,"Vacio", false, c,d);
+		:}
+	| TIPO_DATO:a identificador:b DECLA_PARAMETROS:c CUERPO_FUNCION:d
+		{:
+			RESULT = new Funcion(b,a, false, c,d);
+		:};
 
-PRINCIPAL::= vacio principal DECLA_PARAMETROS CUERPO_FUNCION;
+PRINCIPAL::= vacio principal DECLA_PARAMETROS:c CUERPO_FUNCION:d
+		{:
+			RESULT = new Funcion("Principal","Vacio", true, c,d);
+		:};
 	
-DECLA_PARAMETRO::= TIPO_DATO identificador;
-LISTA_DECLA_PARAMETROS::= DECLA_PARAMETRO
-	| LISTA_DECLA_PARAMETROS coma DECLA_PARAMETRO;
+DECLA_PARAMETRO::= TIPO_DATO:t identificador:a
+		{:
+			Declaracion decla = new Declaracion(t);
+			decla.insertarVar(a);
+			RESULT= decla;
+		:};
+
+LISTA_DECLA_PARAMETROS::= DECLA_PARAMETRO:a
+		{:
+			List<Declaracion> lista = new ArrayList<Declaracion>();
+			lista.add((Declaracion)a);
+			RESULT= lista;
+		:}
+		
+	| LISTA_DECLA_PARAMETROS:b coma DECLA_PARAMETRO:a
+		{:
+			List<Declaracion> lista =( ArrayList<Declaracion>)b;
+			lista.add((Declaracion)a);
+			RESULT= lista;
+		:};
 	
-DECLA_PARAMETROS::= abrePar cierraPar
-	| abrePar LISTA_DECLA_PARAMETROS cierraPar;
+DECLA_PARAMETROS::= abrePar cierraPar {:RESULT = new ArrayList<Declaracion>();:}
+	| abrePar LISTA_DECLA_PARAMETROS:a cierraPar{:RESULT= a;:};
 	
+FUN_NATIVA::= PUNTO:a{:RESULT= a;:}
+	| CUADRADO:a{:RESULT= a;:}
+	| OVALO:a{:RESULT= a;:}
+	| P_CADENA:a{:RESULT= a;:}
+	| LINEA:a{:RESULT= a;:};
+
+PUNTO::= puntoD abrePar EXPRESION:a coma EXPRESION:b coma EXPRESION:c coma EXPRESION:d cierraPar puntoComa{:RESULT= new Punto(a,b,c,d);:};
+
+CUADRADO::= cuadrado abrePar EXPRESION:a coma EXPRESION:b coma EXPRESION:c coma EXPRESION:d coma EXPRESION:e cierraPar{:RESULT= new Cuadrado(a,b,c,d,e);:};
 
 
-FUN_NATIVA::= PUNTO
-	| CUADRADO
-	| OVALO
-	| P_CADENA
-	| LINEA;
+OVALO::= ovalo abrePar EXPRESION:a coma EXPRESION:b coma EXPRESION:c coma EXPRESION:d coma EXPRESION:e cierraPar {:RESULT= new Ovalo(a,b,c,d,e);:}; 
 
-PUNTO::= puntoD abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar puntoComa;
+P_CADENA::= t_cadena  abrePar EXPRESION:a coma EXPRESION:b coma EXPRESION:c coma EXPRESION:d  cierraPar{:RESULT= new P_Cadena(a,b,c,d);:};
 
-CUADRADO::= cuadrado abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar;
-
-
-OVALO::= ovalo abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar; 
-
-P_CADENA::= t_cadena  abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION  cierraPar;
-
-LINEA::= linea  abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar;
+LINEA::= linea  abrePar EXPRESION:a coma EXPRESION:b coma EXPRESION:c coma EXPRESION:d coma EXPRESION:e coma EXPRESION:f cierraPar{:RESULT= new Linea(a,b,c,d,e,f);:};
 
 
 	
