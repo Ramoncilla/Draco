@@ -5,6 +5,8 @@
  */
 package Arbol.Expresion;
 
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
 
 /**
@@ -21,5 +23,45 @@ public class Aritmetica extends objetoBase{
         this.val2= (objetoBase)v2;
         this.operador= op.toString();
     }
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod) {
+        
+        elementoRetorno v1= this.val1.ejecutar(cod);
+        elementoRetorno v2 = this.val2.ejecutar(cod);
+        switch(operador){
+            case "+":{
+                
+                break;
+            }
+            
+             case "-":{
+                 
+                break;
+            }
+             
+              case "*":{
+                  
+                break;
+            }
+              
+               case "/":{
+                   
+                break;
+            }
+               
+                case "^":{
+                    
+                break;
+            }
+            
+        }
+        
+			
+	return new elementoRetorno();	
+    }
+    
+    
+    
     
 }

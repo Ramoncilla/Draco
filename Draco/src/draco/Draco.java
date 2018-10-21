@@ -5,17 +5,22 @@
  */
 package draco;
 
+import Errores.ListaErrores;
+
 /**
  *
  * @author Ramonella
  */
 public class Draco {
+    
+    public static ListaErrores erroresEjecucion;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
+        erroresEjecucion = new ListaErrores();
         EjecutarAnalizadores e= new EjecutarAnalizadores();
         e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
     }
