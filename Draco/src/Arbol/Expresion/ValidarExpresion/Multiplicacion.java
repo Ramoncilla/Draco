@@ -110,16 +110,22 @@ public class Multiplicacion extends elementoOperacion{
     
     public String multiplicar(Valor v1, Valor v2){
         
-        if(!(v1.escrito && v1.escrito)){
+         if(!(v1.escrito && v2.escrito)){
              String val = v1.valor.toString()+"\n"
                 + v2.valor.toString()+"\n"
                 + "MULT";
            this.gen.addCodigo(val);
            return val;
-        }else{
+        }else if((v1.escrito) && !(v2.escrito)){
             String val = v2.valor.toString()+"\n"
             + "MULT";
             this.gen.addCodigo(val);
+            return val;
+        }else{
+            this.gen.addCodigo("MULT");
+            String val = v1.valor.toString()+"\n"
+                    + v2.valor.toString()+"\n"
+                    + "MULT";
             return val;
         }
     } 
