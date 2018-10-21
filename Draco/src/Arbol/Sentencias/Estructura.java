@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Alina
  */
-public class Estructura {
+public class Estructura extends objetoBase {
     public String nombre;
     public List<objetoBase> variablesEdd;
     

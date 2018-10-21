@@ -119,7 +119,9 @@ ARCHIVO::= ELEMENTO_ARCHIVO:a
 
 ELEMENTO_ARCHIVO::= PRINCIPAL:a{:RESULT= a;:}
 	|FUNCION:a{:RESULT= a;:}
-	|IMPORTAR:a{:RESULT= a;:};
+	|IMPORTAR:a{:RESULT= a;:}
+	|DECLARACION:a{:RESULT= a;:}
+	|ESTRUCTURA:a{:RESULT= a;:};
   
 TIPO_DATO::= t_entero:a{:RESULT= a;:}
 	|t_decimal:a{:RESULT= a;:}

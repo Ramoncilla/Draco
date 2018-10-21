@@ -29,13 +29,14 @@ letras              = [a-zA-Z_]
 cadena              = [\"] ~[\"]
 caracter            = "'"([0-9]|[a-zA-Z])"'"
 identificador                  = {letras}({letras}|{numero_entero})*
-bool_elemento=("verdadero"|"falso")
+bool_elemento=("verdadero"|"falso"|"true"|"false")
 bool = (("'"{bool_elemento}"'")|("\""{bool_elemento}"\"")|({bool_elemento}))
 
 
 comentMulti   		= "/*"~"*/"
 comentSimple 		 = "//"[^\n']+
-
+comentMulti2   		= "$*"~"*$"
+comentSimple2 		 = "$$"[^\n']+
 
 
 
@@ -193,9 +194,13 @@ public static String cadena;
 {identificador}        {System.out.println(yytext());                return new Symbol (simbolosDMM.identificador, yyline+1,yychar+1, new String (yytext()));}
 
 {caracter}    {System.out.println(yytext());                return new Symbol (simbolosDMM.caracter, yyline+1,yychar+1, new String (yytext()));}
+
 {comentMulti}   {System.out.println("Coment Multi");   /* se ignora*/}
 
 {comentSimple}   {System.out.println("Coment simple");   /* se ignora*/}
+{comentMulti2}   {System.out.println("Coment Multi2");   /* se ignora*/}
+
+{comentSimple2}   {System.out.println("Coment simple2");   /* se ignora*/}
 
 /* -------------------------------==: BLANCOS :==-----------------------------*/
 [ \t\r\f\n]+        { /* Se ignoran */}

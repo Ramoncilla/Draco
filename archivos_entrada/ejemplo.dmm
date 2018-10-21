@@ -2,6 +2,16 @@ importar ("ruta1");
 importar("ruta2");
 importar("ruta3");
 
+estructura persona{
+  cadena nombre;
+  entero arreglo[10];
+}
+
+
+entero a = 10, b=100, c=30;
+	entero x;
+	entero h=89;
+	entero u,m,n,o=p;
 
 vacio principal(){
   pruebas();
