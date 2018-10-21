@@ -13,6 +13,14 @@ public class Constantes {
     
    public static final String VERDADERO= "VERDADERO";
    public static final String FALSO= "FALSO";
+   public static final String NULO = "NULO";
+   
+   public static final String ENTERO = "ENTERO";
+   public static final String CADENA = "CADENA";
+   public static final String BOOLEANO = "BOOLEANO";
+   public static final String CARACTER = "CARACTER";
+   public static final String DECIMAL = "DECIMAL";
+  
     
     
 }

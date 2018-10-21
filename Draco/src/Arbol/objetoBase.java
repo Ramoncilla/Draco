@@ -5,10 +5,22 @@
  */
 package Arbol;
 
+
+import ASM.Generador;
+import ASM.elementoRetorno;
+
 /**
  *
  * @author Ramonella
  */
 public class objetoBase {
+    
+    public elementoRetorno retorno = new elementoRetorno();
+    
+    
+    public elementoRetorno ejecutar(Generador cod){
+        
+        return new elementoRetorno();
+    }
     
 }

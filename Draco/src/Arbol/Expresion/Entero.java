@@ -5,19 +5,31 @@
  */
 package Arbol.Expresion;
 
+import ASM.Generador;
+import ASM.Valor;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
 
 /**
  *
  * @author Ramonella
  */
-public class Entero extends objetoBase{
+public class Entero extends objetoBase {
+
     public String valIntCadena;
-    public double valIntDouble;
-    
-    public Entero(Object val){
-        this.valIntCadena= val.toString();
-        this.valIntDouble= Double.parseDouble(valIntCadena);
+    public int valIntDouble;
+
+    public Entero(Object val) {
+        this.valIntCadena = val.toString();
+        this.valIntDouble = Integer.parseInt(valIntCadena);
     }
-    
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod) {
+        elementoRetorno ret = new elementoRetorno();
+        ret.valor.crearEntero(valIntDouble);
+        super.retorno= ret;
+        return ret;
+    }
+
 }

@@ -5,6 +5,8 @@
  */
 package Arbol.Expresion;
 
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
 
 /**
@@ -21,6 +23,12 @@ public class Decimal extends objetoBase{
         this.valDecimalDouble= Double.parseDouble(valDecimalCadena);
     }
     
-    
+      @Override
+    public elementoRetorno ejecutar(Generador cod) {
+        elementoRetorno ret = new elementoRetorno();
+        ret.valor.crearEntero(valDecimalDouble);
+        super.retorno= ret;
+        return ret;
+    }
     
 }

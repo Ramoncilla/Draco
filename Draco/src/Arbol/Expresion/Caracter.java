@@ -5,6 +5,8 @@
  */
 package Arbol.Expresion;
 
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
 
 /**
@@ -19,6 +21,14 @@ public class Caracter extends objetoBase{
     public Caracter(Object val){
        this.caracterCadena= val.toString().replace("'", "");
        this.caracterInt= caracterCadena.toString().codePointAt(0);
+    }
+    
+      @Override
+    public elementoRetorno ejecutar(Generador cod) {
+        elementoRetorno ret = new elementoRetorno();
+        ret.valor.crearEntero(caracterInt);
+        super.retorno= ret;
+        return ret;
     }
     
 }
