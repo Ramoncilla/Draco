@@ -8,6 +8,7 @@ package Arbol.Expresion;
 import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
+import Arbol.Expresion.ValidarExpresion.Multiplicacion;
 import Arbol.Expresion.ValidarExpresion.Resta;
 import Arbol.Expresion.ValidarExpresion.Suma;
 import Arbol.objetoBase;
@@ -31,6 +32,7 @@ public class Aritmetica extends objetoBase{
     public elementoRetorno ejecutar(Generador cod) {
         Suma opSumar = new Suma(cod);
         Resta opRestar = new Resta(cod);
+        Multiplicacion opMultiplicar = new Multiplicacion(cod);
         elementoRetorno ret = new elementoRetorno();
         elementoRetorno v1= this.val1.ejecutar(cod);
         elementoRetorno v2 = this.val2.ejecutar(cod);
@@ -49,8 +51,10 @@ public class Aritmetica extends objetoBase{
             }
              
               case "*":{
-                  
-                break;
+                  Valor res = opMultiplicar.operar(v1.valor, v2.valor);
+                ret.valor= res;
+                super.retorno= ret;
+                return ret;
             }
               
                case "/":{
