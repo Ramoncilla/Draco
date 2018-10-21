@@ -16,6 +16,7 @@ public class Valor {
     
     public String tipo;
     public Object valor;
+    public boolean escrito= false;
 
     public Valor(String tipo, Object valor) {
         this.tipo = tipo;

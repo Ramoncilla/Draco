@@ -22,5 +22,7 @@ public class Generador {
         this.codigo+= c+"\n";
     }
     
-    
+    public void imprimirCod(){
+        System.out.println(this.codigo);
+    }
 }

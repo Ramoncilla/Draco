@@ -6,11 +6,13 @@
 package draco;
 
 import Arbol.Archivo;
+import Arbol.objetoBase;
 import D_Mas_Mas.Analizador.ParserDMM;
 import D_Mas_Mas.Analizador.ScannerDMM;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import javax.swing.JOptionPane;
+import ASM.Generador;
 
 /**
  *
@@ -32,9 +34,16 @@ public class EjecutarAnalizadores {
                 ScannerDMM scannerDMM = new ScannerDMM(new BufferedReader(new StringReader(cadena)));
                 ParserDMM parserDMM = new ParserDMM(scannerDMM);
                 parserDMM.parse();
-                Archivo a = ParserDMM.elementosArchivo;
+                objetoBase a = ParserDMM.expresion;
+                Generador g = new Generador();
+                a.ejecutar(g);
+                
+                //Archivo a = ParserDMM.elementosArchivo;
                 // retorno= parserHtml.codigoHTML;
                 System.out.println("Fin de analisis D++");
+                System.out.println("--------- Impresion ASM ------------------");
+                g.imprimirCod();
+                System.out.println("--------------- Fin ASM ------------------");
             }
         }
 

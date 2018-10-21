@@ -18,6 +18,7 @@ parser code
     //public Nodo Gramaticas;     
     public static String cadena;
 	public static Archivo elementosArchivo;
+	public static objetoBase expresion;
 	
 
 	
@@ -100,7 +101,8 @@ terminal String t_entero,
 	start with INICIO;		
 	
 	
-  INICIO::= ARCHIVO:a {:parser.elementosArchivo= new Archivo(a);:};
+  INICIO::= EXPRESION:a {:parser.expresion = (objetoBase) a;:};
+  //ARCHIVO:a {:parser.elementosArchivo= new Archivo(a);:};
   
  
   
