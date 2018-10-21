@@ -10,6 +10,7 @@ import ASM.Valor;
 import ASM.elementoRetorno;
 import Arbol.Expresion.ValidarExpresion.Division;
 import Arbol.Expresion.ValidarExpresion.Multiplicacion;
+import Arbol.Expresion.ValidarExpresion.Potencia;
 import Arbol.Expresion.ValidarExpresion.Resta;
 import Arbol.Expresion.ValidarExpresion.Suma;
 import Arbol.objetoBase;
@@ -18,15 +19,16 @@ import Arbol.objetoBase;
  *
  * @author Ramonella
  */
-public class Aritmetica extends objetoBase{
+public class Aritmetica extends objetoBase {
+
     public objetoBase val1;
     public objetoBase val2;
     public String operador;
-    
-    public Aritmetica(Object v1, Object v2, Object op){
+
+    public Aritmetica(Object v1, Object v2, Object op) {
         this.val1 = (objetoBase) v1;
-        this.val2= (objetoBase)v2;
-        this.operador= op.toString();
+        this.val2 = (objetoBase) v2;
+        this.operador = op.toString();
     }
 
     @Override
@@ -34,50 +36,50 @@ public class Aritmetica extends objetoBase{
         Suma opSumar = new Suma(cod);
         Resta opRestar = new Resta(cod);
         Multiplicacion opMultiplicar = new Multiplicacion(cod);
+        Potencia opElevar = new Potencia(cod);
         Division opDividir = new Division(cod);
         elementoRetorno ret = new elementoRetorno();
-        elementoRetorno v1= this.val1.ejecutar(cod);
+        elementoRetorno v1 = this.val1.ejecutar(cod);
         elementoRetorno v2 = this.val2.ejecutar(cod);
-        switch(operador){
-            case "+":{
+        switch (operador) {
+            case "+": {
                 Valor res = opSumar.operar(v1.valor, v2.valor);
-                ret.valor= res;
-                super.retorno= ret;
+                ret.valor = res;
+                super.retorno = ret;
                 return ret;
             }
-             case "-":{
+            case "-": {
                 Valor res = opRestar.operar(v1.valor, v2.valor);
-                ret.valor= res;
-                super.retorno= ret;
+                ret.valor = res;
+                super.retorno = ret;
                 return ret;
             }
-             
-              case "*":{
-                  Valor res = opMultiplicar.operar(v1.valor, v2.valor);
-                ret.valor= res;
-                super.retorno= ret;
+
+            case "*": {
+                Valor res = opMultiplicar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
                 return ret;
             }
-              
-               case "/":{
-                   Valor res = opDividir.operar(v1.valor, v2.valor);
-                ret.valor= res;
-                super.retorno= ret;
+
+            case "/": {
+                Valor res = opDividir.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
                 return ret;
             }
-               
-                case "^":{
-                    
-                break;
+
+            case "^": {
+
+               Valor res = opElevar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
             }
-            
+
         }
-        
-			
-	return ret;	
+
+        return ret;
     }
-    
-    
-    
-    
+
 }
