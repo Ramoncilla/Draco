@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package zEjecucionDraco;
+package zEjecucionDraco.Expresion;
+
+import zEjecucionDraco.baseDraco;
 
 /**
  *
  * @author Ramonella
  */
-public class baseDraco {
+public class Not extends baseDraco {
+    public baseDraco valor1;
+
     
-    public retorno elemento= new retorno();
-    
-    
-    public retorno ejecutar(){
+    public Not(Object v1){
+        this.valor1= (baseDraco)v1;
         
-        
-        return new retorno();
     }
-    
-    
 }

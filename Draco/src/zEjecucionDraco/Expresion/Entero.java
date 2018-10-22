@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package zEjecucionDraco;
+package zEjecucionDraco.Expresion;
+
+import zEjecucionDraco.baseDraco;
 
 /**
  *
  * @author Ramonella
  */
-public class baseDraco {
+public class Entero extends baseDraco {
     
-    public retorno elemento= new retorno();
+    public int valorEntero;
     
-    
-    public retorno ejecutar(){
-        
-        
-        return new retorno();
+    public Entero(Object c){
+        this.valorEntero= Integer.parseInt(c.toString());
     }
+    
     
     
 }

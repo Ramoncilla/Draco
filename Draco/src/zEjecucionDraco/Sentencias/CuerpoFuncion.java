@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import zEjecucionDraco.baseDraco;
 
+
 /**
  *
  * @author Ramonella
@@ -16,7 +17,10 @@ import zEjecucionDraco.baseDraco;
 public class CuerpoFuncion extends baseDraco{
     
     public List<baseDraco> sentencias;
-    
+
+    public CuerpoFuncion() {
+        this.sentencias = new ArrayList<>();
+    }
     
     public CuerpoFuncion(Object v){
         this.sentencias= (ArrayList<baseDraco>)v;

@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package zEjecucionDraco;
+package zEjecucionDraco.Expresion;
+
+import zEjecucionDraco.baseDraco;
 
 /**
  *
  * @author Ramonella
  */
-public class baseDraco {
+public class Decimal extends baseDraco {
     
-    public retorno elemento= new retorno();
+    public double valorDecimal;
     
     
-    public retorno ejecutar(){
-        
-        
-        return new retorno();
+    public Decimal(Object c){
+        this.valorDecimal= Double.parseDouble(c.toString());
     }
-    
     
 }

@@ -5,20 +5,20 @@
  */
 package zEjecucionDraco;
 
+import ASM.Valor;
+
 /**
  *
  * @author Ramonella
  */
-public class baseDraco {
+public class retorno {
     
-    public retorno elemento= new retorno();
+    public Valor valor;
+    public boolean detener;
     
-    
-    public retorno ejecutar(){
-        
-        
-        return new retorno();
+    public retorno(){
+      this.valor= new Valor();
+      this.detener= false;
     }
-    
     
 }
