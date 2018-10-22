@@ -6,6 +6,7 @@
 package zEjecucionDraco.Expresion;
 
 import zEjecucionDraco.baseDraco;
+import zEjecucionDraco.retorno;
 
 /**
  *
@@ -20,6 +21,14 @@ public class Caracter extends baseDraco{
     public Caracter(Object c){
         this.valorCaracter= c.toString().charAt(1);
         this.valorEnteroCaracter= c.toString().codePointAt(1);
+    }
+    
+      @Override
+    public retorno ejecutar() {
+        retorno ret = new retorno();
+        ret.valor.crearCaracter(valorCaracter);
+        super.elemento= ret;
+        return ret;
     }
     
 }

@@ -6,6 +6,7 @@
 package zEjecucionDraco.Expresion;
 
 import zEjecucionDraco.baseDraco;
+import zEjecucionDraco.retorno;
 
 /**
  *
@@ -19,5 +20,14 @@ public class Decimal extends baseDraco {
     public Decimal(Object c){
         this.valorDecimal= Double.parseDouble(c.toString());
     }
+ 
+      @Override
+    public retorno ejecutar() {
+        retorno ret = new retorno();
+        ret.valor.crearEntero(valorDecimal);
+        super.elemento= ret;
+        return ret;
+    }
+    
     
 }

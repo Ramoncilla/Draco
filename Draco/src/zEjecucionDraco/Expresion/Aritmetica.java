@@ -6,6 +6,7 @@
 package zEjecucionDraco.Expresion;
 
 import zEjecucionDraco.baseDraco;
+import zEjecucionDraco.retorno;
 
 /**
  *
@@ -24,4 +25,54 @@ public class Aritmetica extends baseDraco{
         
     }
     
+     @Override
+    public retorno ejecutar() {
+        Sumar opSumar = new Suma(cod);
+        Restar opRestar = new Resta(cod);
+        Multiplicar opMultiplicar = new Multiplicacion(cod);
+        Potencia opElevar = new Potencia(cod);
+        Division opDividir = new Division(cod);
+        elementoRetorno ret = new elementoRetorno();
+        elementoRetorno v1 = this.val1.ejecutar(cod);
+        elementoRetorno v2 = this.val2.ejecutar(cod);
+        switch (operador) {
+            case "+": {
+                Valor res = opSumar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+            case "-": {
+                Valor res = opRestar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+
+            case "*": {
+                Valor res = opMultiplicar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+
+            case "/": {
+                Valor res = opDividir.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+
+            case "^": {
+
+               Valor res = opElevar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+
+        }
+
+        return ret;
+    }
 }

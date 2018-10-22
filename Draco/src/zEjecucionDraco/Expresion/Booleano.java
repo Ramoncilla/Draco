@@ -6,6 +6,7 @@
 package zEjecucionDraco.Expresion;
 
 import zEjecucionDraco.baseDraco;
+import zEjecucionDraco.retorno;
 
 /**
  *
@@ -23,6 +24,14 @@ public class Booleano extends baseDraco{
         }else{
             this.valEnteroBool=0;
         }
+    }
+    
+      @Override
+    public retorno ejecutar() {
+        retorno ret = new retorno();
+        ret.valor.crearBooleano(valBooleano);
+        super.elemento= ret;
+        return ret;
     }
     
     
