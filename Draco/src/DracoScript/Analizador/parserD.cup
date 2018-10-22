@@ -1,1 +1,207 @@
+package  DracoScript.Analizador;
 
+import java_cup.runtime.*;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+import java.util.ArrayList;
+
+
+parser code
+{:
+ /* -------------------------==: DECLARAR EL ARBOL :==--------------------------*/
+    //public Nodo Gramaticas;     
+    public static String cadena;
+
+	
+
+	
+
+/* -------------------------==: ERROR SINTACTICO :==--------------------------*/
+public void syntax_error(Symbol s){
+    System.out.println("Error Sintactico -> lexema: " +s.value+" Linea: " +s.right+ " Columna: "+s.left);
+    cadena += "<tr>"
+                + "<td><center><b>" + s.value + "</b></center></td>"
+                + "<td><center><b>" + s.right + "</b></center></td>"
+                + "<td><center><b>" + s.left+ "</b></center></td>"
+                + "</tr>";
+				
+}
+
+/* ------------------==: ERROR SINTACTICO NO RECUPERABLE :==------------------*/
+public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+    System.out.println("Error Sintactico No Recuperable-> Lexema: " +s.value+" Linea: "+s.right+ " Columna: "+s.left);
+     cadena += "<tr>"
+                + "<td><center><b>" + s.value + "</b></center></td>"
+                + "<td><center><b>" + s.right + "</b></center></td>"
+                + "<td><center><b>" + s.left+ "</b></center></td>"
+                + "</tr>";
+				
+}
+
+:}
+
+
+action code
+{:
+
+
+
+:}
+
+
+/*-------- Terminales ---------------*/
+
+
+terminal String t_entero,
+	t_decimal,
+	t_cadena,
+	t_caracter,
+	t_booleano,
+	var, 
+	abreLlave, 
+	cierraLlave,
+	abrePar,
+	cierraPar,
+	dosPuntos,
+	puntoComa,
+	si,
+	notIf,
+	elif,
+	smash,
+	t_while,
+	t_for,
+	print,
+	runMultDasm,
+	point,
+	quadrate,
+	oval, 
+	line,
+	t_String,
+	nulo,
+    coma, 
+	punto,
+	masMas, 
+	menosMenos,
+	mas, 
+	menos, 
+	multiplicacion, 
+	division, 
+	potencia, 
+	residuo,
+	menor, 
+	mayor, 
+	menorIgual,
+	mayorIgual,
+	igualIgual, 
+	distintoA, 
+	and,
+	or, 
+	not, 
+	valBool,
+	igual, 
+	cadena, 
+	identificador, 
+	numero_entero, 
+	numero_decimal,
+	caracter,
+	comillaSimple,
+	dasm;
+
+	non terminal INICIO;
+	
+	non terminal CUERPO_FUNCION, SENTENCIAS, SENTENCIA, DECLARACION, LISTA_ID_ASIGNA, ASIGNACION, IF, SINO, SINO_SI,L_SINO_SI, SI, FUN_NATIVA, CUADRADO, PUNTO, OVALO, P_CADENA, LINEA, SMASH, IMPRIMIR, MIENTRAS, PARA, DECLA_PARA, LISTA_RUN, RUM_DASM, EXPRESION, SI_;
+	
+	
+     	precedence left or;
+		precedence left and;
+		precedence left not;
+		precedence left igualIgual, distintoA, menorIgual, mayorIgual,mayor, menor;
+		precedence left mas, menos;
+        precedence left multiplicacion, division,residuo;
+        precedence right potencia;
+		precedence left masMas, menosMenos;
+		precedence left abrePar;
+        
+	
+	start with INICIO;	
+
+INICIO::= SENTENCIAS;
+
+CUERPO_FUNCION::= abreLlave cierraLlave
+	| abreLlave SENTENCIAS cierraLlave;
+
+SENTENCIAS::= SENTENCIA
+	|SENTENCIAS SENTENCIA;
+
+SENTENCIA::= DECLARACION
+	|ASIGNACION puntoComa
+	|SI
+	|FUN_NATIVA
+	|PARA
+	|MIENTRAS
+	|SMASH
+	|IMPRIMIR
+	|RUM_DASM;
+
+DECLARACION::= LISTA_ID_ASIGNA puntoComa;
+
+LISTA_ID_ASIGNA::= var identificador dosPuntos igual dosPuntos EXPRESION
+	| var identificador
+	| LISTA_ID_ASIGNA coma identificador dosPuntos igual dosPuntos EXPRESION
+	| LISTA_ID_ASIGNA coma identificador;
+	
+	
+ASIGNACION::= identificador dosPuntos igual dosPuntos EXPRESION 
+	|identificador masMas
+	|identificador menosMenos;
+
+IF::= si abrePar EXPRESION cierraPar  CUERPO_FUNCION;
+
+SINO_SI::= elif abrePar EXPRESION cierraPar  CUERPO_FUNCION;
+
+L_SINO_SI::= SINO_SI
+	| L_SINO_SI SINO_SI;
+	
+SI::=IF 
+	|IF SINO
+	|IF L_SINO_SI
+	|IF L_SINO_SI SINO ;
+
+SINO::= notIf CUERPO_FUNCION;
+	
+FUN_NATIVA::= PUNTO
+	| CUADRADO
+	| OVALO
+	| P_CADENA
+	| LINEA;
+
+PUNTO::= point abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar puntoComa;
+
+CUADRADO::= quadrate abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar;
+
+
+OVALO::= oval abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar; 
+
+P_CADENA::= t_String  abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION  cierraPar;
+
+LINEA::= line  abrePar EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION coma EXPRESION cierraPar;
+
+SMASH::= smash puntoComa;
+
+IMPRIMIR::= print abrePar EXPRESION cierraPar puntoComa;
+
+MIENTRAS::= t_while abrePar EXPRESION cierraPar CUERPO_FUNCION;
+
+DECLA_PARA::= DECLARACION
+	| ASIGNACION puntoComa;
+	
+PARA::= t_for abrePar DECLA_PARA EXPRESION puntoComa ASIGNACION cierraPar CUERPO_FUNCION;
+
+RUM_DASM::= runMultDasm abrePar LISTA_RUN cierraPar puntoComa;
+
+LISTA_RUN::= comillaSimple identificador punto dasm comillaSimple
+	|LISTA_RUN coma comillaSimple identificador punto dasm comillaSimple;
+
+EXPRESION::= numero_decimal
+		|numero_entero;

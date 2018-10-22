@@ -153,20 +153,25 @@ public static String cadena;
 
 "*" {System.out.println("multiplicacion");   return new Symbol (simbolosDMM.multiplicacion, yyline+1,yychar+1, new String (yytext()));}
 
+
+
+
 "/" {System.out.println("division");   return new Symbol (simbolosDMM.division, yyline+1,yychar+1, new String (yytext()));}
 
 "^" {System.out.println("potencia");   return new Symbol (simbolosDMM.potencia, yyline+1,yychar+1, new String (yytext()));}
 
 "%" {System.out.println("residuo");   return new Symbol (simbolosDMM.residuo, yyline+1,yychar+1, new String (yytext()));}
 
-"<"         {System.out.println("menor");  return new Symbol (simbolosDMM.menor, yyline+1,yychar+1, new String (yytext()));}
-
-">"         {System.out.println("mayor");  return new Symbol (simbolosDMM.mayor, yyline+1,yychar+1, new String (yytext()));}
-
 "<=" {System.out.println("menorIgual");   return new Symbol (simbolosDMM.menorIgual, yyline+1,yychar+1, new String (yytext()));}
 ">=" {System.out.println("mayorIgual");   return new Symbol (simbolosDMM.mayorIgual, yyline+1,yychar+1, new String (yytext()));}
 
 "==" {System.out.println("igualIgual");   return new Symbol (simbolosDMM.igualIgual, yyline+1,yychar+1, new String (yytext()));}
+
+"<"         {System.out.println("menor");  return new Symbol (simbolosDMM.menor, yyline+1,yychar+1, new String (yytext()));}
+
+">"         {System.out.println("mayor");  return new Symbol (simbolosDMM.mayor, yyline+1,yychar+1, new String (yytext()));}
+
+
 
 "!=" {System.out.println("disitnoA");   return new Symbol (simbolosDMM.distintoA, yyline+1,yychar+1, new String (yytext()));}
 

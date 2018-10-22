@@ -23,6 +23,7 @@ public class Draco {
         erroresEjecucion = new ListaErrores();
         EjecutarAnalizadores e= new EjecutarAnalizadores();
         e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
+        e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
     }
     
 }

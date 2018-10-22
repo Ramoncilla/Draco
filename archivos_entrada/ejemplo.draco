@@ -1,0 +1,35 @@
+var a;
+var b;
+var a:=:5;
+a++;
+b++;
+a--;
+b--;
+
+var c:=:6,j:=:6.5,c,k:=:10;
+
+if(5){}
+
+if(5){}not{}
+
+if(5){}elif(8){}elif(5){}
+
+if(5){}elif(8){}elif(5){}not{}
+
+smash;
+
+while(5){
+
+while(10){}
+}
+
+for(var a:=:0; 8; a++){}
+
+for(a:=:0; 8; a++){}
+
+print(10);
+
+runmultdasm('hola.dasm', 'popo.dasm');
+
+
+
