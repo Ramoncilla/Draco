@@ -98,9 +98,9 @@ public static String cadena;
 
 "PRINT" {System.out.println("print");   return new Symbol (simbolosASM.print, yyline+1,yychar+1, new String (yytext()));}
 
-"function" {System.out.println("print");   return new Symbol (simbolosASM.function, yyline+1,yychar+1, new String (yytext()));}
+"function" {System.out.println("function");   return new Symbol (simbolosASM.function, yyline+1,yychar+1, new String (yytext()));}
 
-"$" {System.out.println("print");   return new Symbol (simbolosASM.dolar, yyline+1,yychar+1, new String (yytext()));}
+"$" {System.out.println("dolar");   return new Symbol (simbolosASM.dolar, yyline+1,yychar+1, new String (yytext()));}
 
 "end" {System.out.println("end");   return new Symbol (simbolosASM.end, yyline+1,yychar+1, new String (yytext()));}
 
@@ -117,7 +117,7 @@ public static String cadena;
 {identificador}        {System.out.println(yytext());                return new Symbol (simbolosASM.identificador, yyline+1,yychar+1, new String (yytext()));}
 
 
-{Comment}   {System.out.println(yytext());   /* se ignora*/}
+{Comment}   {System.out.println("comentario");   /* se ignora*/}
 
 
 
