@@ -10,4 +10,15 @@ ADD   //suma
 10
 ADD   //suma
 PRINT  //print
+
+98
+1
+print
+102
+105.1
+print
+99
+65
+print
+
 end

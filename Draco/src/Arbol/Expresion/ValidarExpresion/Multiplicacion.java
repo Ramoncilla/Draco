@@ -29,43 +29,43 @@ public class Multiplicacion extends elementoOperacion{
         if(esEntero(v1) && esDecimal(v2)){
             s= multiplicar(v1, v2);
             ret.crearDecimal(s);
-            ret.escrito= true;
+            
             return ret;
             
         } else if(esDecimal(v1) && esEntero(v2)){
             s= multiplicar(v1, v2);
             ret.crearDecimal(s);
-            ret.escrito= true;
+            
             return ret;
                        
         }else if(esDecimal(v1) && esCaracter(v2)){
             s= multiplicar(v1, v2);
             ret.crearDecimal(s);
-            ret.escrito= true;
+            
             return ret;
                        
         }else if(esCaracter(v1) && esDecimal(v2)){
             s= multiplicar(v1, v2);
             ret.crearDecimal(s);
-            ret.escrito= true;
+            
             return ret;
                        
         }else if(esBooleano(v1) && esDecimal(v2)){
              s= multiplicar(v1, v2);
             ret.crearDecimal(s);
-            ret.escrito= true;
+            
             return ret;
                       
         }else if(esDecimal(v1) && esBooleano(v2)){
              s= multiplicar(v1, v2);
             ret.crearDecimal(s);
-            ret.escrito= true;
+            
             return ret;
                       
         }else if(esDecimal(v1) && esDecimal(v2)){
              s= multiplicar(v1, v2);
             ret.crearDecimal(s);
-            ret.escrito= true;
+            
             return ret;
                       
         }
@@ -74,33 +74,33 @@ public class Multiplicacion extends elementoOperacion{
         else if(esEntero(v1) && esCaracter(v2)){
             s= multiplicar(v1, v2);
             ret.crearEntero(s);
-            ret.escrito= true;
+            
             return ret;
             
         }else if(esCaracter(v1) && esEntero(v2)){
             s= multiplicar(v1, v2);
             ret.crearEntero(s);
-            ret.escrito= true;
+            
             return ret;
         }else if(esBooleano(v1) && esEntero(v2)){
             s= multiplicar(v1, v2);
             ret.crearEntero(s);
-            ret.escrito= true;
+            
             return ret;
         }else if(esEntero(v1) && esBooleano(v2)){
             s= multiplicar(v1, v2);
             ret.crearEntero(s);
-            ret.escrito= true;
+            
             return ret;
         }else if(esEntero(v1) && esEntero(v2)){
             s= multiplicar(v1, v2);
             ret.crearEntero(s);
-            ret.escrito= true;
+            
             return ret;
         }else if(esBooleano(v1) && esBooleano(v2)){
             s= multiplicar(v1,v2);
             ret.crearBooleano(s);
-            ret.escrito= true;
+            
             return ret;
         }
         erroresEjecucion.addSemantico(0, 0, "Tipo no valido para realizar una multiplicacion, "+ v1.tipo+" y "+ v2.tipo);
@@ -113,23 +113,6 @@ public class Multiplicacion extends elementoOperacion{
                 + v2.valor.toString()+"\n"
                 + "MULT";
            return val;
-        /* if(!(v1.escrito && v2.escrito)){
-             String val = v1.valor.toString()+"\n"
-                + v2.valor.toString()+"\n"
-                + "MULT";
-           this.gen.addCodigo(val);
-           return val;
-        }else if((v1.escrito) && !(v2.escrito)){
-            String val = v2.valor.toString()+"\n"
-            + "MULT";
-            this.gen.addCodigo(val);
-            return val;
-        }else{
-            this.gen.addCodigo("MULT");
-            String val = v1.valor.toString()+"\n"
-                    + v2.valor.toString()+"\n"
-                    + "MULT";
-            return val;
-        }*/
+       
     } 
 }

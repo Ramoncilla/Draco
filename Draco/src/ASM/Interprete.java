@@ -88,11 +88,28 @@ public class Interprete {
         if (this.aux.size() >= 2) {
             double exp = aux.pop();
             double tipo = aux.pop();
-            if (tipo == 99) {
+            if (tipo == 100) {
+                //entero
                 int v = (int) exp;
                 this.cadenaImpresion += v + "\n";
-            } else {
-
+            } else  if(tipo == 99){
+                //caracter
+                int c =(int) exp;
+                char b =  (char)Integer.parseInt(String.valueOf(c));
+                this.cadenaImpresion += b + "\n";
+            }else if(tipo== 102){
+                //decimal
+                this.cadenaImpresion+=exp+"\n";
+            }else if(tipo == 98){
+                //bool
+                if(exp ==1){
+                    this.cadenaImpresion+="verdadero\n";
+                }else{
+                    this.cadenaImpresion+="falso\n";
+                }
+                
+            }else if(tipo == 115){
+                //string
             }
         }
     }
