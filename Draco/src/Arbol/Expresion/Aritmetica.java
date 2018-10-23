@@ -54,7 +54,6 @@ public class Aritmetica extends objetoBase {
                 super.retorno = ret;
                 return ret;
             }
-
             case "*": {
                 Valor res = opMultiplicar.operar(v1.valor, v2.valor);
                 ret.valor = res;

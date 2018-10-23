@@ -109,8 +109,11 @@ public class Multiplicacion extends elementoOperacion{
     
     
     public String multiplicar(Valor v1, Valor v2){
-        
-         if(!(v1.escrito && v2.escrito)){
+        String val = v1.valor.toString()+"\n"
+                + v2.valor.toString()+"\n"
+                + "MULT";
+           return val;
+        /* if(!(v1.escrito && v2.escrito)){
              String val = v1.valor.toString()+"\n"
                 + v2.valor.toString()+"\n"
                 + "MULT";
@@ -127,6 +130,6 @@ public class Multiplicacion extends elementoOperacion{
                     + v2.valor.toString()+"\n"
                     + "MULT";
             return val;
-        }
+        }*/
     } 
 }

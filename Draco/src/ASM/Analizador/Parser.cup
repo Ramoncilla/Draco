@@ -1,0 +1,109 @@
+package ASM.Analizador;
+
+import java_cup.runtime.*;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+import java.util.ArrayList;
+
+
+parser code
+{:
+ /* -------------------------==: DECLARAR EL ARBOL :==--------------------------*/
+    //public Nodo Gramaticas;     
+    public static String cadena;
+
+	
+
+	
+
+/* -------------------------==: ERROR SINTACTICO :==--------------------------*/
+public void syntax_error(Symbol s){
+    System.out.println("Error Sintactico -> lexema: " +s.value+" Linea: " +s.right+ " Columna: "+s.left);
+    cadena += "<tr>"
+                + "<td><center><b>" + s.value + "</b></center></td>"
+                + "<td><center><b>" + s.right + "</b></center></td>"
+                + "<td><center><b>" + s.left+ "</b></center></td>"
+                + "</tr>";
+				
+}
+
+/* ------------------==: ERROR SINTACTICO NO RECUPERABLE :==------------------*/
+public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+    System.out.println("Error Sintactico No Recuperable-> Lexema: " +s.value+" Linea: "+s.right+ " Columna: "+s.left);
+     cadena += "<tr>"
+                + "<td><center><b>" + s.value + "</b></center></td>"
+                + "<td><center><b>" + s.right + "</b></center></td>"
+                + "<td><center><b>" + s.left+ "</b></center></td>"
+                + "</tr>";
+				
+}
+
+:}
+
+
+action code
+{:
+//Operaciones_Listas operaciones = new Operaciones_Listas();
+
+
+:}
+
+
+/*-------- Terminales ---------------*/
+
+terminal String abreLlave,
+cierraLlave, 
+abrePar, 
+cierraPar,
+dosPuntos,
+puntoComa,
+nulo,
+coma,
+punto,
+add,
+diff,
+mult,
+div,
+mod,
+print,
+function,
+dolar,
+numero_entero,
+numero_decimal,
+identificador,
+end;
+
+
+non terminal INICIO;
+
+non terminal FUNCION, LISTA_FUNCIONES, LISTA_VALORES, VALOR;
+
+
+
+start with INICIO;	
+
+
+INICIO::= LISTA_FUNCIONES;
+
+LISTA_FUNCIONES::= FUNCION
+	|LISTA_FUNCIONES FUNCION;
+
+FUNCION::= function dolar identificador LISTA_VALORES end;
+
+LISTA_VALORES::= VALOR
+	|LISTA_VALORES VALOR;
+
+VALOR::= numero_decimal
+	|numero_entero
+	|add
+	|diff
+	|mult
+	|div
+	|mod
+	|print;
+
+
+
+
+

@@ -130,6 +130,12 @@ public class Suma extends elementoOperacion{
     
     public String sumar(Valor v1, Valor v2){
         
+      String val = v1.valor.toString()+"\n"
+                + v2.valor.toString()+"\n"
+                + "ADD";
+           return val;
+           
+        /*
         if(!(v1.escrito && v2.escrito)){
              String val = v1.valor.toString()+"\n"
                 + v2.valor.toString()+"\n"
@@ -150,5 +156,7 @@ public class Suma extends elementoOperacion{
         }
     }
     
+    */
     
+    }
 }

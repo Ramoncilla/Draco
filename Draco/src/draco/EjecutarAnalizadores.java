@@ -42,7 +42,7 @@ public class EjecutarAnalizadores {
                 objetoBase a = ParserDMM.expresion;
                 Generador g = new Generador();
                 a.ejecutar(g);
-                
+                g.addCodigo(a.retorno.valor.valor.toString());
                 //Archivo a = ParserDMM.elementosArchivo;
                 // retorno= parserHtml.codigoHTML;
                 System.out.println("Fin de analisis D++");

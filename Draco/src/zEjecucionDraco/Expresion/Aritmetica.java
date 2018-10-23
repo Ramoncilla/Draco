@@ -24,7 +24,7 @@ public class Aritmetica extends baseDraco{
         this.operador= op.toString();
         
     }
-    
+    /*
      @Override
     public retorno ejecutar() {
         Sumar opSumar = new Suma(cod);
@@ -74,5 +74,5 @@ public class Aritmetica extends baseDraco{
         }
 
         return ret;
-    }
+    }*/
 }

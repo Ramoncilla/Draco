@@ -34,7 +34,7 @@ public class LectoArchivos {
 
             String linea;
             while ((linea = br.readLine()) != null) {
-                cadena+=linea;
+                cadena+=linea+"\n";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class LectoArchivos {
 
             String linea;
             while ((linea = br.readLine()) != null) {
-                cadena+=linea;
+                cadena+=linea+"\n";
             }
         } catch (Exception e) {
             e.printStackTrace();

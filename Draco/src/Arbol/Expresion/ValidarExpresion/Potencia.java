@@ -104,7 +104,12 @@ public class Potencia extends elementoOperacion{
     
     
     public String elevar(Valor v1, Valor v2){
+        String val = v1.valor.toString()+"\n"
+                + v2.valor.toString()+"\n"
+                + "POT";
+           return val;
         
+        /*
          if(!(v1.escrito && v2.escrito)){
              String val = v1.valor.toString()+"\n"
                 + v2.valor.toString()+"\n"
@@ -122,6 +127,6 @@ public class Potencia extends elementoOperacion{
                     + v2.valor.toString()+"\n"
                     + "POT";
             return val;
-        }
+        }*/
     } 
 }

@@ -104,7 +104,12 @@ public class Resta extends elementoOperacion{
     
     
     public String restar(Valor v1, Valor v2){
+        String val = v1.valor.toString()+"\n"
+                + v2.valor.toString()+"\n"
+                + "DIFF";
+           return val;
         
+        /*
          if(!(v1.escrito && v2.escrito)){
              String val = v1.valor.toString()+"\n"
                 + v2.valor.toString()+"\n"
@@ -122,6 +127,6 @@ public class Resta extends elementoOperacion{
                     + v2.valor.toString()+"\n"
                     + "DIFF";
             return val;
-        }
+        }*/
     }
 }

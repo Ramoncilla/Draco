@@ -21,6 +21,8 @@ import java.util.LinkedList;
 %ignorecase
 %caseless
 
+  
+
 /* -------------------------==: EXPRESIONES REGULARES :==---------------------*/
 entero              = [0-9]+
 numero_entero             = [0-9]+
@@ -33,11 +35,24 @@ bool_elemento=("verdadero"|"falso"|"true"|"false")
 bool = (("'"{bool_elemento}"'")|("\""{bool_elemento}"\"")|({bool_elemento}))
 
 
-comentMulti   		= "/*"~"*/"
-comentSimple 		 = "//"[^\n']+
-comentMulti2   		= "$*"~"*$"
-comentSimple2 		 = "$$"[^\n']+
 
+
+
+
+ LineTerminator = \r|\n|\r\n
+    InputCharacter = [^\r\n]
+    
+
+    /* comments */
+    
+
+    TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+
+    EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
+	 CommentContent       = ( [^*] | \*+ [^/*] )*
+    DocumentationComment = "/**" {CommentContent} "*"+ "/"
+   
+Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 
 
 
@@ -200,12 +215,9 @@ public static String cadena;
 
 {caracter}    {System.out.println(yytext());                return new Symbol (simbolosDMM.caracter, yyline+1,yychar+1, new String (yytext()));}
 
-{comentMulti}   {System.out.println("Coment Multi");   /* se ignora*/}
+{Comment}   {System.out.println(yytext());   /* se ignora*/}
 
-{comentSimple}   {System.out.println("Coment simple");   /* se ignora*/}
-{comentMulti2}   {System.out.println("Coment Multi2");   /* se ignora*/}
 
-{comentSimple2}   {System.out.println("Coment simple2");   /* se ignora*/}
 
 /* -------------------------------==: BLANCOS :==-----------------------------*/
 [ \t\r\f\n]+        { /* Se ignoran */}
