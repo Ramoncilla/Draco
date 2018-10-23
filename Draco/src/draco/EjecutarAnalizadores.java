@@ -7,6 +7,7 @@ package draco;
 
 import ASM.Analizador.ParserASM;
 import ASM.Analizador.ScannerASM;
+import ASM.Arbol.ListaFunciones;
 import Arbol.Archivo;
 import Arbol.objetoBase;
 import D_Mas_Mas.Analizador.ParserDMM;
@@ -87,7 +88,7 @@ public class EjecutarAnalizadores {
     }
     
     
-    public void ejecutarASM(String ruta) throws Exception {
+    public ListaFunciones  ejecutarASM(String ruta) throws Exception {
 
         if (ruta.isEmpty() || ruta.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Error, cadena no valida para analizar ASM.", "DRACO ENSAMBLADO WEB", JOptionPane.INFORMATION_MESSAGE);
@@ -101,19 +102,14 @@ public class EjecutarAnalizadores {
                 ScannerASM scanner = new ScannerASM(new BufferedReader(new StringReader(cadena)));
                 ParserASM parser = new ParserASM(scanner);
                 parser.parse();
-                
-                /*
-                objetoBase a = ParserDMM.expresion;
-                Generador g = new Generador();
-                a.ejecutar(g);
-                
-                //Archivo a = ParserDMM.elementosArchivo;
-                // retorno= parserHtml.codigoHTML;*/
+                ListaFunciones g = ParserASM.funcionesArchivo;
                 System.out.println("Fin de analisis ASM");
+                return g;
 
             }
         }
 
+        return null;
     }
     
     

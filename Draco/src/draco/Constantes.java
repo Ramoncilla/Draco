@@ -25,6 +25,7 @@ public class Constantes {
     public static final String LEXICO = "Lexico";
     public static final String SINTACTICO = "Sintactico";
     
+    public static final String PRINCIPAL = "principal";
     
 
 }

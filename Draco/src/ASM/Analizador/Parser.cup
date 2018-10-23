@@ -1,5 +1,6 @@
 package ASM.Analizador;
 
+import ASM.Arbol.*;
 import java_cup.runtime.*;
 import java.io.*;
 import java.lang.*;
@@ -12,6 +13,7 @@ parser code
  /* -------------------------==: DECLARAR EL ARBOL :==--------------------------*/
     //public Nodo Gramaticas;     
     public static String cadena;
+	public static ListaFunciones funcionesArchivo;
 
 	
 
@@ -84,25 +86,46 @@ non terminal FUNCION, LISTA_FUNCIONES, LISTA_VALORES, VALOR;
 start with INICIO;	
 
 
-INICIO::= LISTA_FUNCIONES;
+INICIO::= LISTA_FUNCIONES:a {:parser.funcionesArchivo= (ListaFunciones)a;:};
 
-LISTA_FUNCIONES::= FUNCION
-	|LISTA_FUNCIONES FUNCION;
+LISTA_FUNCIONES::= FUNCION:a
+		{:
+			ListaFunciones c = new ListaFunciones();
+			c.insertar(a);
+			RESULT= c;
+		:}
+	|LISTA_FUNCIONES:l FUNCION:a
+		{:
+			ListaFunciones c = (ListaFunciones)l;
+			c.insertar(a);
+			RESULT= c;
+		:};
 
-FUNCION::= function dolar identificador LISTA_VALORES end
-	|function dolar identificador end;
+FUNCION::= function dolar identificador:a LISTA_VALORES:b end {:RESULT = new Funcion(a, b);:}
+	|function dolar identificador:a end {:RESULT= new Funcion(a, new CuerpoFuncion());:};
 
-LISTA_VALORES::= VALOR
-	|LISTA_VALORES VALOR;
+	
+LISTA_VALORES::= VALOR:a
+		{:
+			CuerpoFuncion c = new CuerpoFuncion();
+			c.insertar(a);
+			RESULT= c;
+		:}
+	|LISTA_VALORES:l VALOR:a
+		{:
+			CuerpoFuncion c = (CuerpoFuncion)l;
+			c.insertar(a);
+			RESULT= c;
+		:};
 
-VALOR::= numero_decimal
-	|numero_entero
-	|add
-	|diff
-	|mult
-	|div
-	|mod
-	|print;
+VALOR::= numero_decimal:a {:RESULT = new Decimal(a);:}
+	|numero_entero:a {:RESULT = new Entero(a);:}
+	|add {:RESULT= new ADD();:}
+	|diff {:RESULT= new DIFF();:}
+	|mult {:RESULT= new MULT();:}
+	|div {:RESULT= new DIV();:}
+	|mod {:RESULT= new MOD();:}
+	|print{:RESULT= new PRINT();:};
 
 
 

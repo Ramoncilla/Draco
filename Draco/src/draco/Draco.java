@@ -5,6 +5,8 @@
  */
 package draco;
 
+import ASM.Arbol.ListaFunciones;
+import ASM.Interprete;
 import Errores.ListaErrores;
 
 /**
@@ -24,7 +26,12 @@ public class Draco {
         EjecutarAnalizadores e= new EjecutarAnalizadores();
       //  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
      //   e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
-     e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
+     ListaFunciones f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
+     if(f!= null){
+         Interprete g = new Interprete(f);
+         g.ejecutar();
+     }
+     
     }
     
 }

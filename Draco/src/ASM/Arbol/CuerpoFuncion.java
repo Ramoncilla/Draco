@@ -22,8 +22,21 @@ public class CuerpoFuncion  {
         this.sentencias= (ArrayList<baseASM>)c;
     }
    
-    
     public CuerpoFuncion(){
         this.sentencias= new ArrayList<>();
     }
+    
+    public void insertar(Object c){
+        this.sentencias.add((baseASM)c);
+    }
+        
+    public int Size(){
+       return this.sentencias.size();
+    }
+    
+    
+    public baseASM get(int i){
+        return this.sentencias.get(i);
+    }
+    
 }

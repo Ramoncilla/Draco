@@ -1,12 +1,12 @@
-function $factorial 
-36 // imprimir entero
+function $principal 
+99 // imprimir entero
 1  
 1
-MULT  //multiplicacion
+ADD  //suma
 5
-DIV   //division
+ADD   //suma
 8
-MULT   //multi
+ADD   //suma
 10
 ADD   //suma
 PRINT  //print
