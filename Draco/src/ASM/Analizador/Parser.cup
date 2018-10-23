@@ -89,7 +89,8 @@ INICIO::= LISTA_FUNCIONES;
 LISTA_FUNCIONES::= FUNCION
 	|LISTA_FUNCIONES FUNCION;
 
-FUNCION::= function dolar identificador LISTA_VALORES end;
+FUNCION::= function dolar identificador LISTA_VALORES end
+	|function dolar identificador end;
 
 LISTA_VALORES::= VALOR
 	|LISTA_VALORES VALOR;
