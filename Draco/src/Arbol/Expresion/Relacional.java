@@ -5,6 +5,9 @@
  */
 package Arbol.Expresion;
 
+import ASM.Generador;
+import ASM.Valor;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
 
 /**
@@ -21,4 +24,59 @@ public class Relacional extends objetoBase {
         this.val2= (objetoBase)v2;
         this.operador= op.toString();
     }
+    
+     @Override
+    public elementoRetorno ejecutar(Generador cod) {
+
+        elementoRetorno ret = new elementoRetorno();
+        elementoRetorno v1 = this.val1.ejecutar(cod);
+        elementoRetorno v2 = this.val2.ejecutar(cod);
+        switch (operador) {
+            case "<": {
+                Valor res = opSumar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+            case ">": {
+                Valor res = opRestar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+            case "<=": {
+                Valor res = opMultiplicar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+
+            case ">=": {
+                Valor res = opDividir.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+
+            case "==": {
+
+               Valor res = opElevar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+            
+            case "!=": {
+
+               Valor res = opElevar.operar(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+
+        }
+
+        return ret;
+    }
+    
 }

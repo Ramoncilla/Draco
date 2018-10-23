@@ -35,4 +35,22 @@ public class Declaracion extends objetoBase{
         this.asignaciones.add((objetoBase)c);
     }
     
+    
+    
+    
+    
+    /*Obtener cadena tipo y nombre de declaracion eje int a , b, c  -> int_int_int*/
+    public String obtenerCadenaTipoDeclaracion(){
+        
+        String cad="";
+        for (int i = 0; i < this.variables.size(); i++) {
+          if(i == (this.variables.size()-1)){
+              cad+=this.tipo;
+          }else{
+              cad+=this.tipo+"_";
+          }
+        }
+        return cad;
+    }
+    
 }

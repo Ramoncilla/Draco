@@ -28,7 +28,7 @@ public class EjecutarAnalizadores {
     
     
 
-    public void ejecutarDMM(String ruta) throws Exception {
+    public Archivo ejecutarDMM(String ruta) throws Exception {
 
         if (ruta.isEmpty() || ruta.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Error, cadena no valida para analizar D++.", "DRACO ENSAMBLADO WEB", JOptionPane.INFORMATION_MESSAGE);
@@ -42,19 +42,20 @@ public class EjecutarAnalizadores {
                 ScannerDMM scannerDMM = new ScannerDMM(new BufferedReader(new StringReader(cadena)));
                 ParserDMM parserDMM = new ParserDMM(scannerDMM);
                 parserDMM.parse();
-                objetoBase a = ParserDMM.expresion;
+                Archivo a = ParserDMM.elementosArchivo;
+                
+                /*
                 Generador g = new Generador();
                 a.ejecutar(g);
-                g.addCodigo(a.retorno.valor.valor.toString());
+                g.addCodigo(a.retorno.valor.valor.toString());*/
                 //Archivo a = ParserDMM.elementosArchivo;
                 // retorno= parserHtml.codigoHTML;
                 System.out.println("Fin de analisis D++");
-                System.out.println("--------- Impresion ASM ------------------");
-                g.imprimirCod();
-                System.out.println("--------------- Fin ASM ------------------");
+                return a;
             }
         }
 
+        return null;
     }
 
     

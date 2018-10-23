@@ -7,6 +7,8 @@ package draco;
 
 import ASM.Arbol.ListaFunciones;
 import ASM.Interprete;
+import Arbol.Archivo;
+import Arbol.objetoBase;
 import Errores.ListaErrores;
 
 /**
@@ -24,7 +26,14 @@ public class Draco {
         // TODO code application logic here
         erroresEjecucion = new ListaErrores();
         EjecutarAnalizadores e= new EjecutarAnalizadores();
-        e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
+        
+       Archivo arch=  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
+       if(arch!= null){
+           arch.ejecutarArchivo();
+
+       }else{
+           
+       }
      //   e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
      ListaFunciones f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
      if(f!= null){

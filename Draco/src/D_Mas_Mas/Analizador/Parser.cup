@@ -101,9 +101,8 @@ terminal String t_entero,
 	start with INICIO;		
 	
 	
-  INICIO::= EXPRESION:a {:parser.expresion = (objetoBase) a;:};
-  //ARCHIVO:a {:parser.elementosArchivo= new Archivo(a);:};
-  
+  INICIO::= ARCHIVO:a {:parser.elementosArchivo= new Archivo(a);:};
+  /*EXPRESION:a {:parser.expresion = (objetoBase) a;:};*/
  
   
 ARCHIVO::= ELEMENTO_ARCHIVO:a

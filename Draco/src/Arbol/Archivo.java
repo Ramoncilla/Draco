@@ -5,6 +5,8 @@
  */
 package Arbol;
 
+import ASM.Generador;
+import ASM.elementoRetorno;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,18 @@ public class Archivo {
     }
     
  
+    
+    public void ejecutarArchivo(){
+        Generador codASM = new Generador();
+        objetoBase temp;
+        elementoRetorno elem;
+        for (int i = 0; i < this.elementosArchivo.size(); i++) {
+            temp= this.elementosArchivo.get(i);
+            elem = temp.ejecutar(codASM);
+        }
+        
+        
+    }
     
     
 }
