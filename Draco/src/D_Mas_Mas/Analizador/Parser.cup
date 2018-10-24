@@ -194,8 +194,24 @@ LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 
 
 ASIGNACION::= ACCESO:a igual EXPRESION:b{:RESULT = new AsignaAcceso(a,b);:}
-	|identificador:a masMas{:RESULT= new AsignaUnario(a,"++");:}
-	|identificador:a menosMenos{:RESULT= new AsignaUnario(a,"--");:};
+	|identificador:a masMas
+		{:
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			Identificador b = new Identificador(a);
+			lista.add((objetoBase)b);
+			Acceso acc = new Acceso(lista);
+			Aritmetica exp = new Aritmetica(acc, new Entero(1),"+");
+			RESULT = new AsignaAcceso(a,exp);
+		:}
+	|identificador:a menosMenos
+		{:
+			List<objetoBase> lista = new ArrayList<objetoBase>();
+			Identificador b = new Identificador(a);
+			lista.add((objetoBase)b);
+			Acceso acc = new Acceso(lista);
+			Aritmetica exp = new Aritmetica(acc, new Entero(1),"-");
+			RESULT = new AsignaAcceso(a,exp);
+		:};
 	
 ACCESO::= identificador:a
 		{:
@@ -293,9 +309,23 @@ VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO:a{:RESULT= a;:}
 	|VAL_EXPRESION:a multiplicacion VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"*");:}
 	| VAL_EXPRESION:a division VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"/");:}
 	|VAL_EXPRESION:a potencia VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"^");:}
-	| identificador:a masMas{:RESULT= new Unario(a,"++");:}
-	| identificador:a menosMenos{:RESULT= new Unario(a,"--");:}
-	| menos VAL_EXPRESION:a{:RESULT= new Negativo(a);:}
+	| identificador:a masMas
+		{:
+		    List<objetoBase> lista = new ArrayList<objetoBase>();
+			Identificador b = new Identificador(a);
+			lista.add((objetoBase)b);
+			Acceso acc= new Acceso(lista);
+			RESULT= new Aritmetica(acc, new Entero(1), "+");
+		:}
+	| identificador:a menosMenos
+		{:
+		    List<objetoBase> lista = new ArrayList<objetoBase>();
+			Identificador b = new Identificador(a);
+			lista.add((objetoBase)b);
+			Acceso acc= new Acceso(lista);
+			RESULT= new Aritmetica(acc, new Entero(1), "-");
+		:}
+	| menos VAL_EXPRESION:a{:RESULT= new Aritmetica(a,new Entero(-1),"*");:}
 	| VAL_EXPRESION:a menor VAL_EXPRESION:b {:RESULT= new Relacional(a,b,"<");:}
 	| VAL_EXPRESION:a mayor VAL_EXPRESION:b {:RESULT= new Relacional(a,b,">");:}
 	|VAL_EXPRESION:a menorIgual VAL_EXPRESION:b {:RESULT= new Relacional(a,b,"<=");:}
