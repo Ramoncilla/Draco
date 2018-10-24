@@ -105,16 +105,13 @@ public class Interprete {
             int g= (int)t.valor;
             double d = this.heap[g];
             insertarAuxiliar(d);
-            
-
         }else{
             //es calc
-
-            
-            
+            this.calc= this.aux.pop();
+            int v = (int)calc;
+            double d = this.heap[v];
+            insertarAuxiliar(d);            
         }
-        
-        
     }
 
     private void setGlobal(baseASM instruccion){
@@ -126,9 +123,9 @@ public class Interprete {
 
         } else if (instruccion instanceof Decimal) {
             Decimal t = (Decimal) instruccion;
-
-            
-
+            int pos =(int) t.valor;
+            double valor = aux.pop();
+            this.heap[pos]=valor;
         }else{
             //es calc
              if (this.aux.size() >= 2) {
@@ -140,6 +137,9 @@ public class Interprete {
             
         }
     }
+    
+    
+    
     private void imprimir() {
         if (this.aux.size() >= 2) {
             double exp = aux.pop();
