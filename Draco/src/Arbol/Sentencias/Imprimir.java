@@ -8,6 +8,7 @@ package Arbol.Sentencias;
 import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
+import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.objetoBase;
 import draco.Constantes;
 
@@ -30,17 +31,27 @@ public class Imprimir extends objetoBase {
         String cadena="";
         if(c.tipo.equalsIgnoreCase(Constantes.BOOLEANO)){
             cadena+="98\n";  
+            cadena+=c.valor.toString()+"\n";
         }else if(c.tipo.equalsIgnoreCase(Constantes.CADENA)){
             cadena+="115\n";
+            cadena+=c.valor.toString()+"\n";
         }else if(c.tipo.equalsIgnoreCase(Constantes.CARACTER)){
             cadena+="99\n";
+            cadena+=c.valor.toString()+"\n";
         }else if(c.tipo.equalsIgnoreCase(Constantes.DECIMAL)){
             cadena+="102\n";
-        }else {
+            cadena+=c.valor.toString()+"\n";
+        }else if(c.tipo.equalsIgnoreCase(Constantes.CONDICION)){
+           cadena+="98\n";
+            nodoCondicion no = (nodoCondicion)c.valor;
+            cadena+=no.codigo;
+            
+        }else  {
             cadena+="100\n";
+            cadena+=c.valor.toString()+"\n";
         }
-        cadena+=c.valor.toString()+"\n"
-                + "PRINT\n";
+        
+                cadena+= "PRINT\n";
         cod.addCodigo(cadena);
         return new elementoRetorno();
     }

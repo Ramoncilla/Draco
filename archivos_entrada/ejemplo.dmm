@@ -1,5 +1,5 @@
 vacio principal(){
-
+imprimir(5<10 && 8>9 || 1<8);
 imprimir("alina");
 
 }

@@ -1,4 +1,33 @@
 function $principal
+98
+5
+10
+LT
+BR L1
+BR_IF L2
+L1:
+
+5
+10
+LT
+BR L1
+BR_IF L2
+L2:
+L2:
+
+5
+10
+LT
+BR L1
+BR_IF L2
+L1:
+
+5
+10
+LT
+BR L1
+BR_IF L2
+PRINT
 115
 GET_GLOBAL 0
 GET_GLOBAL 0

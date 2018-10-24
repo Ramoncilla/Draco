@@ -83,10 +83,10 @@ public class Interprete {
         }else if(instruccion instanceof Set_global){
             Set_global g = (Set_global)instruccion;
             setGlobal(g.valor);
+        }else if(instruccion instanceof REL){
+            REL g = (REL)instruccion;
+            relacional(g.operador);
         }
-        
-        
-
     }
 
     private void insertarAuxiliar(double val) {
@@ -181,11 +181,54 @@ public class Interprete {
             }
         }
     }
+    
+    private void relacional(String oper) {
+        if (this.aux.size() >= 2) {
+            double val2 = aux.pop();
+            double val1 = aux.pop();
+            switch(oper){
+                
+                case "<":{
+                    if(val1<val2){
+                        aux.push(1.0);
+                    }else{
+                        aux.push(0.0);
+                    }
+                   break; 
+                }
+                case ">":{
+                    if(val1>val2){
+                        aux.push(1.0);
+                    }else{
+                        aux.push(0.0);
+                    }
+                    break;
+                }
+                case "<=":{
+                    if(val1<=val2){
+                        aux.push(1.0);
+                    }else{
+                        aux.push(0.0);
+                    }
+                   break; 
+                }
+                
+                case ">=":{
+                    if(val1>=val2){
+                        aux.push(1.0);
+                    }else{
+                        aux.push(0.0);
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
     private void multiplicar() {
         if (this.aux.size() >= 2) {
-            double val1 = aux.pop();
             double val2 = aux.pop();
+            double val1 = aux.pop();
             double res = val1 * val2;
             this.aux.push(res);
         }
@@ -193,8 +236,8 @@ public class Interprete {
 
     private void dividir() {
         if (this.aux.size() >= 2) {
-            double val1 = aux.pop();
             double val2 = aux.pop();
+            double val1 = aux.pop();
             double res = val1 / val2;
             this.aux.push(res);
         }
@@ -202,8 +245,8 @@ public class Interprete {
 
     private void restar() {
         if (this.aux.size() >= 2) {
-            double val1 = aux.pop();
             double val2 = aux.pop();
+            double val1 = aux.pop();
             double res = val1 - val2;
             this.aux.push(res);
         }
@@ -212,8 +255,8 @@ public class Interprete {
 
     private void sumar() {
         if (this.aux.size() >= 2) {
-            double val1 = aux.pop();
             double val2 = aux.pop();
+            double val1 = aux.pop();
             double res = val1 + val2;
             this.aux.push(res);
         }

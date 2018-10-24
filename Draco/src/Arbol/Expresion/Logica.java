@@ -5,6 +5,12 @@
  */
 package Arbol.Expresion;
 
+import ASM.Generador;
+import ASM.Valor;
+import ASM.elementoRetorno;
+import Arbol.Expresion.ValidarExpresion.elementoOperacion;
+import Arbol.Expresion.ValidarExpresion.opLogica;
+import Arbol.Expresion.ValidarExpresion.opRelacional;
 import Arbol.objetoBase;
 
 /**
@@ -21,4 +27,33 @@ public class Logica extends objetoBase {
         this.val2= (objetoBase)v2;
         this.operador= op.toString();
     }
+    
+     @Override
+    public elementoRetorno ejecutar(Generador cod) {
+        elementoOperacion op = new elementoOperacion();
+        opLogica rel = new opLogica(cod);
+        elementoRetorno ret = new elementoRetorno();
+        elementoRetorno v1 = this.val1.ejecutar(cod);
+        elementoRetorno v2 = this.val2.ejecutar(cod);
+        switch (operador) {
+            case "&&": {
+                Valor res = rel.AND(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+            
+            case "||": {
+                Valor res = rel.OR(v1.valor, v2.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+            }
+            
+        }
+
+        return ret;
+    }
+    
+    
 }

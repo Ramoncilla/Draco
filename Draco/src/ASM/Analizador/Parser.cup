@@ -75,7 +75,7 @@ numero_entero,
 numero_decimal,
 identificador,
 end,
-calc, set_local, get_local, set_global, get_global,menos;
+calc, set_local, get_local, set_global, get_global,menos,lt,gt,lte,gte,br,br_if;
 
 
 non terminal INICIO;
@@ -130,7 +130,14 @@ SENTENCIA::= VALOR:a{:RESULT= a;:}
 	|set_global VALOR:a{:RESULT= new Set_global(a);:}
 	|set_local VALOR:a{:RESULT= new Set_local(a);:}
 	|get_global VALOR:a{:RESULT= new Get_global(a);:}
-	|get_local VALOR:a{:RESULT= new Get_local(a);:};
+	|get_local VALOR:a{:RESULT= new Get_local(a);:}
+	|lt{:RESULT= new REL("<");:}
+	|gt{:RESULT= new REL(">");:}
+	|lte{:RESULT= new REL("<=");:}
+	|gte{:RESULT= new REL(">=");:}
+	|br identificador
+	|br_if identificador
+	|identificador dosPuntos;
 	
 	
 	

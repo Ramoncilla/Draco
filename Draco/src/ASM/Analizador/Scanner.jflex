@@ -88,6 +88,19 @@ public static String cadena;
 "-" {System.out.println("menos");   return new Symbol (simbolosASM.menos, yyline+1,yychar+1, new String (yytext()));}
 
 
+"BR" {System.out.println("BR");   return new Symbol (simbolosASM.br, yyline+1,yychar+1, new String (yytext()));}
+
+"BR_IF" {System.out.println("BR_IF");   return new Symbol (simbolosASM.br_if, yyline+1,yychar+1, new String (yytext()));}
+
+"LT" {System.out.println("LT");   return new Symbol (simbolosASM.lt, yyline+1,yychar+1, new String (yytext()));}
+
+"GT" {System.out.println("GT");   return new Symbol (simbolosASM.gt, yyline+1,yychar+1, new String (yytext()));}
+
+"LTE" {System.out.println("LTE");   return new Symbol (simbolosASM.lte, yyline+1,yychar+1, new String (yytext()));}
+
+"GTE" {System.out.println("GTE");   return new Symbol (simbolosASM.gte, yyline+1,yychar+1, new String (yytext()));}
+
+
 
 "calc" {System.out.println("calc");   return new Symbol (simbolosASM.calc, yyline+1,yychar+1, new String (yytext()));}
 

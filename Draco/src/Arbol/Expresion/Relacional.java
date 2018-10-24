@@ -8,6 +8,7 @@ package Arbol.Expresion;
 import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
+import Arbol.Expresion.ValidarExpresion.elementoOperacion;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.Expresion.ValidarExpresion.opRelacional;
 import Arbol.objetoBase;
@@ -30,40 +31,40 @@ public class Relacional extends objetoBase {
     
      @Override
     public elementoRetorno ejecutar(Generador cod) {
+        elementoOperacion op = new elementoOperacion();
         opRelacional rel = new opRelacional(cod);
         elementoRetorno ret = new elementoRetorno();
         elementoRetorno v1 = this.val1.ejecutar(cod);
         elementoRetorno v2 = this.val2.ejecutar(cod);
         switch (operador) {
             case "<": {
-                nodoCondicion res = rel.menor(v1.valor, v2.valor);
-                
-                System.out.println(res.codigo);
-               /*ret.valor = res;
+                Valor res = rel.menor(v1.valor, v2.valor);
+                ret.valor = res;
                 super.retorno = ret;
-                return ret;*/
+                return ret;
             }
-            /*
+            
             case ">": {
-                Valor res = opRestar.operar(v1.valor, v2.valor);
+                Valor res = rel.mayor(v1.valor, v2.valor);
                 ret.valor = res;
                 super.retorno = ret;
                 return ret;
             }
             case "<=": {
-                Valor res = opMultiplicar.operar(v1.valor, v2.valor);
+                Valor res = rel.menorIgual(v1.valor, v2.valor);
                 ret.valor = res;
                 super.retorno = ret;
                 return ret;
             }
 
             case ">=": {
-                Valor res = opDividir.operar(v1.valor, v2.valor);
+                Valor res = rel.mayorIgual(v1.valor, v2.valor);
                 ret.valor = res;
                 super.retorno = ret;
                 return ret;
             }
 
+            /*
             case "==": {
 
                Valor res = opElevar.operar(v1.valor, v2.valor);

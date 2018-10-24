@@ -20,36 +20,9 @@ public class elementoOperacion {
         return v.valor.toString();
     }
     
-    public int getEntero(Valor v){
-        
-        return Integer.parseInt(v.valor.toString());
+     public boolean esCondicion(Valor v){
+        return v.tipo.equalsIgnoreCase(Constantes.CONDICION);
     }
-    
-    
-    public double getDecimal(Valor v){
-        
-        return Double.parseDouble(v.valor.toString());
-    }
-    
-    public char getCadenaCaracter(Valor v){
-        char b =  (char)Integer.parseInt(String.valueOf(v.valor));
-        return b;
-    }
-    
-    public int getEnteroCaracter(Valor v){
-       return Integer.parseInt(v.valor.toString());
-    }
-    
-    /*
-    public int getEnteroBooleano( Valor v){
-        
-    }
-    
-    public String getCadenaBooleano(Valor v){
-        
-    }
-    */
-    
     
     public boolean esEntero(Valor v){
         return v.tipo.equalsIgnoreCase(Constantes.ENTERO);
