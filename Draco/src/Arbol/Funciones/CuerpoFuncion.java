@@ -5,6 +5,8 @@
  */
 package Arbol.Funciones;
 
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,17 @@ public class CuerpoFuncion extends objetoBase {
 
     public CuerpoFuncion(){
         this.listaSentencias= new ArrayList<>();
+    }
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod) {
+        elementoRetorno ret = new elementoRetorno();
+        objetoBase temporal;
+        for (int i = 0; i < this.listaSentencias.size(); i++) {
+            temporal= listaSentencias.get(i);
+            ret=temporal.ejecutar(cod);
+        }
+        return ret;
     }
     
     

@@ -19,7 +19,7 @@ public class Caracter extends objetoBase{
     public int caracterInt;
     
     public Caracter(Object val){
-       this.caracterCadena= val.toString().replace("'", "");
+       this.caracterCadena= val.toString().replace("'", "").replace("'", "");
        this.caracterInt= caracterCadena.toString().codePointAt(0);
     }
     

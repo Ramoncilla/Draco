@@ -1,5 +1,7 @@
-//csdfsfdsfdsf
-/*gdfgfdgdfgdfgfdsgsdf*/
-verdadero * verdadero/5*8+10^11  //fsdfdsfdsfsad
-/*fsfdsfdsfds*/
-//fdsfdf
+vacio principal(){
+
+imprimir(10+10);
+imprimir(5);
+imprimir("alina");
+
+}

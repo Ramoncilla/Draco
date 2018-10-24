@@ -7,6 +7,8 @@ package Arbol;
 
 import ASM.Generador;
 import ASM.elementoRetorno;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,28 @@ public class Archivo {
             temp= this.elementosArchivo.get(i);
             elem = temp.ejecutar(codASM);
         }
-        
-        
+        escribirArchivo(codASM.codigo);
+    }
+    
+    
+    public  void escribirArchivo(String cad){
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
+            pw = new PrintWriter(fichero);
+            pw.println(cad);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
     }
     
     

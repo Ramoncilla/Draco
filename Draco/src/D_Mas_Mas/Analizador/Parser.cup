@@ -18,7 +18,7 @@ parser code
     //public Nodo Gramaticas;     
     public static String cadena;
 	public static Archivo elementosArchivo;
-	public static objetoBase expresion;
+
 	
 
 	

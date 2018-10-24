@@ -86,6 +86,8 @@ public static String cadena;
 "." {System.out.println("punto");   return new Symbol (simbolosASM.punto, yyline+1,yychar+1, new String (yytext()));}
 
 
+"calc" {System.out.println("calc");   return new Symbol (simbolosASM.calc, yyline+1,yychar+1, new String (yytext()));}
+
 "ADD" {System.out.println("add");   return new Symbol (simbolosASM.add, yyline+1,yychar+1, new String (yytext()));}
 
 "DIFF" {System.out.println("diff");   return new Symbol (simbolosASM.diff, yyline+1,yychar+1, new String (yytext()));}

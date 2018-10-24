@@ -8,6 +8,8 @@ package Arbol.Expresion;
 import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
+import Arbol.Expresion.ValidarExpresion.nodoCondicion;
+import Arbol.Expresion.ValidarExpresion.opRelacional;
 import Arbol.objetoBase;
 
 /**
@@ -25,19 +27,23 @@ public class Relacional extends objetoBase {
         this.operador= op.toString();
     }
     
+    
      @Override
     public elementoRetorno ejecutar(Generador cod) {
-
+        opRelacional rel = new opRelacional(cod);
         elementoRetorno ret = new elementoRetorno();
         elementoRetorno v1 = this.val1.ejecutar(cod);
         elementoRetorno v2 = this.val2.ejecutar(cod);
         switch (operador) {
             case "<": {
-                Valor res = opSumar.operar(v1.valor, v2.valor);
-                ret.valor = res;
+                nodoCondicion res = rel.menor(v1.valor, v2.valor);
+                
+                System.out.println(res.codigo);
+               /*ret.valor = res;
                 super.retorno = ret;
-                return ret;
+                return ret;*/
             }
+            /*
             case ">": {
                 Valor res = opRestar.operar(v1.valor, v2.valor);
                 ret.valor = res;
@@ -73,10 +79,13 @@ public class Relacional extends objetoBase {
                 super.retorno = ret;
                 return ret;
             }
-
+*/
         }
 
         return ret;
     }
+    
+    
+    
     
 }

@@ -34,23 +34,27 @@ public class Funcion extends objetoBase {
 
     @Override
     public elementoRetorno ejecutar(Generador cod) {
-        
-        String codigo = "function $"+this.tipo+"_"+nombre;
-        String cadPar = obtenerCadenaTipoParametros();
-        if((cadPar.equalsIgnoreCase(""))){
-        }else{
-            codigo+="_"+cadPar+"\n";
-        }
-        
-        
-        
-        codigo+="end\n\n";
-        
+        String codigo = "function $"+obtenerNombreFuncion()+"\n";
+        cod.addCodigo(codigo);
+        sentencias.ejecutar(cod);
+        cod.addCodigo("end\n");
         return super.ejecutar(cod); //To change body of generated methods, choose Tools | Templates.
     }
     
     
     
+    private String obtenerNombreFuncion(){
+        if(this.esPrincipal){
+            return "principal";
+        }else{
+            String cad= this.tipo+"_"+this.nombre;
+            String cadPar = obtenerCadenaTipoParametros();
+            if(!(cadPar.equalsIgnoreCase(""))){
+                cad+="_"+cadPar;
+            }
+            return cad;
+        } 
+    }
     
     
     

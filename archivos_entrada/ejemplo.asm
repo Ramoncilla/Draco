@@ -1,24 +1,50 @@
-function $principal 
-99 // imprimir entero
-1  
-1
-ADD  //suma
-5
-ADD   //suma
-8
-ADD   //suma
+function $principal
+100
 10
-ADD   //suma
-PRINT  //print
-
-98
+10
+ADD
+PRINT
+100
+5
+PRINT
+115
+GET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+97 // a
+SET_GLOBAL $calc
 1
-print
-102
-105.1
-print
-99
-65
-print
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+108 // l
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+110 // n
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+97 // a
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
 
+PRINT
 end
+

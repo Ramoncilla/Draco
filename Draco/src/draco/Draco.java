@@ -10,6 +10,8 @@ import ASM.Interprete;
 import Arbol.Archivo;
 import Arbol.objetoBase;
 import Errores.ListaErrores;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 /**
  *
@@ -30,6 +32,7 @@ public class Draco {
        Archivo arch=  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
        if(arch!= null){
            arch.ejecutarArchivo();
+           
 
        }else{
            
@@ -42,5 +45,7 @@ public class Draco {
      }
      
     }
+    
+    
     
 }
