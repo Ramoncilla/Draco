@@ -74,12 +74,13 @@ dolar,
 numero_entero,
 numero_decimal,
 identificador,
-end;
+end,
+calc, set_local, get_local, set_global, get_global,menos;
 
 
 non terminal INICIO;
 
-non terminal FUNCION, LISTA_FUNCIONES, LISTA_VALORES, VALOR;
+non terminal FUNCION, LISTA_FUNCIONES, LISTA_VALORES, VALOR, SENTENCIA;
 
 
 
@@ -105,27 +106,39 @@ FUNCION::= function dolar identificador:a LISTA_VALORES:b end {:RESULT = new Fun
 	|function dolar identificador:a end {:RESULT= new Funcion(a, new CuerpoFuncion());:};
 
 	
-LISTA_VALORES::= VALOR:a
+LISTA_VALORES::= SENTENCIA:a
 		{:
 			CuerpoFuncion c = new CuerpoFuncion();
 			c.insertar(a);
 			RESULT= c;
 		:}
-	|LISTA_VALORES:l VALOR:a
+	|LISTA_VALORES:l SENTENCIA:a
 		{:
 			CuerpoFuncion c = (CuerpoFuncion)l;
 			c.insertar(a);
 			RESULT= c;
 		:};
 
-VALOR::= numero_decimal:a {:RESULT = new Decimal(a);:}
-	|numero_entero:a {:RESULT = new Entero(a);:}
+		
+SENTENCIA::= VALOR:a{:RESULT= a;:}
 	|add {:RESULT= new ADD();:}
 	|diff {:RESULT= new DIFF();:}
 	|mult {:RESULT= new MULT();:}
 	|div {:RESULT= new DIV();:}
 	|mod {:RESULT= new MOD();:}
-	|print{:RESULT= new PRINT();:};
+	|print{:RESULT= new PRINT();:}
+	|set_global VALOR:a{:RESULT= new Set_global(a);:}
+	|set_local VALOR:a{:RESULT= new Set_local(a);:}
+	|get_global VALOR:a{:RESULT= new Get_global(a);:}
+	|get_local VALOR:a{:RESULT= new Get_local(a);:};
+	
+	
+	
+VALOR::= numero_decimal:a {:RESULT = new Decimal(a);:}
+	|numero_entero:a {:RESULT = new Entero(a);:}
+	|dolar calc{:RESULT= new Calc();:}
+	| menos numero_decimal:a{:RESULT = new Decimal("-"+a);:}
+	|menos numero_entero:a{:RESULT = new Decimal("-"+a);:};
 
 
 

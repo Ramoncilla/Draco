@@ -39,6 +39,14 @@ public class Cadena extends objetoBase {
                          + "ADD\n"
                          + "SET_GLOBAL 0\n";
         }
+        
+        cadena+="GET_GLOBAL 0\n"
+                 + "GET_GLOBAL 0\n"
+                 +"-1 // escape \n"
+                         + "SET_GLOBAL $calc\n"
+                         + "1\n"
+                         + "ADD\n"
+                         + "SET_GLOBAL 0\n";
         elementoRetorno ret = new elementoRetorno();
         ret.valor.crearCadena(cadena);
         super.retorno= ret;

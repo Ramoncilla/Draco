@@ -21,8 +21,7 @@ public class Interprete {
     public double[] heap;
     public double[] stack;
     public Stack<Double> aux;
-    public int h;
-    public int p;
+    public double calc;
     public String cadenaImpresion;
 
     public Interprete(ListaFunciones funciones) {
@@ -30,9 +29,10 @@ public class Interprete {
         this.heap = new double[20000];
         this.stack = new double[20000];
         this.aux = new Stack<>();
-        this.h = 0;
-        this.p = 0;
+        this.calc=0;
         this.cadenaImpresion = "";
+        heap[0]=1;
+        stack[0]=1;
     }
 
     public String ejecutar() {
@@ -76,14 +76,70 @@ public class Interprete {
         } else if (instruccion instanceof ADD) {
             sumar();
             
+        } else if(instruccion instanceof Get_global){
+            Get_global g = (Get_global)instruccion;
+            getGlobal(g.valor);
+            
+        }else if(instruccion instanceof Set_global){
+            Set_global g = (Set_global)instruccion;
+            setGlobal(g.valor);
         }
+        
+        
 
     }
 
     private void insertarAuxiliar(double val) {
         this.aux.push(val);
     }
+    
+    private void getGlobal(baseASM instruccion){
+        
+        if (instruccion instanceof Entero) {
+            Entero t = (Entero) instruccion;
+            double d = this.heap[t.valor];
+            insertarAuxiliar(d);
 
+        } else if (instruccion instanceof Decimal) {
+            Decimal t = (Decimal) instruccion;
+            int g= (int)t.valor;
+            double d = this.heap[g];
+            insertarAuxiliar(d);
+            
+
+        }else{
+            //es calc
+
+            
+            
+        }
+        
+        
+    }
+
+    private void setGlobal(baseASM instruccion){
+        if (instruccion instanceof Entero) {
+            Entero t = (Entero) instruccion;
+            int pos = t.valor;
+            double valor = aux.pop();
+            this.heap[pos]=valor;
+
+        } else if (instruccion instanceof Decimal) {
+            Decimal t = (Decimal) instruccion;
+
+            
+
+        }else{
+            //es calc
+             if (this.aux.size() >= 2) {
+            this.calc= this.aux.pop();
+            double pos= this.aux.pop();
+            int v = (int)pos;
+            this.heap[v]= calc;
+             }
+            
+        }
+    }
     private void imprimir() {
         if (this.aux.size() >= 2) {
             double exp = aux.pop();
@@ -110,6 +166,18 @@ public class Interprete {
                 
             }else if(tipo == 115){
                 //string
+                int posH= (int) exp;
+                String cad="";
+                int cont=posH;
+                int temp;
+                char c;
+                while(this.heap[cont]!=-1){
+                    temp= (int)heap[cont];
+                    c= (char)Integer.parseInt(String.valueOf(temp));
+                    cad+=c;
+                    cont++;
+                }
+                this.cadenaImpresion+=cad+"\n";
             }
         }
     }

@@ -85,6 +85,9 @@ public static String cadena;
 
 "." {System.out.println("punto");   return new Symbol (simbolosASM.punto, yyline+1,yychar+1, new String (yytext()));}
 
+"-" {System.out.println("menos");   return new Symbol (simbolosASM.menos, yyline+1,yychar+1, new String (yytext()));}
+
+
 
 "calc" {System.out.println("calc");   return new Symbol (simbolosASM.calc, yyline+1,yychar+1, new String (yytext()));}
 
@@ -105,6 +108,14 @@ public static String cadena;
 "$" {System.out.println("dolar");   return new Symbol (simbolosASM.dolar, yyline+1,yychar+1, new String (yytext()));}
 
 "end" {System.out.println("end");   return new Symbol (simbolosASM.end, yyline+1,yychar+1, new String (yytext()));}
+
+"SET_LOCAL" {System.out.println("set_local");   return new Symbol (simbolosASM.set_local, yyline+1,yychar+1, new String (yytext()));}
+
+"GET_LOCAL" {System.out.println("get_local");   return new Symbol (simbolosASM.get_local, yyline+1,yychar+1, new String (yytext()));}
+
+"SET_GLOBAL" {System.out.println("set_global");   return new Symbol (simbolosASM.set_global, yyline+1,yychar+1, new String (yytext()));}
+
+"GET_GLOBAL" {System.out.println("get_global");   return new Symbol (simbolosASM.get_global, yyline+1,yychar+1, new String (yytext()));}
 
 /* -------------------------==: EXPRESIONES REGULARES :==---------------------*/
 

@@ -1,7 +1,5 @@
 vacio principal(){
 
-imprimir(10+10);
-imprimir(5);
 imprimir("alina");
 
 }
