@@ -39,4 +39,8 @@ public class CuerpoFuncion extends objetoBase {
     }
     
     
+    public boolean esVacio(){
+        return (this.listaSentencias.isEmpty());
+    }
+    
 }

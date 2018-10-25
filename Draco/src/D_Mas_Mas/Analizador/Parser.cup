@@ -401,7 +401,7 @@ L_SINO_SI::= SINO_SI:a
 SI::= IF:a {:RESULT= new Si(1,a,new CuerpoFuncion(), new ArrayList<IF>());:}
 	| IF:a SINO:b {:RESULT= new Si(2,a,b, new ArrayList<IF>());:}
 	| IF:a L_SINO_SI:b {:RESULT= new Si(3,a,new CuerpoFuncion(), b);:}
-	| IF:a L_SINO_SI:b SINO:c {:RESULT= new Si(4,a,b, c);:};
+	| IF:a L_SINO_SI:b SINO:c {:RESULT= new Si(4,a,c,b);:};
 	
 
 

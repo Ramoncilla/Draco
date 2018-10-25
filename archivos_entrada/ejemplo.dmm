@@ -1,7 +1,14 @@
 vacio principal(){
 
-si(286>9 && 10>5 && 8>=5){
- imprimir('s');
+si(286>9 && 10>5 && 8<=5){
+ imprimir("incorrecto");
+}sino si(2<5){
+  imprimir("esto deberia de salir");
+}sino si(1<10){
+ imprimir("esto no");
+}sino{
+  imprimir("correcto");
 }
+
 
 }

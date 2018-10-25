@@ -11,6 +11,7 @@ import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.Funciones.CuerpoFuncion;
 import Arbol.objetoBase;
 import draco.Constantes;
+import static draco.Draco.erroresEjecucion;
 
 /**
  *
@@ -20,6 +21,7 @@ public class IF  extends objetoBase{
     
     public objetoBase condicion;
     public CuerpoFuncion instrucciones;
+    public String etiquetaSalida="";
    
 
   public IF(Object cond, Object instr){
@@ -29,17 +31,22 @@ public class IF  extends objetoBase{
 
     @Override
     public elementoRetorno ejecutar(Generador cod) {
-        
+        String salida="BR "+ etiquetaSalida+"\n";
         elementoRetorno solExpresion = this.condicion.ejecutar(cod);
         if(solExpresion.valor.tipo.equalsIgnoreCase(Constantes.CONDICION)){
             nodoCondicion cond = (nodoCondicion)solExpresion.valor.valor;
-            cod.addCodigo("//Resolviendo un IF\n");
+            cod.addMensaje("--- Codigo condicion ---");
             cod.addCodigo(cond.codigo);
             cod.addCodigo(cond.getEtiquetasVerdaderas());
+            cod.addSi();
+            cod.addMensaje("------- inicio codigo Instrucciones  ------------");
             instrucciones.ejecutar(cod);
+            cod.addMensaje("------- fin codigo Instrucciones  ------------");
+            cod.addCodigo(salida);
+            cod.salirAmbito();
             cod.addCodigo(cond.getEtiquetasFalsas());
         }else{
-            System.out.println("no vino una condicion");
+            erroresEjecucion.addSemantico(0, 0, "Expresion no valida para realizar un SI");
         }
         return new elementoRetorno();
     }
