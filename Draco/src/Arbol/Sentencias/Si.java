@@ -5,6 +5,8 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.Funciones.CuerpoFuncion;
 import Arbol.objetoBase;
 import java.util.ArrayList;
@@ -26,6 +28,13 @@ public class Si extends objetoBase{
         this.sino = (CuerpoFuncion)sino;
         this.listaSinoSi= (ArrayList<IF>)sinoSi;
     }
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod) {
+        this.siInicial.ejecutar(cod);
+        return new elementoRetorno();
+    }
+    
     
     
     

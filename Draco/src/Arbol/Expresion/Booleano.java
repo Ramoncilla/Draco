@@ -33,7 +33,7 @@ public class Booleano extends objetoBase{
       @Override
     public elementoRetorno ejecutar(Generador cod) {
         elementoRetorno ret = new elementoRetorno();
-        ret.valor.crearEntero(booleanoInt);
+        ret.valor.crearBooleano(booleanoInt);
         super.retorno= ret;
         return ret;
     }

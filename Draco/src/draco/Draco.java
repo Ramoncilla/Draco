@@ -5,6 +5,7 @@
  */
 package draco;
 
+import ASM.Arbol.CuerpoFuncion;
 import ASM.Arbol.ListaFunciones;
 import ASM.Interprete;
 import Arbol.Archivo;
@@ -38,7 +39,7 @@ public class Draco {
            
        }
      //   e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
-     ListaFunciones f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
+     CuerpoFuncion f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
      if(f!= null){
          Interprete g = new Interprete(f);
          g.ejecutar();

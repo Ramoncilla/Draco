@@ -26,7 +26,7 @@ public class Decimal extends objetoBase{
       @Override
     public elementoRetorno ejecutar(Generador cod) {
         elementoRetorno ret = new elementoRetorno();
-        ret.valor.crearEntero(valDecimalDouble);
+        ret.valor.crearDecimal(valDecimalDouble);
         super.retorno= ret;
         return ret;
     }

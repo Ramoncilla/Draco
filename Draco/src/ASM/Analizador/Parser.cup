@@ -13,7 +13,8 @@ parser code
  /* -------------------------==: DECLARAR EL ARBOL :==--------------------------*/
     //public Nodo Gramaticas;     
     public static String cadena;
-	public static ListaFunciones funcionesArchivo;
+	//public static ListaFunciones funcionesArchivo;
+	public static CuerpoFuncion sentenciasArchivo;
 
 	
 
@@ -87,7 +88,9 @@ non terminal FUNCION, LISTA_FUNCIONES, LISTA_VALORES, VALOR, SENTENCIA;
 start with INICIO;	
 
 
-INICIO::= LISTA_FUNCIONES:a {:parser.funcionesArchivo= (ListaFunciones)a;:};
+INICIO::= LISTA_VALORES:a{: parser.sentenciasArchivo= (CuerpoFuncion)a;:};
+
+//LISTA_FUNCIONES:a {:parser.funcionesArchivo= (ListaFunciones)a;:};
 
 LISTA_FUNCIONES::= FUNCION:a
 		{:
@@ -135,9 +138,11 @@ SENTENCIA::= VALOR:a{:RESULT= a;:}
 	|gt{:RESULT= new REL(">");:}
 	|lte{:RESULT= new REL("<=");:}
 	|gte{:RESULT= new REL(">=");:}
-	|br identificador
-	|br_if identificador
-	|identificador dosPuntos;
+	|br identificador:a{:RESULT= new BR(a);:}
+	|br_if identificador:a br identificador:b{:RESULT= new BR_IF(a,b);:}
+	|identificador:a dosPuntos {:RESULT= new ETIQUETA(a);:}
+	|function dolar identificador:a{:RESULT= new InicioFuncion(a);:}
+	|end{:RESULT= new FinFuncion();:};
 	
 	
 	

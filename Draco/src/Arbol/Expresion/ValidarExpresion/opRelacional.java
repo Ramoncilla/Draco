@@ -218,8 +218,8 @@ public class opRelacional extends elementoOperacion {
              cod= getCadenaValor(v1)+"\n"
                      +getCadenaValor(v2)+ "\n"
                      + operador+"\n"
-                     + "BR "+etiqV+"\n"
-                     + "BR_IF "+etiqF+"\n";
+                     + "BR_IF "+etiqF+"\n"
+                     + "BR "+etiqV+"\n";
             ret= new nodoCondicion(cod);
             ret.addVerdadera(etiqV);
             ret.addFalsa(etiqF);

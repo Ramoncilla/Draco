@@ -26,7 +26,7 @@ public class opLogica extends elementoOperacion  {
      
          if(esCondicion(v1) && esCondicion(v2)){
           nodoCondicion c1 = (nodoCondicion)v1.valor;
-          nodoCondicion c2 = (nodoCondicion)v1.valor;
+          nodoCondicion c2 = (nodoCondicion)v2.valor;
           String codigoAND = c1.codigo+""
                   + c1.getEtiquetasVerdaderas()+"\n"
                   + c2.codigo+"";
@@ -50,7 +50,7 @@ public class opLogica extends elementoOperacion  {
       public Valor OR(Valor v1, Valor v2){
           if(esCondicion(v1) && esCondicion(v2)){
           nodoCondicion c1 = (nodoCondicion)v1.valor;
-          nodoCondicion c2 = (nodoCondicion)v1.valor;
+          nodoCondicion c2 = (nodoCondicion)v2.valor;
           String codigoOR = c1.codigo+""
                   + c1.getEtiquetasFalsas()+"\n"
                   + c2.codigo+"";
