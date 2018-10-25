@@ -14,12 +14,17 @@ public class Generador {
     public String codigo;
     public int contEtiquetas;
     public Ambito3D ambiente;
-    
+    public Etiquetas etiquetasRetorno;
+    public Etiquetas etiquetasBreak;
+    public Etiquetas etiquetasContinuar;
     
     public Generador(){
         this.codigo= "";
         this.contEtiquetas=0;
         this.ambiente= new Ambito3D();
+        this.etiquetasRetorno= new Etiquetas();
+        this.etiquetasBreak= new Etiquetas();
+        this.etiquetasContinuar= new Etiquetas();
     }
     
     public void addCodigo(String c){

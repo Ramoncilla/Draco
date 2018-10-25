@@ -33,7 +33,7 @@ public class Si extends objetoBase{
     public elementoRetorno ejecutar(Generador cod) {
         String etiqSalida = cod.getEtiqueta();
         String salida="BR "+ etiqSalida+"\n";
-        cod.addMensaje("==========** Resolviendo un SI **===============");
+        cod.addMensaje("-------- INICIO SI ---------");
         //Resolviendo para el primer si
         this.siInicial.etiquetaSalida= etiqSalida;
         this.siInicial.ejecutar(cod);
@@ -53,7 +53,7 @@ public class Si extends objetoBase{
             cod.salirAmbito();
         }
         cod.addCodigo(etiqSalida+":\n");
-        
+         cod.addMensaje("-------- FIN SI ---------");
         
         return new elementoRetorno();
     }
