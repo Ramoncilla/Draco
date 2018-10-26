@@ -1,5 +1,9 @@
 vacio principal(){
 
+imprimir("HO");
+
+imprimir("LA");
+/*
 si(286>9 && 10>5 && 8<=5){
  imprimir("incorrecto");
 }sino si(2>5){
@@ -12,6 +16,6 @@ si(286>9 && 10>5 && 8<=5){
 }sino si(11<10){
  imprimir("esto no");
 }
-
+*/
 
 }

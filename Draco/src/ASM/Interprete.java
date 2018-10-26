@@ -31,7 +31,7 @@ public class Interprete {
         this.aux = new Stack<>();
         this.calc = 0;
         this.cadenaImpresion = "";
-        heap[0] = 1;
+        heap[0] = 6;
         stack[0] = 1;
     }
 
@@ -125,6 +125,13 @@ public class Interprete {
             }else{
                 this.saltar(salto.etiV);
                 System.out.println("No es valido realizar el salto con "+ salto.etiqF);
+            }
+        }else if(instruccion instanceof EQZ){
+            double d = this.aux.pop();
+            if(d==0){
+                this.aux.push(1.0);
+            }else{
+                this.aux.push(0.0);
             }
         }
         

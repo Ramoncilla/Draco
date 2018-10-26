@@ -29,7 +29,7 @@ public class Draco {
         // TODO code application logic here
         erroresEjecucion = new ListaErrores();
         EjecutarAnalizadores e= new EjecutarAnalizadores();
-        
+        /*
        Archivo arch=  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
        if(arch!= null){
            arch.ejecutarArchivo();
@@ -37,7 +37,7 @@ public class Draco {
 
        }else{
            
-       }
+       }*/
      //   e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
      CuerpoFuncion f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
      if(f!= null){

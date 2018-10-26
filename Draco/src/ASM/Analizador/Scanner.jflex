@@ -100,6 +100,7 @@ public static String cadena;
 
 "GTE" {System.out.println("GTE");   return new Symbol (simbolosASM.gte, yyline+1,yychar+1, new String (yytext()));}
 
+"EQZ" {System.out.println("EQZ");   return new Symbol (simbolosASM.eqz, yyline+1,yychar+1, new String (yytext()));}
 
 
 "calc" {System.out.println("calc");   return new Symbol (simbolosASM.calc, yyline+1,yychar+1, new String (yytext()));}

@@ -76,7 +76,7 @@ numero_entero,
 numero_decimal,
 identificador,
 end,
-calc, set_local, get_local, set_global, get_global,menos,lt,gt,lte,gte,br,br_if;
+calc, set_local, get_local, set_global, get_global,menos,lt,gt,lte,gte,br,br_if, eqz;
 
 
 non terminal INICIO;
@@ -142,7 +142,8 @@ SENTENCIA::= VALOR:a{:RESULT= a;:}
 	|br_if identificador:a br identificador:b{:RESULT= new BR_IF(a,b);:}
 	|identificador:a dosPuntos {:RESULT= new ETIQUETA(a);:}
 	|function dolar identificador:a{:RESULT= new InicioFuncion(a);:}
-	|end{:RESULT= new FinFuncion();:};
+	|end{:RESULT= new FinFuncion();:}
+	|eqz{:RESULT= new EQZ();:};
 	
 	
 	
