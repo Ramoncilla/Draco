@@ -112,4 +112,9 @@ public class Suma extends elementoOperacion {
                 + "ADD";
         return val;
     }
+    
+    public void sumarCadenas(){
+        
+    }
+    
 }
