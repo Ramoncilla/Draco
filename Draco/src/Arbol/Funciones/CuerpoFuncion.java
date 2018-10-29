@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class CuerpoFuncion extends objetoBase {
     
-    List<objetoBase> listaSentencias;
+    public List<objetoBase> listaSentencias;
     
       public CuerpoFuncion(Object sentencias){
         this.listaSentencias= (ArrayList<objetoBase>)sentencias;

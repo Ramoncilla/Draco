@@ -28,5 +28,16 @@ public class Constantes {
     public static final String PRINCIPAL = "principal";
     public static final String CONDICION = "Condicion";
     
-
+    public static final String VARIABLE= "variable";
+    public static final String GLOBAL = "global";
+    public static final String VAR_GLOBAL = "Variable Global";
+    public static final String ATRI_ESTRUCTURA= "Atributo Estructura";
+    public static final String ESTRUCTURA = "Estructura";
+    public static final String NO_TIENE = "no_tiene";
+    public static final String PARAMETRO = "parametro";
+    public static final String FUNCION = "Funcion";
+    public static final String ARREGLO = "Arreglo";
+    public static final String ARR_GLOBAL = "Arreglo Global";
+    public static final String ARR_LOCAL = "Arreglo Local";
+    
 }

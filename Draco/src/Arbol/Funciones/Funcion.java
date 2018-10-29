@@ -23,13 +23,15 @@ public class Funcion extends objetoBase {
     public boolean esPrincipal= false;
     public List<Declaracion> parametros;
     public CuerpoFuncion sentencias;
+    public String nombreLargo;
     
     public Funcion(Object nom, Object tip, boolean princ, Object parametros, Object cuerpo){
         this.nombre= nom.toString();
         this.tipo= tip.toString();
         this.esPrincipal= princ;
         this.parametros= (ArrayList<Declaracion>) parametros;
-        this.sentencias= (CuerpoFuncion)cuerpo;  
+        this.sentencias= (CuerpoFuncion)cuerpo; 
+        this.nombreLargo= obtenerNombreFuncion();
     }
 
     @Override
@@ -58,8 +60,12 @@ public class Funcion extends objetoBase {
     
     
     
+    public int obtenerSizeParametros(){
+        return this.parametros.size();
+    }
+    
     /*============== parametros ========================*/
-    private String obtenerCadenaTipoParametros(){
+    public String obtenerCadenaTipoParametros(){
         String cad="";
         Declaracion temp;
         for (int i = 0; i < this.parametros.size(); i++) {

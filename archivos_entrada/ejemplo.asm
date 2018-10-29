@@ -23,7 +23,8 @@ SET_GLOBAL $calc
 ADD
 SET_GLOBAL 0
 
-
+PRINT
+115
 GET_GLOBAL 0
 GET_GLOBAL 0
 GET_GLOBAL 0
@@ -47,115 +48,563 @@ SET_GLOBAL $calc
 ADD
 SET_GLOBAL 0
 
-
-set_global 2
-set_global 1
-
-get_global 0//108 12
-
-//
-get_global 0
-get_global 1
-
-get_global 0
-get_global 1
-
-get_global $calc //H
-
-L0:
-set_global 3
-get_global 3
-get_global 3 // ingresando una vez mas H
-
-1
-DIFF
-EQZ
-
-BR_IF L1 //verdaderas
-BR L2 //falsas
-
-L1:
-set_global $calc
-1
-ADD
-set_global 1
-// 108 12 12
-1
-ADD
-set_global 0
-//calculo de valor = heap[posInicial]
-get_global 0
-get_global 1
-
-get_global 0
-get_global 1
-
-get_global $calc //H
-BR L0
+PRINT
+/*-------- INICIO SI ---------*/
+/*--- Codigo condicion ---*/
+286
+9
+GT
+BR_IF L3
+BR L2
 L2:
-//108 12 14 8 14 -1
-set_global 3
-set_global 3
-set_global 3
-set_global 3
 
-
-//segunda cadena
-//
-get_global 0
-get_global 2
-
-get_global 0
-get_global 2
-
-get_global $calc //L
-
-L3:
-set_global 3
-get_global 3
-get_global 3 // ingresando una vez mas H
-
-1
-DIFF
-EQZ
-
-BR_IF L4 //verdaderas
-BR L5 //falsas
-
+10
+5
+GT
+BR_IF L5
+BR L4
 L4:
-set_global $calc
+
+8
+5
+LTE
+BR_IF L7
+BR L6
+L6:
+/*------- inicio codigo Instrucciones  ------------*/
+115
+GET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
 1
 ADD
-set_global 2
-// 108 12 12
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+110 // n
+SET_GLOBAL $calc
 1
 ADD
-set_global 0
-//calculo de valor = heap[posInicial]
-get_global 0
-get_global 2
-
-get_global 0
-get_global 2
-
-get_global $calc //H
-BR L3
-L5:
-//108 12 14 8 14 -1
-set_global 3
-set_global 3
-set_global 3
-set_global 3
-
-//extra
--1
-set_global $calc
-get_global 0
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+99 // c
+SET_GLOBAL $calc
 1
 ADD
-set_global 0
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+114 // r
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+114 // r
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+101 // e
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+99 // c
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+116 // t
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+-1 // escape 
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
 
 PRINT
+/*------- fin codigo Instrucciones  ------------*/
+BR L1
+L3:
+L5:
+L7:
+/*--- Codigo condicion ---*/
+2
+5
+GT
+BR_IF L9
+BR L8
+L8:
+/*------- inicio codigo Instrucciones  ------------*/
+/*-------- INICIO SI ---------*/
+/*--- Codigo condicion ---*/
+31
+8
+LT
+BR_IF L12
+BR L11
+L12:
 
+85
+11
+LTE
+BR_IF L14
+BR L13
+L11:
+L13:
+/*------- inicio codigo Instrucciones  ------------*/
+115
+GET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+104 // h
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+108 // l
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+115 // s
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+32 //  
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+115 // s
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+-1 // escape 
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+
+PRINT
+/*------- fin codigo Instrucciones  ------------*/
+BR L10
+L14:
+115
+GET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+104 // h
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+108 // l
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+115 // s
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+32 //  
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+110 // n
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+-1 // escape 
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+
+PRINT
+BR L10
+L10:
+/*-------- FIN SI ---------*/
+115
+GET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+101 // e
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+115 // s
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+116 // t
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+32 //  
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+100 // d
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+101 // e
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+98 // b
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+101 // e
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+114 // r
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+97 // a
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+32 //  
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+100 // d
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+101 // e
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+32 //  
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+115 // s
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+97 // a
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+108 // l
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+114 // r
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+-1 // escape 
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+
+PRINT
+/*------- fin codigo Instrucciones  ------------*/
+BR L1
+L9:
+/*--- Codigo condicion ---*/
+11
+10
+LT
+BR_IF L16
+BR L15
+L15:
+/*------- inicio codigo Instrucciones  ------------*/
+115
+GET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+101 // e
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+115 // s
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+116 // t
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+32 //  
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+110 // n
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+-1 // escape 
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+
+PRINT
+/*------- fin codigo Instrucciones  ------------*/
+BR L1
+L16:
+BR L1
+L1:
+/*-------- FIN SI ---------*/
+end
+function $entero_func_entero_cadena_popo
+115
+GET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+104 // h
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+111 // o
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+108 // l
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+105 // i
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+115 // s
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+GET_GLOBAL 0
+GET_GLOBAL 0
+-1 // escape 
+SET_GLOBAL $calc
+1
+ADD
+SET_GLOBAL 0
+
+PRINT
 end
 

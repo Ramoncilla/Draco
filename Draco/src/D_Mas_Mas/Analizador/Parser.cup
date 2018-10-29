@@ -153,41 +153,41 @@ DECLARACION::=  LISTA_ID_ASIGNA:a puntoComa{:RESULT= a;:}
 LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 		{:
 			Declaracion decla = new Declaracion(t);
-			decla.insertarVar(a);
-			
 			List<objetoBase> lista = new ArrayList<objetoBase>();
 			Identificador id = new Identificador(a);
 			lista.add((objetoBase)id);
 			Acceso acc =  new Acceso(lista);
-			
 			AsignaAcceso asig = new AsignaAcceso(acc, b);
-			decla.insertarAsigna(asig);
+			DeclaAsigna d = new DeclaAsigna(a, asig);
+			decla.addDecla(d);
 			RESULT= decla;
 		
 		:}
 	| TIPO_DATO:t identificador:a
 		{:
 			Declaracion decla = new Declaracion(t);
-			decla.insertarVar(a);
+			DeclaAsigna d = new DeclaAsigna(a);
+			decla.addDecla(d);
 			RESULT= decla;
 		:}
 	| LISTA_ID_ASIGNA:d coma identificador:a igual EXPRESION:b
 		{:
 		    Declaracion decla = (Declaracion)d;
-			decla.insertarVar(a);
 			List<objetoBase> lista = new ArrayList<objetoBase>();
 			Identificador id = new Identificador(a);
 			lista.add((objetoBase)id);
 			Acceso acc =  new Acceso(lista);
 			AsignaAcceso asig = new AsignaAcceso(acc, b);
-			decla.insertarAsigna(asig);
+			DeclaAsigna dd = new DeclaAsigna(a, asig);
+			decla.addDecla(dd);
 			RESULT= decla;
 			
 		:}
 	| LISTA_ID_ASIGNA:d coma identificador:a	
 		{:
 		    Declaracion decla = (Declaracion)d;
-			decla.insertarVar(a);
+			DeclaAsigna dd = new DeclaAsigna(a);
+			decla.addDecla(dd);
 			RESULT= decla;
 			
 		:};
@@ -469,7 +469,8 @@ PRINCIPAL::= vacio principal DECLA_PARAMETROS:c CUERPO_FUNCION:d
 DECLA_PARAMETRO::= TIPO_DATO:t identificador:a
 		{:
 			Declaracion decla = new Declaracion(t);
-			decla.insertarVar(a);
+			DeclaAsigna d = new DeclaAsigna(a);
+			decla.addDecla(d);
 			RESULT= decla;
 		:};
 

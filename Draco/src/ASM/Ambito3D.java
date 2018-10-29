@@ -51,6 +51,20 @@ public class Ambito3D {
     }
     
     
-    
+    public String getAmbito(){
+        
+       String contexto ="";
+	String valTemporal;
+	for(int i =0; i<this.ambientes.size();i++){
+		valTemporal= this.ambientes.get(i);
+		if(i==this.ambientes.size()-1){
+			contexto +=valTemporal;
+		}else{
+			contexto+=valTemporal+"_";
+		}
+	}
+   
+	return contexto;
+    }
     
 }
