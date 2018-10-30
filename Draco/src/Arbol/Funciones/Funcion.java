@@ -41,14 +41,14 @@ public class Funcion extends objetoBase {
         String codigo = "function $"+obtenerNombreFuncion()+"\n";
         cod.addCodigo(codigo);
         if(esPrincipal){
-
+/*
          cod.addMensaje("Reservando espacio en el heap para las vairables gloables");
          int val = tabla.obtenerNumeroGlobales();
          cod.addCodigo("get_global 0\n");
          cod.addCodigo(val+"\n");
          cod.addCodigo("ADD\n");
          cod.addCodigo("set_global 0\n");
-         cod.addMensaje("Fin de reserva de memoria");
+         cod.addMensaje("Fin de reserva de memoria");*/
 
         }
         

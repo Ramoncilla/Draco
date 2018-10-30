@@ -1,14 +1,20 @@
-entero x,y;
-entero c=10;
 
 
-estructura persona{
-
- cadena nombre;
- entero edad;
- entero valores;
-}
 
 vacio principal(){
-imprimir("holis");
+entero h;
+cadena cad;
+booleano b;
+caracter c;
+
+cad="Pedrito";
+b=verdadero;
+c='z';
+h=10;
+imprimir(h+25);
+imprimir(cad);
+imprimir(b);
+imprimir(c);
+imprimir(h);
+
 }

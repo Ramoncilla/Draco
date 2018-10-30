@@ -137,7 +137,14 @@ public class Interprete {
             }else{
                 this.aux.push(0.0);
             }
-        }
+        }else if (instruccion instanceof Set_local) {
+            Set_local g = (Set_local) instruccion;
+            setLocal(g.valor);
+
+        } else if (instruccion instanceof Get_local) {
+            Get_local g = (Get_local) instruccion;
+            getLocal(g.valor);
+        } 
         
     }
 
@@ -190,6 +197,55 @@ public class Interprete {
         }
     }
 
+    
+    
+     private void getLocal(baseASM instruccion) {
+
+        if (instruccion instanceof Entero) {
+            Entero t = (Entero) instruccion;
+            double d = this.stack[t.valor];
+            insertarAuxiliar(d);
+
+        } else if (instruccion instanceof Decimal) {
+            Decimal t = (Decimal) instruccion;
+            int g = (int) t.valor;
+            double d = this.stack[g];
+            insertarAuxiliar(d);
+        } else {
+            //es calc
+            this.calc = this.aux.pop();
+            int v = (int) calc;
+            double d = this.stack[v];
+            insertarAuxiliar(d);
+        }
+    }
+
+    private void setLocal(baseASM instruccion) {
+        if (instruccion instanceof Entero) {
+            Entero t = (Entero) instruccion;
+            int pos = t.valor;
+            double valor = aux.pop();
+            this.stack[pos] = valor;
+
+        } else if (instruccion instanceof Decimal) {
+            Decimal t = (Decimal) instruccion;
+            int pos = (int) t.valor;
+            double valor = aux.pop();
+            this.stack[pos] = valor;
+        } else {
+            //es calc
+            if (this.aux.size() >= 2) {
+                this.calc = this.aux.pop();
+                double pos = this.aux.pop();
+                int v = (int) pos;
+                this.stack[v] = calc;
+            }
+
+        }
+    }
+
+    
+    
     private void imprimir() {
         if (this.aux.size() >= 2) {
             double exp = aux.pop();
