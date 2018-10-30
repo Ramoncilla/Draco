@@ -139,10 +139,10 @@ DECLARACION::=  LISTA_ID_ASIGNA:a puntoComa{:RESULT= a;:}
 	|TIPO_DATO:a identificador:b TAMANIO_ARREGLO:c igual EXPRESION:d puntoComa
 	{:
 			DeclaArreglo decla = new DeclaArreglo(a,b,c);
-			List<objetoBase> lista = new ArrayList<objetoBase>();
+			
 			posArreglo n = new posArreglo(b,c);
-			lista.add((objetoBase)n);
-			Acceso acc =  new Acceso(lista);
+			
+			Acceso acc =  new Acceso(1,n);
 			AsignaAcceso asig = new AsignaAcceso(acc, d);
 			decla.agregarAsigna(asig);
 			RESULT= decla;
@@ -153,10 +153,10 @@ DECLARACION::=  LISTA_ID_ASIGNA:a puntoComa{:RESULT= a;:}
 LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 		{:
 			Declaracion decla = new Declaracion(t);
-			List<objetoBase> lista = new ArrayList<objetoBase>();
-			Identificador id = new Identificador(a);
-			lista.add((objetoBase)id);
-			Acceso acc =  new Acceso(lista);
+			
+			Identificador i = new Identificador(a);
+		    Acceso acc = new Acceso(1, i);
+			
 			AsignaAcceso asig = new AsignaAcceso(acc, b);
 			DeclaAsigna d = new DeclaAsigna(a, asig);
 			decla.addDecla(d);
@@ -173,10 +173,10 @@ LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 	| LISTA_ID_ASIGNA:d coma identificador:a igual EXPRESION:b
 		{:
 		    Declaracion decla = (Declaracion)d;
-			List<objetoBase> lista = new ArrayList<objetoBase>();
-			Identificador id = new Identificador(a);
-			lista.add((objetoBase)id);
-			Acceso acc =  new Acceso(lista);
+			
+			Identificador i = new Identificador(a);
+		    Acceso acc = new Acceso(1, i);
+			
 			AsignaAcceso asig = new AsignaAcceso(acc, b);
 			DeclaAsigna dd = new DeclaAsigna(a, asig);
 			decla.addDecla(dd);
@@ -196,23 +196,53 @@ LISTA_ID_ASIGNA::= TIPO_DATO:t identificador:a igual EXPRESION:b
 ASIGNACION::= ACCESO:a igual EXPRESION:b{:RESULT = new AsignaAcceso(a,b);:}
 	|identificador:a masMas
 		{:
-			List<objetoBase> lista = new ArrayList<objetoBase>();
-			Identificador b = new Identificador(a);
-			lista.add((objetoBase)b);
-			Acceso acc = new Acceso(lista);
+			Identificador i = new Identificador(a);
+		    Acceso acc  = new Acceso(1, i);
 			Aritmetica exp = new Aritmetica(acc, new Entero(1),"+");
 			RESULT = new AsignaAcceso(a,exp);
 		:}
 	|identificador:a menosMenos
 		{:
-			List<objetoBase> lista = new ArrayList<objetoBase>();
-			Identificador b = new Identificador(a);
-			lista.add((objetoBase)b);
-			Acceso acc = new Acceso(lista);
+			Identificador i = new Identificador(a);
+		    Acceso acc  = new Acceso(1, i);
 			Aritmetica exp = new Aritmetica(acc, new Entero(1),"-");
 			RESULT = new AsignaAcceso(a,exp);
 		:};
 	
+	ACCESO::= identificador:a 
+			{:
+				Identificador i = new Identificador(a);
+				RESULT = new Acceso(1, i);
+			:}
+		|POS_ARREGLO:a
+			{:
+				RESULT = new Acceso(1, a);
+			:}
+		|identificador:a punto identificador:b
+			{:
+				Identificador i1 = new Identificador(a);
+				Identificador i2 = new Identificador(b);
+				RESULT = new Acceso(2, i1,i2);
+			:}
+		|identificador:a punto POS_ARREGLO:b
+			{:
+				Identificador i1 = new Identificador(a);
+				RESULT = new Acceso(2, i1,b);
+			:}
+		|POS_ARREGLO:a punto identificador:b
+			{:
+				Identificador i2 = new Identificador(b);
+				RESULT = new Acceso(2, a,i2);
+			:}
+		|POS_ARREGLO:a punto identificador:b punto POS_ARREGLO:c
+			{:
+				Identificador i2 = new Identificador(b);
+				RESULT = new Acceso(3, a,i2,c);
+			:};
+		
+		
+	
+	/*
 ACCESO::= identificador:a
 		{:
 			List<objetoBase> lista = new ArrayList<objetoBase>();
@@ -239,7 +269,7 @@ ACCESO::= identificador:a
 			acc.elementos.add((objetoBase)a);
 			RESULT=acc;
 		:};
-	
+	*/
 POS_ARREGLO::= identificador:a TAMANIO_ARREGLO:b{:RESULT= new posArreglo(a,b);:};
 
 
@@ -311,19 +341,17 @@ VAL_EXPRESION::= DIMENSIONES_EXPRESION_ARREGLO:a{:RESULT= a;:}
 	|VAL_EXPRESION:a potencia VAL_EXPRESION:b {:RESULT= new Aritmetica(a,b,"^");:}
 	| identificador:a masMas
 		{:
-		    List<objetoBase> lista = new ArrayList<objetoBase>();
-			Identificador b = new Identificador(a);
-			lista.add((objetoBase)b);
-			Acceso acc= new Acceso(lista);
-			RESULT= new Aritmetica(acc, new Entero(1), "+");
+		    Identificador i = new Identificador(a);
+		    Acceso acc  = new Acceso(1, i);
+			Aritmetica exp = new Aritmetica(acc, new Entero(1),"+");
+			RESULT = exp;
 		:}
 	| identificador:a menosMenos
 		{:
-		    List<objetoBase> lista = new ArrayList<objetoBase>();
-			Identificador b = new Identificador(a);
-			lista.add((objetoBase)b);
-			Acceso acc= new Acceso(lista);
-			RESULT= new Aritmetica(acc, new Entero(1), "-");
+		    Identificador i = new Identificador(a);
+		    Acceso acc  = new Acceso(1, i);
+			Aritmetica exp = new Aritmetica(acc, new Entero(1),"-");
+			RESULT = exp;
 		:}
 	| menos VAL_EXPRESION:a{:RESULT= new Aritmetica(a,new Entero(-1),"*");:}
 	| VAL_EXPRESION:a menor VAL_EXPRESION:b {:RESULT= new Relacional(a,b,"<");:}
