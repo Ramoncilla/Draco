@@ -5,6 +5,7 @@
  */
 package Arbol.Expresion;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
@@ -25,7 +26,7 @@ public class Caracter extends objetoBase{
     }
     
       @Override
-    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         elementoRetorno ret = new elementoRetorno();
         ret.valor.crearCaracter(caracterInt);
         super.retorno= ret;

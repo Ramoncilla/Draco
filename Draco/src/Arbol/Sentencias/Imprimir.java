@@ -5,6 +5,7 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
@@ -26,9 +27,9 @@ public class Imprimir extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         
-        Valor c = expresion.ejecutar(cod, tabla).valor;
+        Valor c = expresion.ejecutar(cod, tabla, ambitos, metodo).valor;
         String cadena="";
         if(c.tipo.equalsIgnoreCase(Constantes.BOOLEANO)){
             cadena+="98\n";  

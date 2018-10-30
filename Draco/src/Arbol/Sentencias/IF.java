@@ -5,6 +5,7 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
@@ -31,9 +32,9 @@ public class IF  extends objetoBase{
   }    
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         String salida="BR "+ etiquetaSalida+"\n";
-        elementoRetorno solExpresion = this.condicion.ejecutar(cod, tabla);
+        elementoRetorno solExpresion = this.condicion.ejecutar(cod, tabla, ambitos, metodo);
         if(solExpresion.valor.tipo.equalsIgnoreCase(Constantes.CONDICION)){
             nodoCondicion cond = (nodoCondicion)solExpresion.valor.valor;
             cod.addMensaje("--- Codigo condicion ---");
@@ -41,7 +42,7 @@ public class IF  extends objetoBase{
             cod.addCodigo(cond.getEtiquetasVerdaderas());
             cod.addSi();
             cod.addMensaje("------- inicio codigo Instrucciones  ------------");
-            instrucciones.ejecutar(cod, tabla);
+            instrucciones.ejecutar(cod, tabla, ambitos, metodo);
             cod.addMensaje("------- fin codigo Instrucciones  ------------");
             cod.addCodigo(salida);
             cod.salirAmbito();

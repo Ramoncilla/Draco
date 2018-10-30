@@ -5,6 +5,7 @@
  */
 package Arbol.Expresion;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
@@ -49,8 +50,9 @@ public class Acceso extends objetoBase{
    
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
-        return super.ejecutar(cod, tabla); //To change body of generated methods, choose Tools | Templates.
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
+        
+        return new elementoRetorno();
     }
     
     

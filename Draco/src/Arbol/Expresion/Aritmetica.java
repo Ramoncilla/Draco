@@ -5,6 +5,7 @@
  */
 package Arbol.Expresion;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
@@ -33,15 +34,15 @@ public class Aritmetica extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         Suma opSumar = new Suma(cod);
         Resta opRestar = new Resta(cod);
         Multiplicacion opMultiplicar = new Multiplicacion(cod);
         Potencia opElevar = new Potencia(cod);
         Division opDividir = new Division(cod);
         elementoRetorno ret = new elementoRetorno();
-        elementoRetorno v1 = this.val1.ejecutar(cod, tabla);
-        elementoRetorno v2 = this.val2.ejecutar(cod, tabla);
+        elementoRetorno v1 = this.val1.ejecutar(cod, tabla,ambitos, metodo);
+        elementoRetorno v2 = this.val2.ejecutar(cod, tabla,ambitos, metodo);
         switch (operador) {
             case "+": {
                 Valor res = opSumar.operar(v1.valor, v2.valor);

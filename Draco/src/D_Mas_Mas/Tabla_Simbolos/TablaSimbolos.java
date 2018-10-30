@@ -5,6 +5,7 @@
  */
 package D_Mas_Mas.Tabla_Simbolos;
 
+import ASM.Ambito3D;
 import draco.Constantes;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,208 @@ public class TablaSimbolos {
    } 
     
     
+   
+   
+   
+ /*----------------- OBTENER TIPO DE UNA VARIABLE ---------------------------------*/
+ 
+   public String obtenerTipoVar(String nombre, Ambito3D ambiente){
+      Ambito3D ambitoTemporal = ambiente.clonar();
+      String cadenaAmbito;
+      String tipo="";
+       for (int i = 0; i < ambiente.ambientes.size(); i++) {
+           cadenaAmbito = ambitoTemporal.getAmbito();
+           tipo = getTipo(cadenaAmbito, nombre);
+           if(!(tipo.equalsIgnoreCase(""))){
+               return tipo;
+           }
+           ambitoTemporal.salirAmbito();
+       }
+      return "";      
+   }
+    
+private String getTipo (String cadenaAmbito, String nombre ){
+  Simbolo simTemporal;
+
+  for (int i =0; i<this.listaSimbolos.size(); i++){
+      simTemporal  = this.listaSimbolos.get(i);
+      if(simTemporal.ambito.equalsIgnoreCase(cadenaAmbito)){
+          if(simTemporal.nombreCorto.equalsIgnoreCase(nombre)){
+              return simTemporal.tipoElemento;
+          }
+      }
+  }
+return "";
+}
+
+
+
+/*--------------------------- OBTENER SI ES O NO ATRIBUTO UNA VARIABLE -------------------------------*/
+public Object esAtributo(String nombre, Ambito3D ambitos){
+ 
+  Ambito3D ambitoTemporal = ambitos.clonar();
+  int  cont =0;
+  String cadenaAmbito="";
+   
+  if(this.listaSimbolos.isEmpty()){
+      cont+=0;
+  }
+  else{
+    for(int i =0; i<ambitos.ambientes.size(); i++){
+        cadenaAmbito = ambitoTemporal.getAmbito();
+        cont=cont + existeListaLocal(cadenaAmbito,nombre);
+        if(cont>0){
+          return false;
+        }
+        ambitoTemporal.salirAmbito();
+    }
+}
+
+ 
+  ambitoTemporal= ambitos.clonar();
+   cont =0;
+   cadenaAmbito="";
+   
+  if(this.listaSimbolos.isEmpty()){
+      cont+=0;
+  }
+  else{
+    for(int i =0; i<ambitos.ambientes.size(); i++){
+        cadenaAmbito = ambitoTemporal.getAmbito();
+        cont=cont + existeListaGlobal(cadenaAmbito,nombre);
+        if(cont>0){
+          return true;
+        }
+        ambitoTemporal.salirAmbito();
+    }
+}
+
+return null;
+
+}
+   
+
+private int existeListaGlobal (String cadenaAmbito, String nombre ){
+  Simbolo simTemporal;
+  int cont =0;
+  nombre= nombre+"";
+  for (int i =0; i<this.listaSimbolos.size(); i++){
+      simTemporal  = this.listaSimbolos.get(i);
+      if(simTemporal.ambito.equalsIgnoreCase(cadenaAmbito)){
+          if(simTemporal.nombreCorto.equalsIgnoreCase(nombre)){
+            if(simTemporal.ambito.equalsIgnoreCase(Constantes.GLOBAL)){
+              cont++;
+            }
+              
+          }
+      }
+  }
+return cont;
+}
+
+
+private int existeListaLocal (String cadenaAmbito, String nombre ){
+  Simbolo simTemporal;
+  int cont =0;
+  nombre= nombre+"";
+  for (int i =0; i<this.listaSimbolos.size(); i++){
+      simTemporal  = this.listaSimbolos.get(i);
+      if(simTemporal.ambito.equalsIgnoreCase(cadenaAmbito)){
+          if(simTemporal.nombreCorto.equalsIgnoreCase(nombre)){
+            if(!(simTemporal.ambito.equalsIgnoreCase(Constantes.GLOBAL))){
+              cont++;
+            }
+              
+          }
+      }
+  }
+return cont;
+}
+
+
+
+
+/*=================== Obtener la posicion de una variable global=========================*/
+
+public int obtenerPosAtributo(String nombre, Ambito3D ambitos){
+  Ambito3D ambitoTemporal = ambitos.clonar();
+  String cadenaAmbito="";
+  for(int i =0; i<ambitos.ambientes.size(); i++){
+    cadenaAmbito = ambitoTemporal.getAmbito();
+    int  cont= this.posGlobal(cadenaAmbito,nombre);
+    if(cont>=0){
+      return cont;
+    }
+    ambitoTemporal.salirAmbito();
+}
+return -1; 
+}
+
+
+private int posGlobal (String cadenaAmbito, String nombre ){
+  Simbolo simTemporal;
+
+  for (int i =0; i<this.listaSimbolos.size(); i++){
+      simTemporal  = this.listaSimbolos.get(i);
+      if(simTemporal.ambito.equalsIgnoreCase(cadenaAmbito)){
+          if(simTemporal.nombreCorto.equalsIgnoreCase(nombre)){
+            if(simTemporal.ambito.equalsIgnoreCase(Constantes.GLOBAL)){
+              return simTemporal.apuntador;
+            }
+              
+          }
+      }
+  }
+return -1;
+}
+
+
+
+/*============= OBTENER LA POSICION DE UNA VARIABLE LOCAL ==========================*/
+public int obtenerPosLocal (String nombre, Ambito3D ambitos){
+   Ambito3D ambitoTemporal = ambitos.clonar();
+   String cadenaAmbito="";
+  for(int i =0; i<ambitos.ambientes.size(); i++){
+    cadenaAmbito = ambitoTemporal.getAmbito();
+    int cont= this.posLocal(cadenaAmbito,nombre);
+    if(cont>=0){
+      return cont;
+    }
+   ambitoTemporal.salirAmbito();
+}
+return -1;
+  
+};
+
+
+private int posLocal (String cadenaAmbito, String nombre ){
+  Simbolo simTemporal;
+
+  for (int i =0; i<this.listaSimbolos.size(); i++){
+      simTemporal  = this.listaSimbolos.get(i);
+      if(simTemporal.ambito.equalsIgnoreCase(cadenaAmbito)){
+          if(simTemporal.nombreCorto.equalsIgnoreCase(nombre)){
+              if(!(simTemporal.ambito.equalsIgnoreCase(Constantes.GLOBAL))){
+              return simTemporal.apuntador;
+            }
+              
+          }
+      }
+  }
+return -1;
+};
+
+
+
+
+
+
+
+
+
+   
+   
+   
    public void escribirTabla(){
 
     String  encabezado="<table border =1><tr>"

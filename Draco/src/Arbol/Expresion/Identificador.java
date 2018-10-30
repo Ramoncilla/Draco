@@ -19,4 +19,8 @@ public class Identificador extends objetoBase{
         this.nombreId= val.toString();
     }
     
+    
+    
+    
+    
 }

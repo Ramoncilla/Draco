@@ -10,6 +10,10 @@ package draco;
  * @author Ramonella
  */
 public class Constantes {
+    
+    public static final int INICIO_HEAP=6;
+    public static final int INICIO_STACK = 6;
+    
 
     public static final String VERDADERO = "VERDADERO";
     public static final String FALSO = "FALSO";

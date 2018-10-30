@@ -5,6 +5,7 @@
  */
 package Arbol.Expresion;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
@@ -26,7 +27,7 @@ public class Entero extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         elementoRetorno ret = new elementoRetorno();
         ret.valor.crearEntero(valIntDouble);
         super.retorno= ret;

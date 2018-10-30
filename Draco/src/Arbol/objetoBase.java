@@ -6,6 +6,7 @@
 package Arbol;
 
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
@@ -19,7 +20,10 @@ public class objetoBase {
     public elementoRetorno retorno = new elementoRetorno();
     
     
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla){
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo){
+        
+        
+        
         
         return new elementoRetorno();
     }

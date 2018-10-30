@@ -5,9 +5,11 @@
  */
 package Arbol;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
+import draco.Constantes;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -32,11 +34,14 @@ public class Archivo {
         Generador codASM = new Generador();
         objetoBase temp;
         elementoRetorno elem;
+        Ambito3D ambitos = new Ambito3D();
+        ambitos.addAmbiente(Constantes.GLOBAL);
        //reservarEspcioGlobales(codASM, tabla);
         for (int i = 0; i < this.elementosArchivo.size(); i++) {
             temp= this.elementosArchivo.get(i);
-            elem = temp.ejecutar(codASM, tabla);
+            elem = temp.ejecutar(codASM, tabla, ambitos, "");
         }
+        ambitos.salirAmbito();
         escribirArchivo(codASM.codigo);
     }
     

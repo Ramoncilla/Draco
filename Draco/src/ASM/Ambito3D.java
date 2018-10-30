@@ -67,4 +67,14 @@ public class Ambito3D {
 	return contexto;
     }
     
+   public Ambito3D clonar(){
+       Ambito3D ret= new Ambito3D();
+       String temporal;
+       for (int i = 0; i < this.ambientes.size(); i++) {
+           temporal= ambientes.get(i);
+           ret.addAmbiente(temporal);
+       }
+       return ret;
+   } 
+    
 }

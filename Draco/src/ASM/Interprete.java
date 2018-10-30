@@ -31,8 +31,8 @@ public class Interprete {
         this.aux = new Stack<>();
         this.calc = 0;
         this.cadenaImpresion = "";
-        heap[0] = 6;
-        stack[0] = 1;
+        heap[0] = Constantes.INICIO_HEAP;
+        stack[0] = Constantes.INICIO_STACK;
     }
 
     public String ejecutar() {

@@ -5,6 +5,7 @@
  */
 package Arbol.Funciones;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
@@ -29,12 +30,12 @@ public class CuerpoFuncion extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         elementoRetorno ret = new elementoRetorno();
         objetoBase temporal;
         for (int i = 0; i < this.listaSentencias.size(); i++) {
             temporal= listaSentencias.get(i);
-            ret=temporal.ejecutar(cod, tabla);
+            ret=temporal.ejecutar(cod, tabla, ambitos, metodo);
         }
         return ret;
     }

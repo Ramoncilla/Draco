@@ -5,6 +5,7 @@
  */
 package Arbol.Expresion;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
@@ -24,7 +25,7 @@ public class Cadena extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         
         String cadena= "GET_GLOBAL 0\n";
         char c;

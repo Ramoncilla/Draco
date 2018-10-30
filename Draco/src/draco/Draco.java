@@ -23,6 +23,8 @@ import java.io.PrintWriter;
 public class Draco {
     
     public static ListaErrores erroresEjecucion;
+    public static ListaErrores errores3D;
+    public static ListaErrores erroresJS;
 
     /**
      * @param args the command line arguments

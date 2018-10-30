@@ -5,6 +5,7 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Funciones.CuerpoFuncion;
@@ -31,25 +32,25 @@ public class Si extends objetoBase{
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         String etiqSalida = cod.getEtiqueta();
         String salida="BR "+ etiqSalida+"\n";
         cod.addMensaje("-------- INICIO SI ---------");
         //Resolviendo para el primer si
         this.siInicial.etiquetaSalida= etiqSalida;
-        this.siInicial.ejecutar(cod, tabla);
+        this.siInicial.ejecutar(cod, tabla, ambitos, metodo);
         
         //resolviendo para la lista de si intermedios si llegara a tener
         IF temp;
         for (int i = 0; i < this.listaSinoSi.size(); i++) {
             temp= listaSinoSi.get(i);
             temp.etiquetaSalida= etiqSalida;
-            temp.ejecutar(cod, tabla);
+            temp.ejecutar(cod, tabla, ambitos, metodo);
         }
         
         if(!(sino.esVacio())){
             cod.addSino();
-            sino.ejecutar(cod, tabla);
+            sino.ejecutar(cod, tabla, ambitos, metodo);
             cod.addCodigo(salida);
             cod.salirAmbito();
         }

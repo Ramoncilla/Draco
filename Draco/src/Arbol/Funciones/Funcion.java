@@ -5,6 +5,7 @@
  */
 package Arbol.Funciones;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Sentencias.Declaracion;
@@ -36,7 +37,7 @@ public class Funcion extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         String codigo = "function $"+obtenerNombreFuncion()+"\n";
         cod.addCodigo(codigo);
         if(esPrincipal){
@@ -51,8 +52,9 @@ public class Funcion extends objetoBase {
 
         }
         
-        
-        sentencias.ejecutar(cod, tabla);
+        ambitos.addAmbiente(nombre);
+        sentencias.ejecutar(cod, tabla, ambitos, nombre);
+        ambitos.salirAmbito();
         cod.addCodigo("end\n");
         return new elementoRetorno(); //To change body of generated methods, choose Tools | Templates.
     }

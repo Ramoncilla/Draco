@@ -5,6 +5,7 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
@@ -29,9 +30,9 @@ public class Mientras extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
 
-        elementoRetorno retCondicion = condicion.ejecutar(cod,tabla);
+        elementoRetorno retCondicion = condicion.ejecutar(cod,tabla, ambitos, metodo);
         if (retCondicion.valor.tipo.equalsIgnoreCase(Constantes.CONDICION)) {
             cod.addMientras();
             nodoCondicion cond= (nodoCondicion)retCondicion.valor.valor;
@@ -46,7 +47,7 @@ public class Mientras extends objetoBase {
             cod.addCodigo(cond.codigo);
             cod.addCodigo(cond.getEtiquetasVerdaderas());
             cod.addMientras();
-            instrucciones.ejecutar(cod, tabla);
+            instrucciones.ejecutar(cod, tabla, ambitos, metodo);
             cod.salirAmbito();
             cod.addCodigo("BR "+etiqCiclo+"\n");
             cod.addCodigo(cond.getEtiquetasFalsas());
