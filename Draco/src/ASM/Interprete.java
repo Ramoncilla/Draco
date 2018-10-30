@@ -116,13 +116,17 @@ public class Interprete {
             relacional(g.operador);
         }else if(instruccion instanceof BR){
             BR salto = (BR) instruccion;
+            System.out.println("Saltar a "+ salto.etiqueta);
             this.saltar(salto.etiqueta);
         }else if(instruccion instanceof BR_IF){
             double d = this.aux.pop();
             BR_IF salto = (BR_IF)instruccion;
             if(d==0){
+                System.out.println("Saltar a "+ salto.etiqF);
                 this.saltar(salto.etiqF);
+                
             }else{
+                System.out.println("Saltar a "+ salto.etiV);
                 this.saltar(salto.etiV);
                 System.out.println("No es valido realizar el salto con "+ salto.etiqF);
             }

@@ -8,6 +8,7 @@ package Arbol.Expresion;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Decimal extends objetoBase{
     }
     
       @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla) {
         elementoRetorno ret = new elementoRetorno();
         ret.valor.crearDecimal(valDecimalDouble);
         super.retorno= ret;

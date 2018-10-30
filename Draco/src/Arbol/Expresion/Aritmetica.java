@@ -14,6 +14,7 @@ import Arbol.Expresion.ValidarExpresion.Potencia;
 import Arbol.Expresion.ValidarExpresion.Resta;
 import Arbol.Expresion.ValidarExpresion.Suma;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -32,15 +33,15 @@ public class Aritmetica extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
         Suma opSumar = new Suma(cod);
         Resta opRestar = new Resta(cod);
         Multiplicacion opMultiplicar = new Multiplicacion(cod);
         Potencia opElevar = new Potencia(cod);
         Division opDividir = new Division(cod);
         elementoRetorno ret = new elementoRetorno();
-        elementoRetorno v1 = this.val1.ejecutar(cod);
-        elementoRetorno v2 = this.val2.ejecutar(cod);
+        elementoRetorno v1 = this.val1.ejecutar(cod, tabla);
+        elementoRetorno v2 = this.val2.ejecutar(cod, tabla);
         switch (operador) {
             case "+": {
                 Valor res = opSumar.operar(v1.valor, v2.valor);

@@ -9,6 +9,7 @@ import ASM.Generador;
 import ASM.Valor;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -25,7 +26,7 @@ public class Entero extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla) {
         elementoRetorno ret = new elementoRetorno();
         ret.valor.crearEntero(valIntDouble);
         super.retorno= ret;

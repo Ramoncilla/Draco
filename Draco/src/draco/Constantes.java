@@ -40,4 +40,6 @@ public class Constantes {
     public static final String ARR_GLOBAL = "Arreglo Global";
     public static final String ARR_LOCAL = "Arreglo Local";
     
+    public static final String RETORNO = "retorno";
+    
 }

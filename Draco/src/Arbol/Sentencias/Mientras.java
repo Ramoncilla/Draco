@@ -10,6 +10,7 @@ import ASM.elementoRetorno;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.Funciones.CuerpoFuncion;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
 import java.util.List;
 
@@ -28,9 +29,9 @@ public class Mientras extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
 
-        elementoRetorno retCondicion = condicion.ejecutar(cod);
+        elementoRetorno retCondicion = condicion.ejecutar(cod,tabla);
         if (retCondicion.valor.tipo.equalsIgnoreCase(Constantes.CONDICION)) {
             cod.addMientras();
             nodoCondicion cond= (nodoCondicion)retCondicion.valor.valor;
@@ -45,7 +46,7 @@ public class Mientras extends objetoBase {
             cod.addCodigo(cond.codigo);
             cod.addCodigo(cond.getEtiquetasVerdaderas());
             cod.addMientras();
-            instrucciones.ejecutar(cod);
+            instrucciones.ejecutar(cod, tabla);
             cod.salirAmbito();
             cod.addCodigo("BR "+etiqCiclo+"\n");
             cod.addCodigo(cond.getEtiquetasFalsas());

@@ -10,6 +10,7 @@ import ASM.Valor;
 import ASM.elementoRetorno;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
 
 /**
@@ -25,9 +26,9 @@ public class Imprimir extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
         
-        Valor c = expresion.ejecutar(cod).valor;
+        Valor c = expresion.ejecutar(cod, tabla).valor;
         String cadena="";
         if(c.tipo.equalsIgnoreCase(Constantes.BOOLEANO)){
             cadena+="98\n";  

@@ -53,7 +53,8 @@ public class Estructura extends objetoBase {
         }
         nuevo= new Simbolo();
         nuevo.setValoresVariables(nombre,Constantes.ESTRUCTURA, nombre, Constantes.NO_TIENE, Constantes.ESTRUCTURA, -1, retorno.size());
-        retorno.add(nuevo);
+        retorno.add(0, nuevo);
+//        retorno.add(nuevo);
         return retorno;
     }
     

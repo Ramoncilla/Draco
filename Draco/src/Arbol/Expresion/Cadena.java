@@ -8,6 +8,7 @@ package Arbol.Expresion;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Cadena extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla) {
         
         String cadena= "GET_GLOBAL 0\n";
         char c;

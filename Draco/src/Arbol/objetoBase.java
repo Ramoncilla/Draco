@@ -8,6 +8,7 @@ package Arbol;
 
 import ASM.Generador;
 import ASM.elementoRetorno;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -18,7 +19,7 @@ public class objetoBase {
     public elementoRetorno retorno = new elementoRetorno();
     
     
-    public elementoRetorno ejecutar(Generador cod){
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla){
         
         return new elementoRetorno();
     }

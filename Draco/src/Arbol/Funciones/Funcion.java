@@ -9,6 +9,7 @@ import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Sentencias.Declaracion;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +36,25 @@ public class Funcion extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
         String codigo = "function $"+obtenerNombreFuncion()+"\n";
         cod.addCodigo(codigo);
-        sentencias.ejecutar(cod);
+        if(esPrincipal){
+
+         cod.addMensaje("Reservando espacio en el heap para las vairables gloables");
+         int val = tabla.obtenerNumeroGlobales();
+         cod.addCodigo("get_global 0\n");
+         cod.addCodigo(val+"\n");
+         cod.addCodigo("ADD\n");
+         cod.addCodigo("set_global 0\n");
+         cod.addMensaje("Fin de reserva de memoria");
+
+        }
+        
+        
+        sentencias.ejecutar(cod, tabla);
         cod.addCodigo("end\n");
-        return super.ejecutar(cod); //To change body of generated methods, choose Tools | Templates.
+        return new elementoRetorno(); //To change body of generated methods, choose Tools | Templates.
     }
     
     

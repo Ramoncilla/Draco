@@ -9,6 +9,7 @@ import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Funciones.CuerpoFuncion;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,25 +31,25 @@ public class Si extends objetoBase{
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
         String etiqSalida = cod.getEtiqueta();
         String salida="BR "+ etiqSalida+"\n";
         cod.addMensaje("-------- INICIO SI ---------");
         //Resolviendo para el primer si
         this.siInicial.etiquetaSalida= etiqSalida;
-        this.siInicial.ejecutar(cod);
+        this.siInicial.ejecutar(cod, tabla);
         
         //resolviendo para la lista de si intermedios si llegara a tener
         IF temp;
         for (int i = 0; i < this.listaSinoSi.size(); i++) {
             temp= listaSinoSi.get(i);
             temp.etiquetaSalida= etiqSalida;
-            temp.ejecutar(cod);
+            temp.ejecutar(cod, tabla);
         }
         
         if(!(sino.esVacio())){
             cod.addSino();
-            sino.ejecutar(cod);
+            sino.ejecutar(cod, tabla);
             cod.addCodigo(salida);
             cod.salirAmbito();
         }

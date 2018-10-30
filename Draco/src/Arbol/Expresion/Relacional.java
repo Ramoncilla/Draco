@@ -12,6 +12,7 @@ import Arbol.Expresion.ValidarExpresion.elementoOperacion;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.Expresion.ValidarExpresion.opRelacional;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -30,12 +31,12 @@ public class Relacional extends objetoBase {
     
     
      @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
         elementoOperacion op = new elementoOperacion();
         opRelacional rel = new opRelacional(cod);
         elementoRetorno ret = new elementoRetorno();
-        elementoRetorno v1 = this.val1.ejecutar(cod);
-        elementoRetorno v2 = this.val2.ejecutar(cod);
+        elementoRetorno v1 = this.val1.ejecutar(cod, tabla);
+        elementoRetorno v2 = this.val2.ejecutar(cod, tabla);
         switch (operador) {
             case "<": {
                 Valor res = rel.menor(v1.valor, v2.valor);

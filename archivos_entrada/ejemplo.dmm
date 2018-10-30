@@ -1,56 +1,14 @@
+entero x,y;
+entero c=10;
 
-entero z=10;
-cadena b= "hola mundo";
-caracter c= 'g';
-entero x = 10*10+a;
 
 estructura persona{
-  cadena nombre;
-  entero edad;
-  decimal precio;
-}
 
+ cadena nombre;
+ entero edad;
+ entero valores;
+}
 
 vacio principal(){
-entero a;
-imprimir("HO");
-
-imprimir("LA");
-
-si(286>9 && 10>5 && 8<=5){
- imprimir("incorrecto");
- entero a;
-}
-
-
-sino si(2>5){
-entero a;
-   si(31<8 ||85<=11){
-      imprimir("holis si");
-	  entero a;
-    }sino{
-	  imprimir ("holis no");
-	  entero a;
-	}
-  imprimir("esto deberia de salir");
-}sino si(11<10){
-entero a;
- imprimir("esto no");
-}
-
-
-
-
-
-sino{entero a;}
-
-
-
-
-
-}
-
-entero func(entero a, cadena b, popo c){
-entero x;
- imprimir("holis");
+imprimir("holis");
 }

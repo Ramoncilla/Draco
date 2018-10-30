@@ -8,6 +8,7 @@ package Arbol.Funciones;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +29,12 @@ public class CuerpoFuncion extends objetoBase {
     }
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
         elementoRetorno ret = new elementoRetorno();
         objetoBase temporal;
         for (int i = 0; i < this.listaSentencias.size(); i++) {
             temporal= listaSentencias.get(i);
-            ret=temporal.ejecutar(cod);
+            ret=temporal.ejecutar(cod, tabla);
         }
         return ret;
     }

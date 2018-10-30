@@ -8,6 +8,7 @@ package Arbol.Expresion;
 import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
 
 /**
@@ -31,7 +32,7 @@ public class Booleano extends objetoBase{
     
     
       @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod,TablaSimbolos tabla) {
         elementoRetorno ret = new elementoRetorno();
         ret.valor.crearBooleano(booleanoInt);
         super.retorno= ret;

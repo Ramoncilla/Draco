@@ -7,6 +7,7 @@ package Arbol;
 
 import ASM.Generador;
 import ASM.elementoRetorno;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -27,16 +28,20 @@ public class Archivo {
     
  
     
-    public void ejecutarArchivo(){
+    public void ejecutarArchivo(TablaSimbolos tabla){
         Generador codASM = new Generador();
         objetoBase temp;
         elementoRetorno elem;
+       //reservarEspcioGlobales(codASM, tabla);
         for (int i = 0; i < this.elementosArchivo.size(); i++) {
             temp= this.elementosArchivo.get(i);
-            elem = temp.ejecutar(codASM);
+            elem = temp.ejecutar(codASM, tabla);
         }
         escribirArchivo(codASM.codigo);
     }
+    
+    
+    
     
     
     public  void escribirArchivo(String cad){

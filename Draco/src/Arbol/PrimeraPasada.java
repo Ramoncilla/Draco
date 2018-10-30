@@ -70,6 +70,16 @@ public class PrimeraPasada {
             List<Simbolo> simbolos, simbolosFuncion;
             simbolosFuncion = new ArrayList<>();
             ambito.addAmbiente(func.nombreLargo);
+            
+            //Creando el simbolo del retorno de la funcion
+            
+            Simbolo simbFuncion = new Simbolo();
+            simbFuncion.setValoresVariables(Constantes.RETORNO, Constantes.RETORNO, func.tipo, ambito.getAmbito(), Constantes.RETORNO, ap.valor, 1);
+            ap.valor++;
+            this.tabla.insertarSimbolo(simbFuncion);
+            
+            
+            
             for (int i = 0; i < func.parametros.size(); i++) {
                 temp= func.parametros.get(i);
                 simbolos = temp.obtenerSimbolosDecla(ap, ambito.getAmbito(), Constantes.PARAMETRO);
@@ -86,8 +96,9 @@ public class PrimeraPasada {
             }
            ambito.salirAmbito();
            
-           Simbolo simbFuncion = new Simbolo();
-           simbFuncion.setValoresFuncion(func.nombreLargo, func.tipo,Constantes.FUNCION, ambito.getAmbito(), Constantes.VARIABLE, ap.valor, simbolosFuncion.size(), func.obtenerSizeParametros(), func.obtenerCadenaTipoParametros(), func.nombre);
+           simbFuncion = new Simbolo();
+           
+           simbFuncion.setValoresFuncion(func.nombreLargo, func.tipo,Constantes.FUNCION, Constantes.NO_TIENE, Constantes.VARIABLE, -1, simbolosFuncion.size(), func.obtenerSizeParametros(), func.obtenerCadenaTipoParametros(), func.nombre);
            this.tabla.insertarSimbolo(simbFuncion);
            
             for (int i = 0; i < simbolosFuncion.size(); i++) {

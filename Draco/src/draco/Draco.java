@@ -38,18 +38,18 @@ public class Draco {
            PrimeraPasada p = new PrimeraPasada(arch, t);
            p.llenarTabla();
            t.escribirTabla();
-           arch.ejecutarArchivo();
+           arch.ejecutarArchivo(t);
            
 
        }else{
            
        }
-     /*   e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
+       e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
      CuerpoFuncion f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
      if(f!= null){
          Interprete g = new Interprete(f);
          g.ejecutar();
-     }*/
+     }
      
     }
     

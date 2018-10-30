@@ -10,6 +10,7 @@ import ASM.elementoRetorno;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.Funciones.CuerpoFuncion;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
 import static draco.Draco.erroresEjecucion;
 
@@ -30,9 +31,9 @@ public class IF  extends objetoBase{
   }    
 
     @Override
-    public elementoRetorno ejecutar(Generador cod) {
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla) {
         String salida="BR "+ etiquetaSalida+"\n";
-        elementoRetorno solExpresion = this.condicion.ejecutar(cod);
+        elementoRetorno solExpresion = this.condicion.ejecutar(cod, tabla);
         if(solExpresion.valor.tipo.equalsIgnoreCase(Constantes.CONDICION)){
             nodoCondicion cond = (nodoCondicion)solExpresion.valor.valor;
             cod.addMensaje("--- Codigo condicion ---");
@@ -40,7 +41,7 @@ public class IF  extends objetoBase{
             cod.addCodigo(cond.getEtiquetasVerdaderas());
             cod.addSi();
             cod.addMensaje("------- inicio codigo Instrucciones  ------------");
-            instrucciones.ejecutar(cod);
+            instrucciones.ejecutar(cod, tabla);
             cod.addMensaje("------- fin codigo Instrucciones  ------------");
             cod.addCodigo(salida);
             cod.salirAmbito();

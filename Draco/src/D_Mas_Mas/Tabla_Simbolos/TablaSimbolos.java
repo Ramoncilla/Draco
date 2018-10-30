@@ -5,6 +5,7 @@
  */
 package D_Mas_Mas.Tabla_Simbolos;
 
+import draco.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 import static draco.Draco.erroresEjecucion;
@@ -51,6 +52,19 @@ public class TablaSimbolos {
     
     
     
+   public int obtenerNumeroGlobales(){
+       int g =0;
+       Simbolo temporal;
+       for (int i = 0; i < this.listaSimbolos.size(); i++) {
+           temporal = this.listaSimbolos.get(i);
+           if(temporal.ambito.equalsIgnoreCase(Constantes.GLOBAL)){
+               g++;
+           }
+       }
+       return g;
+   } 
+    
+    
    public void escribirTabla(){
 
     String  encabezado="<table border =1><tr>"
@@ -92,6 +106,6 @@ public class TablaSimbolos {
            }
         }
 
-};
+}
     
 }
