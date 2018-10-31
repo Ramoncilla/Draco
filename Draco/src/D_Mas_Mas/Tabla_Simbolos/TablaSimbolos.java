@@ -53,22 +53,20 @@ public class TablaSimbolos {
     
     
     
-   public int obtenerNumeroGlobales(){
-       int g =0;
+    
+   
+   public List<Simbolo> obtenerSimbolosVarGlobales(){
+       List<Simbolo> retorno = new ArrayList<>();
        Simbolo temporal;
        for (int i = 0; i < this.listaSimbolos.size(); i++) {
            temporal = this.listaSimbolos.get(i);
            if(temporal.ambito.equalsIgnoreCase(Constantes.GLOBAL)){
-               g++;
+               retorno.add(temporal);
            }
        }
-       return g;
+       return retorno;
    } 
-    
-    
-   
-   
-   
+     
  /*----------------- OBTENER TIPO DE UNA VARIABLE ---------------------------------*/
  
    public String obtenerTipoVar(String nombre, Ambito3D ambiente){
@@ -255,10 +253,53 @@ private int posLocal (String cadenaAmbito, String nombre ){
       }
   }
 return -1;
-};
+}
+
+
+/*-------------------------- Obtener el tamanio de los arreglos -------------------------------*/
+public int obtenerTamanioEDD(String nombre){
+    
+    Simbolo temporal;
+    for (int i = 0; i < this.listaSimbolos.size(); i++) {
+        temporal = listaSimbolos.get(i);
+        if(temporal.nombreCorto.equalsIgnoreCase(nombre) &&
+                temporal.tipoSimbolo.equalsIgnoreCase(Constantes.ESTRUCTURA) &&
+                temporal.rol.equalsIgnoreCase(Constantes.ESTRUCTURA)){
+            return temporal.tamanio;
+        }
+    }
+    return -1;
+}
 
 
 
+public int obtenerPosicionAtributoEDD(String nombreAtri, String nombreEDD){
+    
+    Simbolo temporal;
+    for (int i = 0; i < this.listaSimbolos.size(); i++) {
+        temporal = listaSimbolos.get(i);
+        if(temporal.nombreCorto.equalsIgnoreCase(nombreAtri) && 
+                temporal.ambito.equalsIgnoreCase(nombreEDD)){
+            return temporal.apuntador;
+        }
+    }
+    
+    return -1;
+}
+
+public String obtenerTipoAtributoEDD(String nombreAtri, String nombreEDD){
+    
+    Simbolo temporal;
+    for (int i = 0; i < this.listaSimbolos.size(); i++) {
+        temporal = listaSimbolos.get(i);
+        if(temporal.nombreCorto.equalsIgnoreCase(nombreAtri) && 
+                temporal.ambito.equalsIgnoreCase(nombreEDD)){
+            return temporal.tipoElemento;
+        }
+    }
+    
+    return "";
+}
 
 
 

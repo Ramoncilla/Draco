@@ -9,6 +9,8 @@ import ASM.Arbol.Funcion;
 import ASM.Arbol.ListaFunciones;
 import ASM.Arbol.*;
 import draco.Constantes;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Stack;
 
 /**
@@ -74,9 +76,69 @@ public class Interprete {
             }
 
         }
+        escribirHeap();
+        escribirStack();
 
         System.out.println("Impresion:     " + this.cadenaImpresion);
         return this.cadenaImpresion;
+    }
+    
+    
+    private void escribirHeap(){
+        
+         String cad = "<table border= 1><tr><td>Posicion</td> <td>Valor</td></tr>";
+    for(int i =0; i< 1000; i++){
+        cad+="<tr><td>"+i+"</td><td>"+ this.heap[i]+"</td></tr>";
+    }
+    cad+="</table>";
+   
+        
+         FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\Heap.html");
+            pw = new PrintWriter(fichero);
+            pw.println(cad);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+    }
+    
+    
+    private void escribirStack(){
+        
+         String cad = "<table border= 1><tr><td>Posicion</td> <td>Valor</td></tr>";
+    for(int i =0; i< 100; i++){
+        cad+="<tr><td>"+i+"</td><td>"+ this.stack[i]+"</td></tr>";
+    }
+    cad+="</table>";
+   
+        
+         FileWriter fichero = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero = new FileWriter("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\Stack.html");
+            pw = new PrintWriter(fichero);
+            pw.println(cad);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
     }
 
     private void ejecutarInstruccion(baseASM instruccion) {

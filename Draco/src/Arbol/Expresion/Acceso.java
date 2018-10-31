@@ -66,8 +66,11 @@ public class Acceso extends objetoBase{
             
             case 2:
             {
-               resolverTipo2(cod, tabla, ambitos, metodo); 
-              break;   
+                Valor c=  resolverTipo2(cod, tabla, ambitos, metodo);
+                elementoRetorno ret = new elementoRetorno();
+                ret.valor = c;
+                
+              return ret;   
             }
             
             case 3:
@@ -91,18 +94,32 @@ public class Acceso extends objetoBase{
                 boolean atri = (boolean)esAtributo;
                 if(atri){
                     // es una variable global
-                    
-                    
+                    int pos = tabla.obtenerPosAtributo(nombreId, ambitos);
+                    if(pos!=-1){
+                        String codigo ="//OBTENIENDO EL VALOR DE  "+ nombreId+" VARIABLE GLOBAL\n"
+                                + Constantes.INICIO_HEAP+"\n"
+                                + pos+"\n"
+                                + "add\n"
+                                + "get_global $calc\n";
+                        
+                        Valor v = new Valor();
+                        v.tipo= tipoVar;
+                        v.valor= codigo;
+                        return v;  
+                        
+                    }else{
+                      erroresEjecucion.addSemantico(pos, pos, "No se ha podido encontrar la variable "+ nombreId+", no existe");  
+                    }   
                 }else {
                     // es una variable local
                     int pos = tabla.obtenerPosLocal(nombreId, ambitos);
                     if(pos!= -1){
-                        String codigo ="//OBTENIENDO EL VALOR DE  "+ nombreId+"\n"
+                        String codigo ="//OBTENIENDO EL VALOR DE  "+ nombreId+" VARIABLE LOCAL \n"
                                 + "get_local 0\n"
                                 + pos+"\n"
                                 + "add\n"
                                 + "get_local $calc\n";
-                        
+                                
                         Valor v = new Valor();
                         v.tipo= tipoVar;
                         v.valor= codigo;
@@ -122,8 +139,59 @@ public class Acceso extends objetoBase{
         return new Valor();
     }
     
-    private void resolverTipo2(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo){
-        
+     private Valor  resolverTipo2(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
+
+
+        if ((valor1 instanceof Identificador) && (valor2 instanceof Identificador)) {
+            Identificador var1 = (Identificador) valor1;
+            Identificador var2 = (Identificador) valor2;
+            Object esAtributo = tabla.esAtributo(var1.nombreId, ambitos);
+            if (esAtributo != null) {
+
+                boolean atri = (boolean) esAtributo;
+                if (atri) {
+
+                } else {
+                    int pos = tabla.obtenerPosLocal(var1.nombreId, ambitos);
+                    String tipo = tabla.obtenerTipoVar(var1.nombreId, ambitos);
+                    if (pos != -1) {
+                        
+                        int pos2 = tabla.obtenerPosicionAtributoEDD(var2.nombreId, tipo);
+                        String tipo2 = tabla.obtenerTipoAtributoEDD(var2.nombreId, tipo);
+                        if (pos2 != -1) {
+
+                                String codigo = "//RESOLVIENDO ACCESO DE " + var1.nombreId+"."+var2.nombreId+"\n"
+                                +"get_local 0\n"
+                                +pos+"\n"
+                                +"ADD\n"
+                                +"get_local $calc\n"
+                                +"get_global $calc\n"
+                                +pos2+"\n"
+                                +"ADD\n"
+                                +"get_global $calc\n";
+                        Valor v = new Valor();
+                        v.tipo= tipo2;
+                        v.valor= codigo;
+                        return v;   
+                            
+
+                        } else {
+
+                        }
+                    } else {
+
+                    }
+                }
+
+            } else {
+
+            }
+
+        } else {
+
+        }
+
+        return new Valor();
     }
     
     private void resolverTipo3(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo){

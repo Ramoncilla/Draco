@@ -73,10 +73,9 @@ public class PrimeraPasada {
             
             //Creando el simbolo del retorno de la funcion
             
-            Simbolo simbFuncion = new Simbolo();
-            simbFuncion.setValoresVariables(Constantes.RETORNO, Constantes.RETORNO, func.tipo, ambito.getAmbito(), Constantes.RETORNO, ap.valor, 1);
+            Simbolo simbFuncion2 = new Simbolo();
+            simbFuncion2.setValoresVariables(Constantes.RETORNO, Constantes.RETORNO, func.tipo, ambito.getAmbito(), Constantes.RETORNO, ap.valor, 1);
             ap.valor++;
-            this.tabla.insertarSimbolo(simbFuncion);
             
             
             
@@ -94,16 +93,20 @@ public class PrimeraPasada {
                 temporal = func.sentencias.listaSentencias.get(i);
                 analizarSentenciaFuncion(temporal, ap, ambito, simbolosFuncion);
             }
-           ambito.salirAmbito();
            
-           simbFuncion = new Simbolo();
+           
+          Simbolo simbFuncion = new Simbolo();
            
            simbFuncion.setValoresFuncion(func.nombreLargo, func.tipo,Constantes.FUNCION, Constantes.NO_TIENE, Constantes.VARIABLE, -1, simbolosFuncion.size(), func.obtenerSizeParametros(), func.obtenerCadenaTipoParametros(), func.nombre);
            this.tabla.insertarSimbolo(simbFuncion);
            
+           
+            this.tabla.insertarSimbolo(simbFuncion2);
+           
             for (int i = 0; i < simbolosFuncion.size(); i++) {
                 this.tabla.insertarSimbolo(simbolosFuncion.get(i));
             }
+            ambito.salirAmbito();
         }  
     }
     

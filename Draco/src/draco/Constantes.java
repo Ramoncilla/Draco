@@ -45,5 +45,6 @@ public class Constantes {
     public static final String ARR_LOCAL = "Arreglo Local";
     
     public static final String RETORNO = "retorno";
-
+    public static final String VACIO = "VACIO";
+    
 }

@@ -10,7 +10,9 @@ import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Sentencias.Declaracion;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.Simbolo;
 import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
+import draco.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,16 +42,8 @@ public class Funcion extends objetoBase {
     public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
         String codigo = "function $"+obtenerNombreFuncion()+"\n";
         cod.addCodigo(codigo);
-        if(esPrincipal){
-/*
-         cod.addMensaje("Reservando espacio en el heap para las vairables gloables");
-         int val = tabla.obtenerNumeroGlobales();
-         cod.addCodigo("get_global 0\n");
-         cod.addCodigo(val+"\n");
-         cod.addCodigo("ADD\n");
-         cod.addCodigo("set_global 0\n");
-         cod.addMensaje("Fin de reserva de memoria");*/
-
+        if(esPrincipal){  
+         iniciarAtributos(cod, tabla, ambitos, metodo);
         }
         
         ambitos.addAmbiente(nombre);
@@ -58,6 +52,32 @@ public class Funcion extends objetoBase {
         cod.addCodigo("end\n");
         return new elementoRetorno(); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    
+    private void iniciarAtributos(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo){
+           //iniciar Variables globales
+            Simbolo temporal;
+            List<Simbolo> varsGlobales = tabla.obtenerSimbolosVarGlobales();
+            cod.addMensaje("Reservando memoria para las variables globales");
+            cod.addCodigo("get_global 0\n");
+            cod.addCodigo(varsGlobales.size()+"\n");
+            cod.addCodigo("ADD\n");
+            cod.addCodigo("set_global 0\n");
+            for (int i = 0; i < varsGlobales.size(); i++) {
+                temporal = varsGlobales.get(i);
+                if(temporal.expresionAtributo!= null){
+                    cod.addMensaje("Asignando "+ temporal.nombreCorto+"\n");
+
+                       temporal.expresionAtributo.ejecutar(cod, tabla, ambitos, metodo); 
+                    
+                    
+                }
+            }
+    }
+    
+    
+    
     
     
     
@@ -94,5 +114,10 @@ public class Funcion extends objetoBase {
         }
         return cad;
     }
+    
+    
+   
+    
+    
     
 }

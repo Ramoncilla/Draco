@@ -1,20 +1,28 @@
 
 
+cadena c;
+estructura persona {
+
+cadena nombre;
+entero edad;
+
+
+}
 
 vacio principal(){
-entero h;
-cadena cad;
-booleano b;
-caracter c;
-
-cad="Pedrito";
-b=verdadero;
-c='z';
-h=10;
-imprimir(h+25);
-imprimir(cad);
-imprimir(b);
+persona pedro;
+pedro.edad= 26;
+pedro.nombre= "pedro";
+c= "hola "+ pedro.nombre;
 imprimir(c);
-imprimir(h);
-
+imprimir(pedro.edad);
+imprimir(pedro.nombre);
+imprimir(c);
+imprimir(pedro.edad);
+pedro.nombre= c;
+imprimir(pedro.nombre);
+pedro.nombre= "lindo <3";
+c= pedro.nombre;
+imprimir(c);
+imprimir(pedro.nombre);
 }
