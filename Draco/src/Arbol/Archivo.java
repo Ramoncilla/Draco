@@ -8,12 +8,15 @@ package Arbol;
 import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
+import Arbol.Sentencias.DeclaArreglo;
+import Arbol.Sentencias.Declaracion;
 import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import static draco.Draco.declaracionesGlobales;
 
 /**
  *
@@ -39,7 +42,12 @@ public class Archivo {
        //reservarEspcioGlobales(codASM, tabla);
         for (int i = 0; i < this.elementosArchivo.size(); i++) {
             temp= this.elementosArchivo.get(i);
-            elem = temp.ejecutar(codASM, tabla, ambitos, "");
+            if(temp instanceof Declaracion || temp instanceof DeclaArreglo){
+                declaracionesGlobales.add(temp);
+            }else{
+                elem = temp.ejecutar(codASM, tabla, ambitos, "");
+            }
+            
         }
         ambitos.salirAmbito();
         escribirArchivo(codASM.codigo);

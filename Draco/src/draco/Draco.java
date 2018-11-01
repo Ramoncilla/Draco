@@ -15,6 +15,8 @@ import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import Errores.ListaErrores;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,6 +27,8 @@ public class Draco {
     public static ListaErrores erroresEjecucion;
     public static ListaErrores errores3D;
     public static ListaErrores erroresJS;
+    public static List<objetoBase> declaracionesGlobales;
+    
 
     /**
      * @param args the command line arguments
@@ -36,11 +40,13 @@ public class Draco {
         
        Archivo arch=  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
        if(arch!= null){
+           declaracionesGlobales= new ArrayList<>();
            TablaSimbolos t = new TablaSimbolos();
            PrimeraPasada p = new PrimeraPasada(arch, t);
            p.llenarTabla();
            t.escribirTabla();
            arch.ejecutarArchivo(t);
+           System.out.println("dsfsdf");
            
 
        }else{

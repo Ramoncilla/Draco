@@ -15,6 +15,7 @@ import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
 import java.util.ArrayList;
 import java.util.List;
+import static draco.Draco.declaracionesGlobales;
 
 /**
  *
@@ -64,8 +65,17 @@ public class Funcion extends objetoBase {
             cod.addCodigo(varsGlobales.size()+"\n");
             cod.addCodigo("ADD\n");
             cod.addCodigo("set_global 0\n");
+            objetoBase temp;
+            for (int i = 0; i < declaracionesGlobales.size(); i++) {
+            temp = declaracionesGlobales.get(i);
+            temp.ejecutar(cod, tabla, ambitos, metodo);
+        }
+            
+            
+            /*
             for (int i = 0; i < varsGlobales.size(); i++) {
                 temporal = varsGlobales.get(i);
+               
                 if(temporal.expresionAtributo!= null){
                     cod.addMensaje("Asignando "+ temporal.nombreCorto+"\n");
 
@@ -73,7 +83,7 @@ public class Funcion extends objetoBase {
                     
                     
                 }
-            }
+            }*/
     }
     
     

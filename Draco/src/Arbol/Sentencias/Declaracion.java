@@ -101,7 +101,27 @@ public class Declaracion extends objetoBase {
                     if (val) {
                         //es una variable global
                         posicion = tabla.obtenerPosAtributo(nombreId, ambitos);
-                        
+                        tamanio= tabla.obtenerTamanioEDD(tipo);
+                        String codigo =Constantes.INICIO_HEAP+"\n" +
+    posicion+"\n" +
+    "ADD\n" +
+    "get_global 0\n" +
+    "set_global $calc\n" +
+    "get_global 0\n" +
+    "get_global 0\n" +
+    "1\n" +
+    "ADD\n" +
+    "set_global $calc\n" +
+    "get_global 0\n" +
+    "1\n" +
+    "ADD\n" +
+    "set_global 0\n" +
+    "get_global 0\n" +
+    tamanio+"\n" +
+    "ADD\n" +
+    "set_global 0\n";
+          cod.addMensaje("Inicializando "+ nombreId+", edd global");
+                            cod.addCodigo(codigo);              
                         
 
                     } else {
@@ -142,9 +162,15 @@ public class Declaracion extends objetoBase {
                 //es una variable normal 
 
             }
+            if(temp.asignacion!= null){
+               temp.asignacion.ejecutar(cod, tabla, ambitos, metodo);
+            }
 
         }
-        return new elementoRetorno(); //To change body of generated methods, choose Tools | Templates.
+        
+        
+        
+        return new elementoRetorno(); 
     }
 
     private boolean esObjeto(String tipo) {
