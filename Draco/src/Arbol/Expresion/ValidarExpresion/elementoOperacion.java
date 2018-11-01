@@ -53,5 +53,11 @@ public class elementoOperacion {
     }
          
 
-    
+     public boolean esObjeto(String tipo){
+             return !(tipo.equalsIgnoreCase(Constantes.ENTERO) ||
+                     tipo.equalsIgnoreCase(Constantes.BOOLEANO)||
+                     tipo.equalsIgnoreCase(Constantes.CADENA)||
+                     tipo.equalsIgnoreCase(Constantes.CARACTER)||
+                     tipo.equalsIgnoreCase(Constantes.DECIMAL));
+    }
 }

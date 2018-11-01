@@ -124,6 +124,10 @@ public class Acceso extends objetoBase {
             }
         } else {
             //es un arreglo
+            posArreglo p = (posArreglo)valor1;
+            elementoRetorno r= p.ejecutar(cod, tabla, ambitos, metodo);
+            return r.valor;
+            
 
         }
 

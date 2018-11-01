@@ -1,4 +1,4 @@
-
+/*
 persona p;
 cadena c;
 estructura persona {
@@ -7,9 +7,15 @@ cadena nombre;
 entero edad;
 
 
-}
+*/
 
 vacio principal(){
+
+entero valores[10];
+valores[2]= 99;
+imprimir(valores[2]);
+
+/*
 p.edad= 25;
 p.nombre= "Alina Urbina";
 
@@ -35,5 +41,5 @@ imprimir(pedro.nombre);
 p.edad = pedro.edad+2;
 p.nombre= pedro.nombre+" holiss";
 imprimir(p.edad);
-imprimir(p.nombre);
+imprimir(p.nombre);*/
 }

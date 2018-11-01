@@ -303,10 +303,79 @@ public String obtenerTipoAtributoEDD(String nombreAtri, String nombreEDD){
 
 
 
+/*---------------------- Obtener Simbolo Local ---------------------------------------*/
+public Simbolo obtenerSimbLocal (String nombre, Ambito3D ambitos){
+   Ambito3D ambitoTemporal = ambitos.clonar();
+   String cadenaAmbito="";
+  for(int i =0; i<ambitos.ambientes.size(); i++){
+    cadenaAmbito = ambitoTemporal.getAmbito();
+    Simbolo cont= this.SimbLocal(cadenaAmbito,nombre);
+    if(cont!=null){
+      return cont;
+    }
+   ambitoTemporal.salirAmbito();
+}
+return null;
+  
+};
 
 
+private Simbolo SimbLocal (String cadenaAmbito, String nombre ){
+  Simbolo simTemporal;
+
+  for (int i =0; i<this.listaSimbolos.size(); i++){
+      simTemporal  = this.listaSimbolos.get(i);
+      if(simTemporal.ambito.equalsIgnoreCase(cadenaAmbito)){
+          if(simTemporal.nombreCorto.equalsIgnoreCase(nombre)){
+              if(!(simTemporal.ambito.equalsIgnoreCase(Constantes.GLOBAL))){
+              return simTemporal;
+            }
+              
+          }
+      }
+  }
+return null;
+}
 
    
+
+/*------------------------- Obtener Simbolo global -----------------------------*/
+
+
+public Simbolo obtenerSimbAtributo(String nombre, Ambito3D ambitos){
+  Ambito3D ambitoTemporal = ambitos.clonar();
+  String cadenaAmbito="";
+  for(int i =0; i<ambitos.ambientes.size(); i++){
+    cadenaAmbito = ambitoTemporal.getAmbito();
+    Simbolo  cont= this.SimbGlobal(cadenaAmbito,nombre);
+    if(cont!= null){
+      return cont;
+    }
+    ambitoTemporal.salirAmbito();
+}
+return null; 
+}
+
+
+private Simbolo SimbGlobal (String cadenaAmbito, String nombre ){
+  Simbolo simTemporal;
+
+  for (int i =0; i<this.listaSimbolos.size(); i++){
+      simTemporal  = this.listaSimbolos.get(i);
+      if(simTemporal.ambito.equalsIgnoreCase(cadenaAmbito)){
+          if(simTemporal.nombreCorto.equalsIgnoreCase(nombre)){
+            if(simTemporal.ambito.equalsIgnoreCase(Constantes.GLOBAL)){
+              return simTemporal;
+            }
+              
+          }
+      }
+  }
+return null;
+}
+
+
+
    
    
    public void escribirTabla(){

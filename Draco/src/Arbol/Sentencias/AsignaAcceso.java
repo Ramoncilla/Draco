@@ -10,6 +10,7 @@ import ASM.Generador;
 import ASM.elementoRetorno;
 import Arbol.Expresion.Acceso;
 import Arbol.Expresion.Identificador;
+import Arbol.Expresion.posArreglo;
 import Arbol.objetoBase;
 import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
@@ -111,6 +112,27 @@ public class AsignaAcceso extends objetoBase {
             }
         } else {
             //es un arreglo
+            posArreglo elemento = (posArreglo)varAsignar.valor1;
+            elementoRetorno ret = elemento.ejecutar(cod, tabla, ambitos, metodo);
+            String tipoVar = tabla.obtenerTipoVar(elemento.nombreArreglo, ambitos);
+            if(!(ret.valor.tipo.equalsIgnoreCase(Constantes.NULO))){
+                String codigo = ret.valor.valor.toString();
+                  retExpresion = expresion.ejecutar(cod, tabla, ambitos, metodo);
+                        if (retExpresion.valor.tipo.equalsIgnoreCase(Constantes.NULO)
+                                || retExpresion.valor.tipo.equalsIgnoreCase(tipoVar)) {
+                            cod.addMensaje("RESOLVIENDO ASIGNACION DE " + elemento.nombreArreglo);
+                            cod.addCodigo(ret.valor.valor.toString());
+                           // cod.addCodigo("set_global 3\n");
+                            cod.addMensaje("Resolviendo Expresion a asignar");
+                            cod.addCodigo(retExpresion.valor.valor.toString());
+                            cod.addMensaje("Asignando Valor");
+                            cod.addCodigo("set_global $calc\n");
+                        } else {
+                            erroresEjecucion.addSemantico(0, 0, "No se puede asignar el arreglo  de tipo  " + tipoVar + " " + elemento.nombreArreglo + ", tipo invalido con " + retExpresion.valor.tipo);
+                        }
+            }else{
+                erroresEjecucion.addSemantico(0, 0, "Ha ocurrido un error para resolver la asignacion de "+ elemento.nombreArreglo);
+            }
 
         }
         

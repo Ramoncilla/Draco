@@ -101,36 +101,35 @@ public class Declaracion extends objetoBase {
                     if (val) {
                         //es una variable global
                         posicion = tabla.obtenerPosAtributo(nombreId, ambitos);
-                        tamanio= tabla.obtenerTamanioEDD(tipo);
-                        String codigo =Constantes.INICIO_HEAP+"\n" +
-    posicion+"\n" +
-    "ADD\n" +
-    "get_global 0\n" +
-    "set_global $calc\n" +
-    "get_global 0\n" +
-    "get_global 0\n" +
-    "1\n" +
-    "ADD\n" +
-    "set_global $calc\n" +
-    "get_global 0\n" +
-    "1\n" +
-    "ADD\n" +
-    "set_global 0\n" +
-    "get_global 0\n" +
-    tamanio+"\n" +
-    "ADD\n" +
-    "set_global 0\n";
-          cod.addMensaje("Inicializando "+ nombreId+", edd global");
-                            cod.addCodigo(codigo);              
-                        
+                        tamanio = tabla.obtenerTamanioEDD(tipo);
+                        String codigo = Constantes.INICIO_HEAP + "\n"
+                                + posicion + "\n"
+                                + "ADD\n"
+                                + "get_global 0\n"
+                                + "set_global $calc\n"
+                                + "get_global 0\n"
+                                + "get_global 0\n"
+                                + "1\n"
+                                + "ADD\n"
+                                + "set_global $calc\n"
+                                + "get_global 0\n"
+                                + "1\n"
+                                + "ADD\n"
+                                + "set_global 0\n"
+                                + "get_global 0\n"
+                                + tamanio + "\n"
+                                + "ADD\n"
+                                + "set_global 0\n";
+                        cod.addMensaje("Inicializando " + nombreId + ", edd global");
+                        cod.addCodigo(codigo);
 
                     } else {
                         //es una variable local
                         posicion = tabla.obtenerPosLocal(nombreId, ambitos);
-                        tamanio= tabla.obtenerTamanioEDD(tipo);
-                        if(tamanio!=-1){
-                            String codigo= "get_local 0\n"
-                                    + posicion+"\n"
+                        tamanio = tabla.obtenerTamanioEDD(tipo);
+                        if (tamanio != -1) {
+                            String codigo = "get_local 0\n"
+                                    + posicion + "\n"
                                     + "ADD \n"
                                     + "get_global 0\n"
                                     + "set_local $calc\n"
@@ -144,13 +143,13 @@ public class Declaracion extends objetoBase {
                                     + "ADD\n"
                                     + "set_global 0\n"
                                     + "get_global 0\n"
-                                    + tamanio+"\n"
+                                    + tamanio + "\n"
                                     + "ADD\n"
                                     + "set_global 0\n";
-                            cod.addMensaje("Inicializando "+ nombreId+", edd local");
+                            cod.addMensaje("Inicializando " + nombreId + ", edd local");
                             cod.addCodigo(codigo);
-                        }else{
-                            erroresEjecucion.addSemantico(0, 0, "El tipo "+ tipo+", no existe, no se ha podido iniciar la estructura local");
+                        } else {
+                            erroresEjecucion.addSemantico(0, 0, "El tipo " + tipo + ", no existe, no se ha podido iniciar la estructura local");
                         }
 
                     }
@@ -162,15 +161,13 @@ public class Declaracion extends objetoBase {
                 //es una variable normal 
 
             }
-            if(temp.asignacion!= null){
-               temp.asignacion.ejecutar(cod, tabla, ambitos, metodo);
+            if (temp.asignacion != null) {
+                temp.asignacion.ejecutar(cod, tabla, ambitos, metodo);
             }
 
         }
-        
-        
-        
-        return new elementoRetorno(); 
+
+        return new elementoRetorno();
     }
 
     private boolean esObjeto(String tipo) {
