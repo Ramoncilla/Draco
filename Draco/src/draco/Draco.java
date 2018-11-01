@@ -46,9 +46,8 @@ public class Draco {
            p.llenarTabla();
            t.escribirTabla();
            arch.ejecutarArchivo(t);
-           System.out.println("dsfsdf");
+           erroresEjecucion.moostrarErrores();
            
-
        }else{
            
        }
