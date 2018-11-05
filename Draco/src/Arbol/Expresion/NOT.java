@@ -5,7 +5,14 @@
  */
 package Arbol.Expresion;
 
+import ASM.Ambito3D;
+import ASM.Generador;
+import ASM.Valor;
+import ASM.elementoRetorno;
+import Arbol.Expresion.ValidarExpresion.elementoOperacion;
+import Arbol.Expresion.ValidarExpresion.opLogica;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -18,5 +25,23 @@ public class NOT extends objetoBase{
     public NOT(Object v1){
         this.val1= (objetoBase)v1;
     }
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
+        
+        elementoOperacion op = new elementoOperacion();
+        opLogica rel = new opLogica(cod);
+        elementoRetorno ret = new elementoRetorno();
+        elementoRetorno v1 = this.val1.ejecutar(cod, tabla, ambitos, metodo);
+        Valor res = rel.NOT(v1.valor);
+                ret.valor = res;
+                super.retorno = ret;
+                return ret;
+        
+
+    }
+    
+    
+    
     
 }

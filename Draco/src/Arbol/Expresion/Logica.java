@@ -52,6 +52,7 @@ public class Logica extends objetoBase {
                 return ret;
             }
             
+            
         }
 
         return ret;

@@ -24,6 +24,17 @@ public class opLogica extends elementoOperacion  {
     
      public Valor AND (Valor v1, Valor v2){
      
+          if(esBooleano(v1)){
+            nodoCondicion n = asm.casteoBoolCondicion(v1);
+            v1= new Valor(Constantes.CONDICION, n);
+        }
+         
+          if(esBooleano(v2)){
+            nodoCondicion n = asm.casteoBoolCondicion(v2);
+            v2= new Valor(Constantes.CONDICION, n);
+        }
+          
+         
          if(esCondicion(v1) && esCondicion(v2)){
           nodoCondicion c1 = (nodoCondicion)v1.valor;
           nodoCondicion c2 = (nodoCondicion)v2.valor;
@@ -48,6 +59,18 @@ public class opLogica extends elementoOperacion  {
      
      
       public Valor OR(Valor v1, Valor v2){
+          if(esBooleano(v1)){
+            nodoCondicion n = asm.casteoBoolCondicion(v1);
+            v1.valor= new Valor(Constantes.CONDICION, n);
+        }
+         
+          if(esBooleano(v2)){
+            nodoCondicion n = asm.casteoBoolCondicion(v2);
+            v2.valor= new Valor(Constantes.CONDICION, n);
+        }
+         
+          
+          
           if(esCondicion(v1) && esCondicion(v2)){
           nodoCondicion c1 = (nodoCondicion)v1.valor;
           nodoCondicion c2 = (nodoCondicion)v2.valor;
@@ -59,12 +82,6 @@ public class opLogica extends elementoOperacion  {
           res.addEtiquetasVerdaderas(c2.verdaderas);
           res.addEtiquetasFalsas(c2.falsas);
           return new Valor(Constantes.CONDICION, res);
-         }else if(esCondicion(v1) && esBooleano(v2)){
-             
-         }else if(esBooleano(v1) && esCondicion(v2)){
-             
-         }else if(esBooleano(v1) && esBooleano(v2)){
-             
          }
       
         erroresEjecucion.addSemantico(0, 0, "Tipos no validos para realizar una operacion OR "+ v1.tipo+" y "+ v2.tipo);
@@ -72,7 +89,25 @@ public class opLogica extends elementoOperacion  {
       } 
      
      
+     public Valor  NOT(Valor v1){
      
+      if(esBooleano(v1)){
+            nodoCondicion n = asm.casteoBoolCondicion(v1);
+            v1.valor= new Valor(Constantes.CONDICION, n);
+        }
+          if(esCondicion(v1)){
+          nodoCondicion c1 = (nodoCondicion)v1.valor;
+          String codigoNOT = c1.codigo+"\n";
+          nodoCondicion res= new nodoCondicion(codigoNOT);
+          res.addEtiquetasVerdaderas(c1.falsas);
+          res.addEtiquetasFalsas(c1.verdaderas);
+          return new Valor(Constantes.CONDICION, res);
+         } 
+         
+     erroresEjecucion.addSemantico(0, 0, "Tipos no validos para realizar una operacion NOT "+ v1.tipo);
+        return new Valor();
+         
+     }
     
 }
 

@@ -11,90 +11,21 @@ entero edad;
 
 vacio principal(){
 
-
-
-
-para (entero i=0; i<10;i++){
-si(i<1){
-continuar;
-}
-imprimir(i);
-
-}
-
-
-
-
-
-
-/*
-
-mientras(i<10){
-imprimir(i);
-i++;
-}
-imprimir("Alina"+'U');
-
-entero valores[10][3];
-valores[2][2]=1666;
-valores[9][2]=999;
-valores[0][0]=1888;
-si(falso){
-imprimir("tenia que entrar aqui");
-}sino{
-imprimir("esto es lo correcto");
-}
-
-
-
-
-
-
+booleano bandera =verdadero;
 entero i=0;
 
-mientras(i<=10){
-i=i+1;
-si(i<=1){
-imprimir("aqui entre");
-continuar;
-}
+mientras(!(i>10)){
 
 imprimir(i);
-
+i++;
 
 }
 
+si("A"<'Z'){
+imprimir("esto es valido");
+}sino{
+imprimir("esto no :(");
+}
 
 
-
-valores[1]= 99;
-imprimir(valores[1]);
-
-
-p.edad= 25;
-p.nombre= "Alina Urbina";
-
-imprimir(p.nombre);
-imprimir(p.edad);
-
-
-persona pedro;
-pedro.edad= 26;
-pedro.nombre= "pedro";
-c= "hola "+ pedro.nombre;
-imprimir(c);
-imprimir(pedro.edad);
-imprimir(pedro.nombre);
-imprimir(c);
-imprimir(pedro.edad);
-pedro.nombre= c;
-imprimir(pedro.nombre);
-pedro.nombre= "lindo <3";
-c= pedro.nombre;
-imprimir(c);
-imprimir(pedro.nombre);
-p.edad = pedro.edad+2;
-p.nombre= pedro.nombre+" holiss";
-imprimir(p.edad);
-imprimir(p.nombre);*/
 }
