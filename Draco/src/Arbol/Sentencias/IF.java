@@ -46,12 +46,12 @@ public class IF  extends objetoBase{
             cod.addMensaje("--- Codigo condicion ---");
             cod.addCodigo(cond.codigo);
             cod.addCodigo(cond.getEtiquetasVerdaderas());
-            cod.addSi();
+            ambitos.addSi();
             cod.addMensaje("------- inicio codigo Instrucciones  ------------");
             instrucciones.ejecutar(cod, tabla, ambitos, metodo);
             cod.addMensaje("------- fin codigo Instrucciones  ------------");
             cod.addCodigo(salida);
-            cod.salirAmbito();
+            ambitos.salirAmbito();
             cod.addCodigo(cond.getEtiquetasFalsas());
         }else{
             erroresEjecucion.addSemantico(0, 0, "Expresion no valida para realizar un SI");

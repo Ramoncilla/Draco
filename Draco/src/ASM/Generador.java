@@ -15,7 +15,6 @@ public class Generador {
 
     public String codigo;
     public int contEtiquetas;
-    public Ambito3D ambiente;
     public Etiquetas etiquetasRetorno;
     public Etiquetas etiquetasBreak;
     public Etiquetas etiquetasContinuar;
@@ -23,7 +22,6 @@ public class Generador {
     public Generador() {
         this.codigo = "";
         this.contEtiquetas = 0;
-        this.ambiente = new Ambito3D();
         this.etiquetasRetorno = new Etiquetas();
         this.etiquetasBreak = new Etiquetas();
         this.etiquetasContinuar = new Etiquetas();
@@ -63,28 +61,6 @@ public class Generador {
     }
 
   
-    public void addAmbiente(String nombre) {
-        this.ambiente.addAmbiente(nombre);
-    }
-
-    public void addSi() {
-        this.ambiente.addSi();
-    }
-
-    public void addSino() {
-        this.ambiente.addSino();
-    }
-
-    public void addMientras() {
-        this.ambiente.addMientras();
-    }
-
-    public void addPara() {
-        this.ambiente.addPara();
-    }
-
-    public void salirAmbito() {
-        this.ambiente.salirAmbito();
-    }
+   
 
 }

@@ -49,10 +49,10 @@ public class Si extends objetoBase{
         }
         
         if(!(sino.esVacio())){
-            cod.addSino();
+            ambitos.addSino();
             sino.ejecutar(cod, tabla, ambitos, metodo);
             cod.addCodigo(salida);
-            cod.salirAmbito();
+            ambitos.salirAmbito();
         }
         cod.addCodigo(etiqSalida+":\n");
          cod.addMensaje("-------- FIN SI ---------");

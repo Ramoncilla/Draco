@@ -15,7 +15,7 @@ import Arbol.objetoBase;
 import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import draco.Constantes;
 import java.util.List;
-
+import static draco.Draco.erroresEjecucion;
 /**
  *
  * @author Ramonella
@@ -41,7 +41,7 @@ public class Mientras extends objetoBase {
         
         
         if (retCondicion.valor.tipo.equalsIgnoreCase(Constantes.CONDICION)) {
-            cod.addMientras();
+            ambitos.addMientras();
             nodoCondicion cond= (nodoCondicion)retCondicion.valor.valor;
             cod.addMensaje("-------- INICIO MIENTRAS -------");
             String etiqCiclo = cod.getEtiqueta();
@@ -62,10 +62,10 @@ public class Mientras extends objetoBase {
             cod.addCodigo(etiqBreak+":// etiqueta break \n");
             cod.etiquetasBreak.eliminarActual();
             cod.etiquetasContinuar.eliminarActual();
-            cod.salirAmbito();
+            ambitos.salirAmbito();
             cod.addMensaje("-------- FIN MIENTRAS --------");
         } else {
-
+            erroresEjecucion.addSemantico(0, 0, "Condicion no valida para ejecutar la sentencia Mientras");
         }
 
         return new elementoRetorno();

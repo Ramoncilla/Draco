@@ -11,6 +11,30 @@ entero edad;
 
 vacio principal(){
 
+
+
+
+para (entero i=0; i<10;i++){
+si(i<1){
+continuar;
+}
+imprimir(i);
+
+}
+
+
+
+
+
+
+/*
+
+mientras(i<10){
+imprimir(i);
+i++;
+}
+imprimir("Alina"+'U');
+
 entero valores[10][3];
 valores[2][2]=1666;
 valores[9][2]=999;
@@ -24,7 +48,7 @@ imprimir("esto es lo correcto");
 
 
 
-/*
+
 
 entero i=0;
 

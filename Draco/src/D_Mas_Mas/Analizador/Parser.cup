@@ -199,14 +199,14 @@ ASIGNACION::= ACCESO:a igual EXPRESION:b{:RESULT = new AsignaAcceso(a,b);:}
 			Identificador i = new Identificador(a);
 		    Acceso acc  = new Acceso(1, i);
 			Aritmetica exp = new Aritmetica(acc, new Entero(1),"+");
-			RESULT = new AsignaAcceso(a,exp);
+			RESULT = new AsignaAcceso(acc,exp);
 		:}
 	|identificador:a menosMenos
 		{:
 			Identificador i = new Identificador(a);
 		    Acceso acc  = new Acceso(1, i);
 			Aritmetica exp = new Aritmetica(acc, new Entero(1),"-");
-			RESULT = new AsignaAcceso(a,exp);
+			RESULT = new AsignaAcceso(acc,exp);
 		:};
 	
 	ACCESO::= identificador:a 
@@ -240,36 +240,6 @@ ASIGNACION::= ACCESO:a igual EXPRESION:b{:RESULT = new AsignaAcceso(a,b);:}
 				RESULT = new Acceso(3, a,i2,c);
 			:};
 		
-		
-	
-	/*
-ACCESO::= identificador:a
-		{:
-			List<objetoBase> lista = new ArrayList<objetoBase>();
-			Identificador b = new Identificador(a);
-			lista.add((objetoBase)b);
-			RESULT= new Acceso(lista);
-		:}
-	|POS_ARREGLO:a
-		{:
-			List<objetoBase> lista = new ArrayList<objetoBase>();
-			lista.add((objetoBase)a);
-			RESULT= new Acceso(lista);
-		:}
-	|ACCESO:l punto identificador:a
-		{:
-		    Acceso acc = (Acceso)l;
-			Identificador b = new Identificador(a);
-			acc.elementos.add((objetoBase)b);
-			RESULT=acc;
-		:}
-	|ACCESO:l punto POS_ARREGLO:a
-		{:
-		    Acceso acc = (Acceso)l;
-			acc.elementos.add((objetoBase)a);
-			RESULT=acc;
-		:};
-	*/
 POS_ARREGLO::= identificador:a TAMANIO_ARREGLO:b{:RESULT= new posArreglo(a,b);:};
 
 

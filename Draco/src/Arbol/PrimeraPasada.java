@@ -174,7 +174,8 @@ public class PrimeraPasada {
         }else if(sentencia instanceof Para){
             Para m = (Para)sentencia;
             ambito.addPara();
-             objetoBase temp;
+            objetoBase temp;
+            analizarSentenciaFuncion(m.declaAsigna, ap, ambito, simbolos);
             for (int i = 0; i < m.instrucciones.listaSentencias.size(); i++) {
                 temp= m.instrucciones.listaSentencias.get(i);
                 analizarSentenciaFuncion(temp, ap, ambito, simbolos);

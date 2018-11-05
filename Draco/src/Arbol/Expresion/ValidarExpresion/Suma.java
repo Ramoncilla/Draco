@@ -62,7 +62,8 @@ public class Suma extends elementoOperacion {
             ret.crearDecimal(s);
             return ret;
 
-        } /*----- Enteros  ----------*/ else if (esEntero(v1) && esCaracter(v2)) {
+        } /*----- Enteros  ----------*/ 
+        else if (esEntero(v1) && esCaracter(v2)) {
             s = sumar(v1, v2);
             ret.crearEntero(s);
             return ret;
@@ -83,7 +84,8 @@ public class Suma extends elementoOperacion {
             s = sumar(v1, v2);
             ret.crearEntero(s);
             return ret;
-        } /*------------ Cadena --------------------*/ else if (esCadena(v1) && esEntero(v2)) {
+        } /*------------ Cadena --------------------*/ 
+        else if (esCadena(v1) && esEntero(v2)) {
 
         } else if (esCadena(v1) && esDecimal(v2)) {
 
@@ -92,14 +94,28 @@ public class Suma extends elementoOperacion {
         } else if (esEntero(v1) && esCadena(v2)) {
 
         } else if (esCadena(v1) && esCaracter(v2)) {
-
+            Valor cad1= charACadena(v2);
+            String c = sumarCadenas(v1, cad1);
+            ret.crearCadena(c);
+            return ret;
         } else if (esCaracter(v1) && esCadena(v2)) {
-
+            Valor cad1= charACadena(v1);
+            String c = sumarCadenas(cad1, v2);
+            ret.crearCadena(c);
+            return ret;
         } else if (esCadena(v1) && esCadena(v2)) {
             String c = sumarCadenas(v1, v2);
             ret.crearCadena(c);
             return ret;
-        } /*---------- Booleanos -----------------*/ else if (esBooleano(v1) && esBooleano(v2)) {
+        }else if(esCaracter(v1) && esCaracter(v2)){
+            Valor c1 = charACadena(v1);
+            Valor c2 = charACadena(v2);
+            String c = sumarCadenas(c1, c2);
+            ret.crearCadena(c);
+            return ret;
+            
+        }/*---------- Booleanos -----------------*/ 
+        else if (esBooleano(v1) && esBooleano(v2)) {
             s = sumar(v1, v2);
             ret.crearBooleano(s);
             return ret;
@@ -116,42 +132,32 @@ public class Suma extends elementoOperacion {
     }
 
     
-    private String convertirToString(Valor v){
+    private Valor charACadena(Valor v){
         
-        String valorCadena="";
-        /*
-        if(esEntero(v)){
-            valorCadena=v.valor.toString();
-        }else if(esDecimal(v)){
-            valorCadena= v.valor.toString();
-        }else if(esBooleano(v)){
-            valorCadena= v.valor.toString();
-        }else if(es)
+        String cadena="//castear char a cadena\n" +
+"\n" +
+"get_global 0\n" +
+"get_global 0\n" +
+v.valor+"\n" +
+"set_global $calc\n" +
+"\n" +
+"get_global 0\n" +
+"1\n" +
+"ADD\n" +
+"set_global 0\n" +
+"\n" +
+"get_global 0\n" +
+"-1\n" +
+"set_global $calc\n" +
+"\n" +
+"get_global 0\n" +
+"1\n" +
+"ADD\n" +
+"set_global 0\n";
         
-        */
-        String cadena= "GET_GLOBAL 0\n";
-        char c;
-        int val;
-        for (int i = 0; i < valorCadena.length(); i++) {
-         c= valorCadena.charAt(i);
-         val= (int)c;
-         cadena+="GET_GLOBAL 0\n"
-                 + "GET_GLOBAL 0\n"
-                 + val+" // "+c+"\n"
-                         + "SET_GLOBAL $calc\n"
-                         + "1\n"
-                         + "ADD\n"
-                         + "SET_GLOBAL 0\n";
-        }
-        
-        cadena+="GET_GLOBAL 0\n"
-                 + "GET_GLOBAL 0\n"
-                 +"-1 // escape \n"
-                         + "SET_GLOBAL $calc\n"
-                         + "1\n"
-                         + "ADD\n"
-                         + "SET_GLOBAL 0\n";
-        return cadena;
+        Valor vRet = new Valor();
+        vRet.crearCadena(cadena);
+        return vRet;
     }
     
     
