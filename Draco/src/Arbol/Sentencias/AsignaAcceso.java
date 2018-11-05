@@ -122,7 +122,9 @@ public class AsignaAcceso extends objetoBase {
                                 || retExpresion.valor.tipo.equalsIgnoreCase(tipoVar)) {
                             cod.addMensaje("RESOLVIENDO ASIGNACION DE " + elemento.nombreArreglo);
                             cod.addCodigo(ret.valor.valor.toString());
-                           // cod.addCodigo("set_global 3\n");
+                            cod.addCodigo("set_local 4\n"); //saco el valor de la pila y solo me quedo con la direccion
+                            cod.addCodigo("//obtengo la direccion de donde se debe asignar\n"); 
+                            cod.addCodigo("get_local 5\n"); //saco el valor de la pila y solo me quedo con la direccion
                             cod.addMensaje("Resolviendo Expresion a asignar");
                             cod.addCodigo(retExpresion.valor.valor.toString());
                             cod.addMensaje("Asignando Valor");

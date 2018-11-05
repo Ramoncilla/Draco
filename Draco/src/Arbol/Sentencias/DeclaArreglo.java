@@ -56,10 +56,13 @@ public class DeclaArreglo extends objetoBase {
             boolean band = (boolean) esAtributo;
             int posArreglo = -1;
             String codigo = "";
+           
+                    
+
             if (band) {
                 posArreglo = tabla.obtenerPosAtributo(nombreArreglo, ambitos);
                 if (posArreglo != -1) {
-                    codigo = "//creando apuntadores para el arreglo global  " + nombreArreglo + "\n"
+                    codigo += "//creando apuntadores para el arreglo global  " + nombreArreglo + "\n"
                             + "\n"
                             + Constantes.INICIO_HEAP + "\n"
                             + posArreglo + "\n"
@@ -112,7 +115,7 @@ public class DeclaArreglo extends objetoBase {
                     + "set_global 0\n"
                     + "\n"
                     + "get_global 0\n"
-                    + "set_global 1 // posicion donde inician las dimensiones tp/n"
+                    + "set_global 1 // posicion donde inician las dimensiones tp\n"
                     + "//Resolviendo las dimensiones del arreglo " + nombreArreglo + "\n";
 
             objetoBase expTemporal;
@@ -189,7 +192,7 @@ public class DeclaArreglo extends objetoBase {
                         + "ADD\n"
                         + "set_global 3\n"
                         + "\n"
-                        + "BR "+l0+"\n"
+                        + "BR " + l0 + "\n"
                         + "\n"
                         + l4 + ":\n"
                         + "\n"
@@ -216,7 +219,7 @@ public class DeclaArreglo extends objetoBase {
                         + "ADD\n"
                         + "set_global 3\n"
                         + "\n"
-                        + "BR "+l0+"\n"
+                        + "BR " + l0 + "\n"
                         + "\n"
                         + l2 + ":\n"
                         + "1\n"
@@ -231,6 +234,12 @@ public class DeclaArreglo extends objetoBase {
                         + "1\n"
                         + "ADD\n"
                         + "set_global 0\n"
+                        + "//******************** nuevo \n"
+                        + "get_global 0\n"
+                        + "get_global 2\n"
+                        + "ADD\n"
+                        + "set_global 0\n"
+                        + "//************ fin de lo nuevo \n"
                         + "\n"
                         + "get_global 0\n"
                         + "get_global 4\n"

@@ -5,7 +5,11 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Ambito3D;
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -16,6 +20,16 @@ public class Continuar extends objetoBase {
     
     public Continuar(){
         
+    }
+    
+    
+     @Override
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
+        
+        String codigo = "BR "+ cod.etiquetasContinuar.obtenerActual()+" // haciendo etiqueta continue \n";
+        cod.addCodigo(codigo);
+        
+        return new elementoRetorno(); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

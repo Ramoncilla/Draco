@@ -5,8 +5,12 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Ambito3D;
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.Funciones.CuerpoFuncion;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -26,5 +30,14 @@ public class Para extends objetoBase {
         this.declaAsigna= (objetoBase)decla;
         this.asignaControl= (objetoBase)asig;
     }
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
+        
+        
+        return new elementoRetorno();//(cod, tabla, ambitos, metodo); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }

@@ -5,7 +5,11 @@
  */
 package Arbol.Sentencias;
 
+import ASM.Ambito3D;
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 
 /**
  *
@@ -16,5 +20,17 @@ public class Detener extends objetoBase{
     public Detener(){
         
     }
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
+        
+        String codigo = "BR "+ cod.etiquetasBreak.obtenerActual()+" // haciendo etiqueta break \n";
+        cod.addCodigo(codigo);
+        
+        return new elementoRetorno(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
     
 }
