@@ -7,6 +7,7 @@ package Arbol.Sentencias;
 
 import ASM.Ambito3D;
 import ASM.Generador;
+import ASM.Valor;
 import ASM.elementoRetorno;
 import Arbol.Expresion.ValidarExpresion.nodoCondicion;
 import Arbol.Funciones.CuerpoFuncion;
@@ -32,7 +33,13 @@ public class Mientras extends objetoBase {
     @Override
     public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
 
-        elementoRetorno retCondicion = condicion.ejecutar(cod,tabla, ambitos, metodo);
+       elementoRetorno retCondicion = condicion.ejecutar(cod,tabla, ambitos, metodo);
+        if(retCondicion.valor.tipo.equalsIgnoreCase(Constantes.BOOLEANO)){
+            nodoCondicion n = cod.casteoBoolCondicion(retCondicion.valor);
+            retCondicion.valor= new Valor(Constantes.CONDICION, n);
+        }
+        
+        
         if (retCondicion.valor.tipo.equalsIgnoreCase(Constantes.CONDICION)) {
             cod.addMientras();
             nodoCondicion cond= (nodoCondicion)retCondicion.valor.valor;

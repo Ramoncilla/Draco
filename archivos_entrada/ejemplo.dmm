@@ -15,6 +15,13 @@ entero valores[10][3];
 valores[2][2]=1666;
 valores[9][2]=999;
 valores[0][0]=1888;
+si(falso){
+imprimir("tenia que entrar aqui");
+}sino{
+imprimir("esto es lo correcto");
+}
+
+
 
 
 /*

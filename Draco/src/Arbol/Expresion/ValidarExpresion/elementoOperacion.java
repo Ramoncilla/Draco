@@ -60,4 +60,8 @@ public class elementoOperacion {
                      tipo.equalsIgnoreCase(Constantes.CARACTER)||
                      tipo.equalsIgnoreCase(Constantes.DECIMAL));
     }
+     
+     
+
+    
 }
