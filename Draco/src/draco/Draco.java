@@ -28,6 +28,7 @@ public class Draco {
     public static ListaErrores errores3D;
     public static ListaErrores erroresJS;
     public static List<objetoBase> declaracionesGlobales;
+    public static ListaFunciones funcionesArchivo;
     
 
     /**
@@ -41,6 +42,7 @@ public class Draco {
        Archivo arch=  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
        if(arch!= null){
            declaracionesGlobales= new ArrayList<>();
+           funcionesArchivo = new ListaFunciones();
            TablaSimbolos t = new TablaSimbolos();
            PrimeraPasada p = new PrimeraPasada(arch, t);
            p.llenarTabla();

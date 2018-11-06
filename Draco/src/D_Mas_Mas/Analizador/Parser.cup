@@ -234,10 +234,9 @@ ASIGNACION::= ACCESO:a igual EXPRESION:b{:RESULT = new AsignaAcceso(a,b);:}
 				Identificador i2 = new Identificador(b);
 				RESULT = new Acceso(2, a,i2);
 			:}
-		|POS_ARREGLO:a punto identificador:b punto POS_ARREGLO:c
+		|POS_ARREGLO:a punto POS_ARREGLO:c
 			{:
-				Identificador i2 = new Identificador(b);
-				RESULT = new Acceso(3, a,i2,c);
+				RESULT = new Acceso(2,a,c);
 			:};
 		
 POS_ARREGLO::= identificador:a TAMANIO_ARREGLO:b{:RESULT= new posArreglo(a,b);:};
@@ -361,7 +360,7 @@ SENTENCIA::= DECLARACION:a {:RESULT= a;:}
 	|IMPRIMIR:a {:RESULT= a;:} 
 	|ESTRUCTURA:a {:RESULT= a;:} 
 	|FUN_NATIVA:a {:RESULT= a;:} 
-	|LLAMADA:a puntoComa {:RESULT= a;:} ;
+	|LLAMADA:a puntoComa {:Llamada g = (Llamada)a; g.tipoLlamada=1;   RESULT= g;:} ;
 	
 SENTENCIAS::= SENTENCIA:a
 				{:

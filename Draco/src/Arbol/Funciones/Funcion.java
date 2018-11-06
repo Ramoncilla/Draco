@@ -71,19 +71,6 @@ public class Funcion extends objetoBase {
             temp.ejecutar(cod, tabla, ambitos, metodo);
         }
             
-            
-            /*
-            for (int i = 0; i < varsGlobales.size(); i++) {
-                temporal = varsGlobales.get(i);
-               
-                if(temporal.expresionAtributo!= null){
-                    cod.addMensaje("Asignando "+ temporal.nombreCorto+"\n");
-
-                       temporal.expresionAtributo.ejecutar(cod, tabla, ambitos, metodo); 
-                    
-                    
-                }
-            }*/
     }
     
     

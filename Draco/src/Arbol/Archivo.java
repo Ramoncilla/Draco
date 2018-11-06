@@ -8,6 +8,7 @@ package Arbol;
 import ASM.Ambito3D;
 import ASM.Generador;
 import ASM.elementoRetorno;
+import Arbol.Funciones.Funcion;
 import Arbol.Sentencias.DeclaArreglo;
 import Arbol.Sentencias.Declaracion;
 import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
@@ -17,6 +18,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import static draco.Draco.declaracionesGlobales;
+import static draco.Draco.funcionesArchivo;
 
 /**
  *
@@ -26,12 +28,23 @@ public class Archivo {
     
     public List<objetoBase> elementosArchivo;
     
+    public List<objetoBase> sentenciasAEjecutar;
+    
+    public List<Importar> importaciones;
+    public List<Importar> importacioneHechas;
+    
     
     public Archivo(Object val){
         this.elementosArchivo= (ArrayList<objetoBase>)val;
+        this.sentenciasAEjecutar= new ArrayList<>();
+        this.importacioneHechas= new ArrayList<>();
+        this.importaciones= new ArrayList<>();
     }
     
- 
+   
+    
+    
+    
     
     public void ejecutarArchivo(TablaSimbolos tabla){
         Generador codASM = new Generador();
@@ -54,7 +67,17 @@ public class Archivo {
     }
     
     
+    private void guardarFunciones()
+    {
+        objetoBase temp;
+        for (int i = 0; i < this.elementosArchivo.size(); i++) {
+            temp= this.elementosArchivo.get(i);
+            if(temp instanceof Funcion){
+                funcionesArchivo.insertar(temp);
+            }
+        }
     
+    }
     
     
     public  void escribirArchivo(String cad){

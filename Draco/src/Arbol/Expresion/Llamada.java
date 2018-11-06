@@ -5,7 +5,11 @@
  */
 package Arbol.Expresion;
 
+import ASM.Ambito3D;
+import ASM.Generador;
+import ASM.elementoRetorno;
 import Arbol.objetoBase;
+import D_Mas_Mas.Tabla_Simbolos.TablaSimbolos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +21,24 @@ public class Llamada extends objetoBase {
     
     public String nombreLlamda;
     public List<objetoBase> parametros;
-    
+    public int tipoLlamada=2; //1 es para una llamada desde una sentencia, 2 es que debe de retornar algun tipo para una expresion
     
     public Llamada (Object nom, Object param){
         this.nombreLlamda= nom.toString();
         this.parametros= (ArrayList<objetoBase>) param;
     }
+
+    @Override
+    public elementoRetorno ejecutar(Generador cod, TablaSimbolos tabla, Ambito3D ambitos, String metodo) {
+        
+        
+        
+        
+        return new elementoRetorno(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
+    
     
 }
