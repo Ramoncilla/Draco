@@ -61,7 +61,33 @@ public class elementoOperacion {
                      tipo.equalsIgnoreCase(Constantes.DECIMAL));
     }
      
-     
+    public int obtenerValorEnteroBool(Valor v){
+        if(v.valor.toString().equalsIgnoreCase(Constantes.VERDADERO)){
+            return 1;
+        }
+        return 0;
+    } 
+    
+    public int obtenerEntero(Valor v){
+        
+        return Integer.parseInt(v.valor.toString());
+    }
 
+    public double obtenerDecimal(Valor v){
+        return Double.parseDouble(v.valor.toString());
+    }
+    
+    public String obtenerCadena(Valor v){
+        return v.valor.toString();
+    }
+    
+    public char obtenerChar(Valor v){
+        char c = (char)v.valor;
+        return c;
+    }
+    
+    public int obtenerNumeroChar(Valor v){
+        return  v.valor.toString().codePointAt(0);
+    }
     
 }

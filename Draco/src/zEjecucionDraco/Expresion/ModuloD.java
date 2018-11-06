@@ -6,22 +6,18 @@
 package zEjecucionDraco.Expresion;
 
 import ASM.Valor;
-import Arbol.Expresion.ValidarExpresion.elementoOperacion;
 
 /**
  *
- * @author Ramonella
+ * @author USER
  */
-public class Sumar extends elementoOperacion{
-    
+public class ModuloD {
    public Valor operar(Valor v1, Valor v2){
-     
-       
-       
-       
-       return new Valor();
-   }
-    
-    
-    
+        
+        
+        
+        
+        
+        return new Valor();
+    } 
 }

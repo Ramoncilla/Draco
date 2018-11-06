@@ -5,6 +5,8 @@
  */
 package zEjecucionDraco;
 
+import ASM.Valor;
+
 /**
  *
  * @author Ramonella
@@ -12,6 +14,7 @@ package zEjecucionDraco;
 public class baseDraco {
     
     public retorno elemento= new retorno();
+    public Valor resultado = new Valor();
     
     
     public retorno ejecutar(){
@@ -19,6 +22,5 @@ public class baseDraco {
         
         return new retorno();
     }
-    
     
 }
