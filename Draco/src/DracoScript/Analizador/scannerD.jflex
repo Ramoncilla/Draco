@@ -128,6 +128,7 @@ public static String cadena;
 
 "line" {System.out.println("liena");   return new Symbol (simbolosDraco.line, yyline+1,yychar+1, new String (yytext()));}
 
+"if not" {System.out.println("if not");   return new Symbol (simbolosDraco.ifnot, yyline+1,yychar+1, new String (yytext()));}
 
 
 "String" {System.out.println("string");   return new Symbol (simbolosDraco.t_String, yyline+1,yychar+1, new String (yytext()));}

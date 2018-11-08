@@ -15,10 +15,12 @@ public class retorno {
     
     public Valor valor;
     public boolean detener;
+    public boolean banderaSi;
     
     public retorno(){
       this.valor= new Valor();
       this.detener= false;
+      this.banderaSi=false;
     }
     
 }

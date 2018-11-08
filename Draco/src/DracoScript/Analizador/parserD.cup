@@ -111,7 +111,8 @@ terminal String t_entero,
 	numero_decimal,
 	caracter,
 	comillaSimple,
-	dasm;
+	dasm,
+	ifnot;
 
 	non terminal INICIO;
 	
@@ -212,19 +213,31 @@ ASIGNACION::= identificador:a dosPuntos igual dosPuntos EXPRESION:b
 			RESULT= asigna;
 		:};
 
-IF::= si abrePar EXPRESION cierraPar  CUERPO_FUNCION;
+IF::= si abrePar EXPRESION:a cierraPar  CUERPO_FUNCION:b{:RESULT = new IF(a,b);:};
 
-SINO_SI::= elif abrePar EXPRESION cierraPar  CUERPO_FUNCION;
+SINO_SI::= elif abrePar EXPRESION:a cierraPar  CUERPO_FUNCION:b{:RESULT = new IF(a,b);:};
 
-L_SINO_SI::= SINO_SI
-	| L_SINO_SI SINO_SI;
+L_SINO_SI::= SINO_SI:a 
+		{:
+			List<IF> lista= new ArrayList<IF>();
+			lista.add((IF)a);
+			RESULT= lista;
+		:}
+	| L_SINO_SI:l SINO_SI:a
+		{:
+			List<IF> lista= (ArrayList<IF>)l;
+			lista.add((IF)a);
+			RESULT= lista;
+		:};
 	
-SI::=IF 
-	|IF SINO
-	|IF L_SINO_SI
-	|IF L_SINO_SI SINO ;
 
-SINO::= notIf CUERPO_FUNCION;
+SINO::= ifnot CUERPO_FUNCION:a {:RESULT= a;:};
+		
+
+SI::= IF:a {:RESULT= new Si(1,a,new CuerpoFuncion(), new ArrayList<IF>());:}
+	| IF:a SINO:b {:RESULT= new Si(2,a,b, new ArrayList<IF>());:}
+	| IF:a L_SINO_SI:b {:RESULT= new Si(3,a,new CuerpoFuncion(), b);:}
+	| IF:a L_SINO_SI:b SINO:c {:RESULT= new Si(4,a,c,b);:};
 		
 	
 FUN_NATIVA::= PUNTO:a {:RESULT= a;:}

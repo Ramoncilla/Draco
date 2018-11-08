@@ -1,5 +1,6 @@
-
 var a:=:"alina";
+$*
+
 print(a);
 print(10*10);
 print(10<100);
@@ -14,6 +15,16 @@ i++;
 for (i:=:0; i<10; i++){
 print("impreison "+ i);
 }
+*$
+a:=:50;
+if(a<10){
+print("holis");
+}elif (a>30){
+print("si es mayo");
+}if not{
+print("no se pudo");
+}
+
 $*var a;
 var b;
 var a:=:5;

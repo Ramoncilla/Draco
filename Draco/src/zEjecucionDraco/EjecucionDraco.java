@@ -90,12 +90,115 @@ public class EjecucionDraco {
 
         } else if (sentencia instanceof Run_Dasm) {
 
+        } else if (sentencia instanceof Si) {
+            Si nodoIf = (Si) sentencia;
+            return this.Si(nodoIf, tabla, ambito);
+
         }
 
         return new retorno();
     }
 
     /*----------------------- Ejecuion de Sentencias ---------------------------------*/
+   
+    private retorno Si(Si elemento, TablaSimboloD tabla, Ambito3D ambito){
+    
+        /*
+      SI::= IF  1
+	| IF:a SINO  2
+	| IF:a L_SINO_SI:b 3
+	| IF:a L_SINO_SI:b SINO:c  4   
+    */
+        retorno ret;
+        switch (elemento.tipoSi) {
+            case 1:{
+                ret = this.resolverIF(elemento.siInicial, tabla, ambito);
+                return ret;
+            }
+            case 2:{
+                 ret = this.resolverIF(elemento.siInicial, tabla, ambito);
+                 if(!ret.banderaSi){
+                   ret=  this.resolverSino(elemento.sino, tabla, ambito); 
+                 }
+                 return ret;
+            }
+            case 3:{
+                ret = this.resolverIF(elemento.siInicial, tabla, ambito);
+                IF siTemporal;
+                int i=0;
+                while((!ret.banderaSi) && i<elemento.listaSinoSi.size()){
+                    siTemporal =elemento.listaSinoSi.get(i);
+                    ret= resolverIF(siTemporal, tabla, ambito);
+                    i++;
+                }
+                
+                return ret;
+            }
+            case 4:{
+                ret = this.resolverIF(elemento.siInicial, tabla, ambito);
+                IF siTemporal;
+                int i=0;
+                while((!ret.banderaSi) && i<elemento.listaSinoSi.size()){
+                    siTemporal =elemento.listaSinoSi.get(i);
+                    ret= resolverIF(siTemporal, tabla, ambito);
+                    i++;
+                }
+                if(!ret.banderaSi){
+                   ret=  this.resolverSino(elemento.sino, tabla, ambito); 
+                 }
+               return ret;
+            }       
+        } 
+        return new retorno();
+    }
+    
+    
+    private retorno resolverSino(CuerpoFuncion nodo, TablaSimboloD tabla, Ambito3D ambiente) {
+        ambiente.addSino();
+        retorno ret = new retorno();
+        baseDraco item;
+        for (int i = 0; i < nodo.sentencias.size(); i++) {
+            item = nodo.sentencias.get(i);
+            ret = evaluarSentencia(item, tabla, ambiente);
+        }
+        ambiente.salirAmbito();
+        ret.banderaSi = true;
+        return ret;
+    }
+
+    private retorno resolverIF(IF elemento, TablaSimboloD tabla, Ambito3D ambito) {
+        retorno ret = new retorno();
+        baseDraco expresionIf = elemento.condicion;
+        CuerpoFuncion sentenciasCuerpo = elemento.instrucciones;
+        Valor v = resolverExpresion(expresionIf, tabla, ambito);
+        if (!v.tipo.equalsIgnoreCase(Constantes.NULO)) {
+            if (esBooleano(v)) {
+                if (v.valor.toString().equalsIgnoreCase(Constantes.VERDADERO)) {
+                    ambito.addSi();
+                    baseDraco item;
+                    for (int i = 0; i < sentenciasCuerpo.sentencias.size(); i++) {
+                        item = sentenciasCuerpo.sentencias.get(i);
+                        ret = evaluarSentencia(item, tabla, ambito);
+                    }
+                    ambito.salirAmbito();
+                    ret.banderaSi = true;
+                    return ret;
+
+                } else {
+                    ret.banderaSi = false;
+                    return ret;
+                }
+            } else {
+                erroresJS.addSemantico(0, 0, "La expresion de la sentencia SI, no retorna un valor valido DracoScript");
+            }
+        } else {
+            erroresJS.addSemantico(0, 0, "La expresion de la sentencia SI, no retorna un valor valido DracoScript");
+        }
+
+        ret.banderaSi = false;
+        return ret;
+    }
+
     private retorno imprimir(Imprimir elemento, TablaSimboloD tabla, Ambito3D ambito) {
         Valor expr = resolverExpresion(elemento.expresion, tabla, ambito);
         this.cadenaImprimir += expr.valor.toString() + "\n";

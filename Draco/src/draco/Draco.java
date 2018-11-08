@@ -38,6 +38,8 @@ public class Draco {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         erroresEjecucion = new ListaErrores();
+        erroresJS= new ListaErrores();
+        errores3D= new ListaErrores();
         EjecutarAnalizadores e= new EjecutarAnalizadores();
         /*
        Archivo arch=  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
@@ -58,6 +60,7 @@ public class Draco {
       if(sentencias!= null){
           EjecucionDraco excute = new EjecucionDraco(sentencias);
           excute.ejecutarDraco();
+          System.out.println("");
       }
       /*
      CuerpoFuncion f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
