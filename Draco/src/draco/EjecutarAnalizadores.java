@@ -25,9 +25,6 @@ import DracoScript.Analizador.ScannerDraco;
  * @author Ramonella
  */
 public class EjecutarAnalizadores {
-    
-    
-    
 
     public Archivo ejecutarDMM(String ruta) throws Exception {
 
@@ -44,7 +41,7 @@ public class EjecutarAnalizadores {
                 ParserDMM parserDMM = new ParserDMM(scannerDMM);
                 parserDMM.parse();
                 Archivo a = ParserDMM.elementosArchivo;
-                
+
                 /*
                 Generador g = new Generador();
                 a.ejecutar(g);
@@ -59,8 +56,7 @@ public class EjecutarAnalizadores {
         return null;
     }
 
-    
-    public void ejecutarDraco(String ruta) throws Exception {
+    public zEjecucionDraco.Sentencias.CuerpoFuncion ejecutarDraco(String ruta) throws Exception {
 
         if (ruta.isEmpty() || ruta.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Error, cadena no valida para analizar D++.", "DRACO ENSAMBLADO WEB", JOptionPane.INFORMATION_MESSAGE);
@@ -74,23 +70,19 @@ public class EjecutarAnalizadores {
                 ScannerDraco scanner = new ScannerDraco(new BufferedReader(new StringReader(cadena)));
                 ParserDraco parser = new ParserDraco(scanner);
                 parser.parse();
-                
-                /*
-                objetoBase a = ParserDMM.expresion;
-                Generador g = new Generador();
-                a.ejecutar(g);
-                
-                //Archivo a = ParserDMM.elementosArchivo;
-                // retorno= parserHtml.codigoHTML;*/
+                zEjecucionDraco.Sentencias.CuerpoFuncion cuerpo = (zEjecucionDraco.Sentencias.CuerpoFuncion) ParserDraco.sentenciasArchivo;
                 System.out.println("Fin de analisis Draco");
+                return cuerpo;
 
             }
         }
 
+        zEjecucionDraco.Sentencias.CuerpoFuncion ret = new zEjecucionDraco.Sentencias.CuerpoFuncion();
+        return ret;
+
     }
-    
-    
-    public CuerpoFuncion  ejecutarASM(String ruta) throws Exception {
+
+    public CuerpoFuncion ejecutarASM(String ruta) throws Exception {
 
         if (ruta.isEmpty() || ruta.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Error, cadena no valida para analizar ASM.", "DRACO ENSAMBLADO WEB", JOptionPane.INFORMATION_MESSAGE);
@@ -113,6 +105,5 @@ public class EjecutarAnalizadores {
 
         return null;
     }
-    
-    
+
 }

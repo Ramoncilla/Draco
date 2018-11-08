@@ -159,17 +159,58 @@ SENTENCIA::= DECLARACION :a {:RESULT= a;:}
 	|IMPRIMIR:a {:RESULT= a;:}
 	|RUM_DASM:a {:RESULT= a;:};
 
-DECLARACION::= LISTA_ID_ASIGNA puntoComa;
+DECLARACION::= LISTA_ID_ASIGNA:a puntoComa{:RESULT=a;:};
 
-LISTA_ID_ASIGNA::= var identificador dosPuntos igual dosPuntos EXPRESION
-	| var identificador
-	| LISTA_ID_ASIGNA coma identificador dosPuntos igual dosPuntos EXPRESION
-	| LISTA_ID_ASIGNA coma identificador;
+LISTA_ID_ASIGNA::= var identificador:a dosPuntos igual dosPuntos EXPRESION:b
+		{:
+			Asignacion asigna = new Asignacion(a,b);
+			Declaracion decla = new Declaracion();
+			DeclaAsigna dec = new DeclaAsigna(a, asigna);
+			decla.addDecla(dec);
+			RESULT= decla;
+		:}
+	| var identificador:a
+		{:
+			Declaracion decla = new Declaracion();
+			DeclaAsigna dec = new DeclaAsigna(a);
+			decla.addDecla(dec);
+			RESULT= decla;
+		:}
+	| LISTA_ID_ASIGNA:l coma identificador:a dosPuntos igual dosPuntos EXPRESION:b
+		{:
+			Asignacion asigna = new Asignacion(a,b);
+			Declaracion decla = (Declaracion)l;
+			DeclaAsigna dec = new DeclaAsigna(a, asigna);
+			decla.addDecla(dec);
+			RESULT= decla;
+		:}
+	
+	| LISTA_ID_ASIGNA:l coma identificador:a
+		{:
+			Declaracion decla = (Declaracion)l;
+			DeclaAsigna dec = new DeclaAsigna(a);
+			decla.addDecla(dec);
+			RESULT= decla;
+		:};
 	
 	
-ASIGNACION::= identificador dosPuntos igual dosPuntos EXPRESION 
-	|identificador masMas
-	|identificador menosMenos;
+ASIGNACION::= identificador:a dosPuntos igual dosPuntos EXPRESION:b 
+		{:
+			Asignacion asigna = new Asignacion(a,b);
+			RESULT= asigna;
+		:}
+	|identificador:a masMas
+		{:
+			Aritmetica n = new Aritmetica(new Identificador(a), new Entero(1), "+");
+			Asignacion asigna = new Asignacion(a,n);
+			RESULT= asigna;
+		:}
+	|identificador:a menosMenos
+		{:
+			Aritmetica n = new Aritmetica(new Identificador(a), new Entero(1), "-");
+			Asignacion asigna = new Asignacion(a,n);
+			RESULT= asigna;
+		:};
 
 IF::= si abrePar EXPRESION cierraPar  CUERPO_FUNCION;
 
@@ -254,4 +295,5 @@ VAL_EXPRESION::=cadena:a{:RESULT= new Cadena(a);:}
 	|VAL_EXPRESION:a and VAL_EXPRESION:b {:RESULT= new Logica(a,b,"&&");:}
 	|VAL_EXPRESION:a or VAL_EXPRESION:b {:RESULT= new Logica(a,b,"||");:}
 	|not VAL_EXPRESION:a{:RESULT= new Not(a);:}
-	|abrePar VAL_EXPRESION:a cierraPar {:RESULT = a;:};		
+	|abrePar VAL_EXPRESION:a cierraPar {:RESULT = a;:}
+	|identificador:a{:RESULT = new Identificador(a);:};		

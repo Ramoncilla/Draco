@@ -13,4 +13,10 @@ import zEjecucionDraco.baseDraco;
  */
 public class Identificador extends baseDraco{
     
+    public String nombre;
+    
+    public Identificador(Object c){
+        this.nombre= c.toString();
+    }
+    
 }

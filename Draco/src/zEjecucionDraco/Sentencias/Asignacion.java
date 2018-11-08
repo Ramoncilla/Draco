@@ -13,4 +13,17 @@ import zEjecucionDraco.baseDraco;
  */
 public class Asignacion extends baseDraco {
     
+    
+    public String nombre;
+    public baseDraco expresion;
+    
+    
+    public Asignacion(Object nom, Object exp){
+        this.nombre= nom.toString();
+        this.expresion= (baseDraco)exp;
+    }
+    
+    
+            
+    
 }

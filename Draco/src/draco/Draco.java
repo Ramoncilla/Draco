@@ -17,6 +17,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import zEjecucionDraco.EjecucionDraco;
 
 /**
  *
@@ -38,7 +39,7 @@ public class Draco {
         // TODO code application logic here
         erroresEjecucion = new ListaErrores();
         EjecutarAnalizadores e= new EjecutarAnalizadores();
-        
+        /*
        Archivo arch=  e.ejecutarDMM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.dmm");
        if(arch!= null){
            declaracionesGlobales= new ArrayList<>();
@@ -52,14 +53,19 @@ public class Draco {
            
        }else{
            
-       }
-       e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
+       }*/
+      zEjecucionDraco.Sentencias.CuerpoFuncion sentencias =  e.ejecutarDraco("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.draco");
+      if(sentencias!= null){
+          EjecucionDraco excute = new EjecucionDraco(sentencias);
+          excute.ejecutarDraco();
+      }
+      /*
      CuerpoFuncion f = e.ejecutarASM("C:\\Users\\Ramonella\\Documents\\Repositorios\\Draco\\archivos_entrada\\ejemplo.asm");
      if(f!= null){
          Interprete g = new Interprete(f);
          g.ejecutar();
      }
-     
+     */
     }
     
     

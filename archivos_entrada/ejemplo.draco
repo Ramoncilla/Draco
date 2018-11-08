@@ -1,9 +1,25 @@
-var a;
+
+var a:=:"alina";
+print(a);
+print(10*10);
+print(10<100);
+
+var i;
+i:=:0;
+while(i<10){
+print("Vuelt no "+i);
+i++;
+}
+
+for (i:=:0; i<10; i++){
+print("impreison "+ i);
+}
+$*var a;
 var b;
 var a:=:5;
 a++;
 b++;
-a--;
+a--;.
 b--;
 
 var c:=:6,j:=:6.5,c,k:=:10;
@@ -20,7 +36,9 @@ smash;
 
 while(5){
 
-while(10){}
+while(10){
+
+}
 }
 
 for(var a:=:0; 8; a++){}
@@ -29,7 +47,7 @@ for(a:=:0; 8; a++){}
 
 print(10);
 
-runmultdasm('hola.dasm', 'popo.dasm');
+runmultdasm('hola.dasm', 'popo.dasm');*$
 
 
 
